@@ -7,7 +7,7 @@
     <groupId>org.patheloper</groupId>
     <artifactId>pathetic-main</artifactId>
     <packaging>pom</packaging>
-    <version>3.2.1</version>
+    <version>3.2.2</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -65,7 +65,7 @@
             <dependency>
                 <groupId>org.spigotmc</groupId>
                 <artifactId>spigot-api</artifactId>
-                <version>1.21.2-R0.1-SNAPSHOT</version>
+                <version>1.21.3-R0.1-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -83,7 +83,7 @@
             <dependency>
                 <groupId>org.patheloper</groupId>
                 <artifactId>pathetic-api</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.2</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
