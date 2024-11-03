@@ -43,7 +43,7 @@ public class ChunkDataProviderResolver {
     final ChunkDataProvider chunkDataProvider;
     switch (major) {
       case 21:
-        if(minor == 2) {
+        if(minor == 2 || minor == 3) {
           chunkDataProvider = new v1_21_R2ChunkDataProviderImpl();
           break;
         }
