@@ -2,6 +2,8 @@
 
 # Pathetic - A Pathfinding library for Minecraft
 
+<center><p style="display: inline-block; vertical-align: middle;"><a href="https://discord.gg/zGx9BSzKfJ"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="75"></a></p>
+
 **Pathetic** is a high-performance, backwards-compatible, and asynchronous pathfinding library designed for **Spigot**,
 **Paper**, and their forks. Pathetic leverages the **A*** algorithm with customizable heuristics for real-time
 pathfinding in Minecraft server environments.
@@ -106,84 +108,27 @@ public class AdvancedPathExample extends JavaPlugin {
 }
 ```
 
-## Technical Overview
-
-### A* Pathfinding
-
-Pathetic uses a robust implementation of the **A*** algorithm, tailored for Minecraft's 3D world and large-scale
-terrains. Key technical highlights include:
-
-- **Heuristic Metrics**:
-    - Combines multiple metrics—**Manhattan**, **Octile**, **Perpendicular**, and **Height Differences**—for a
-      comprehensive cost evaluation.
-    - These metrics are dynamically weighted using `HeuristicWeights`, allowing precise tuning for the environment and
-      movement constraints in Minecraft.
-
-- **Fibonacci Heap**:
-    - Pathetic employs a **Fibonacci Heap** for managing the frontier (open set), optimizing node insertion and
-      retrieval with amortized O(1) insertion and O(log n) extraction times.
-    - This significantly improves performance when handling large grids with numerous nodes, reducing overhead compared
-      to traditional binary heaps.
-
-- **Regional Grid Optimization**:
-    - **ExpiringHashMap** and **Bloom Filters** are used to manage explored nodes efficiently.
-    - This allows Pathetic to minimize memory usage by clearing out unnecessary or redundant node data while still
-      preventing revisits to already-explored nodes.
-
-- **Customizable Heuristics**:
-    - Fine-tune pathfinding behavior by adjusting the weights for different distances:
-        - **Manhattan Weight**: Prioritizes straight-line paths on grids.
-        - **Octile Weight**: Best suited for paths allowing diagonal movement.
-        - **Perpendicular Weight**: Avoids sharp turns by encouraging smoother paths.
-        - **Height Weight**: Penalizes paths with large vertical movements.
-
-### Asynchronous Pathfinding
-
-Pathetic runs pathfinding operations asynchronously via `CompletableFuture`. This ensures that pathfinding does not
-block the server's main thread, allowing smooth gameplay even in complex or large pathfinding operations.
-
-- Asynchronous execution is particularly useful for handling real-time pathfinding in busy environments without
-  impacting server performance.
-- Results can be processed or displayed upon completion, providing a non-blocking experience for the user.
-
-### Dynamic Path Filters
-
-Pathetic allows for flexible pathfinding with **custom filters** that can be applied at various stages of the
-pathfinding process. For example:
-
-- Filters like `PassablePathFilter` ensure nodes are only considered if they meet specific conditions (e.g., passability
-  of the terrain).
-- **Filter Stages**: Allow multi-stage processing, adjusting node evaluation dynamically based on the current
-  pathfinding state.
-
-### Node Prioritization and Filtering
-
-- Pathetic dynamically adjusts node prioritization based on **filter stages** and environmental context, ensuring
-  optimal paths are found based on the criteria set by developers.
-- Nodes that pass through filter stages can receive a priority boost, enabling more intelligent pathing decisions based
-  on the environment or specific goals.
-
-### Documentation:
+## Documentation:
 
 - **Javadocs**: [View Javadocs](https://javadocs.pathetic.ollieee.xyz/)
 - **API Documentation**: [Access our Docs](https://docs.pathetic.ollieee.xyz/)
 
-### License:
+## License:
 
 Pathetic is released under the GPL License.
 
-### Contributions:
+## Contributions:
 
 We welcome contributions! Feel free to fork the repository and submit pull requests. For major changes, open an issue
 first to discuss what you’d like to change.
 
-### Support:
+## Support:
 
 For help and support, join our community on
 the [SpigotMC forum thread](https://www.spigotmc.org/threads/how-pathetic.578998/)
 or [Discord Server](https://discord.gg/HMqCbdQjX9).
 
-### Sponsored By:
+## Sponsored By:
 
 <img src="https://github.com/user-attachments/assets/262672b9-a673-4732-8392-5771e7aadfd0" alt="JetBrains_beam_logo" width="400"/>
 
