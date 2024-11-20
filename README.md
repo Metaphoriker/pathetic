@@ -3,7 +3,8 @@
 
 <h1>Pathetic - A Pathfinding library for Minecraft</h1>
 
-<p>A high-performance, backwards-compatible, and asynchronous easy-to-use pathfinding library designed for <b>Spigot</b>, <b>Paper</b>, and their forks. <br> Pathetic leverages the <b>A* algorithm</b> with customizable heuristics for real-time pathfinding in Minecraft server environments.</p>
+<p>A high-performance, backwards-compatible, and asynchronous easy-to-use pathfinding library written in Java.
+<br> Pathetic leverages the <b>A* algorithm</b> with customizable heuristics for real-time pathfinding in <b>Spigot/Paper </b>environments.</p>
 
 <h2>Key Features</h2>
 
