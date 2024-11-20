@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>pathetic-main</artifactId>
-        <groupId>org.patheloper</groupId>
+        <groupId>de.metaphoriker</groupId>
         <version>3.2.2</version>
     </parent>
 
@@ -71,7 +71,7 @@
             <artifactId>spigot-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.patheloper</groupId>
+            <groupId>de.metaphoriker</groupId>
             <artifactId>pathetic-mapping</artifactId>
             <version>3.2.2</version>
         </dependency>

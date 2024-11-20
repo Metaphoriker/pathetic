@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>pathetic-main</artifactId>
-        <groupId>org.patheloper</groupId>
+        <groupId>de.metaphoriker</groupId>
         <version>3.2.2</version>
     </parent>
 
