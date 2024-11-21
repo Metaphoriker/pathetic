@@ -23,6 +23,10 @@
 
 <h2>Installation</h2>
 
+To integrate pathetic into your project, follow the following steps:
+<br>
+*(We advise you to relocate pathetic)*
+
 <h3>Maven</h3>
 
 ```xml
