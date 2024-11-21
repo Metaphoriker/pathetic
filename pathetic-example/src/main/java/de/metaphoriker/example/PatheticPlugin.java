@@ -1,10 +1,11 @@
 package de.metaphoriker.example;
 
-import org.bukkit.plugin.java.JavaPlugin;
 import de.metaphoriker.api.pathing.Pathfinder;
 import de.metaphoriker.api.pathing.configuration.PathfinderConfiguration;
 import de.metaphoriker.example.command.PatheticCommand;
-import de.metaphoriker.mapping.PatheticMapper;
+import de.metaphoriker.mapping.PatheticFacade;
+import de.metaphoriker.mapping.PathfinderFactory;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PatheticPlugin extends JavaPlugin {
 
@@ -13,11 +14,11 @@ public final class PatheticPlugin extends JavaPlugin {
   public void onEnable() {
 
     // Initialize the PatheticMapper with this plugin instance
-    PatheticMapper.initialize(this);
+    PatheticFacade.initialize(this);
 
     // Create a new Pathfinder instance with a custom configuration
     Pathfinder reusablePathfinder =
-        PatheticMapper.newPathfinder(
+        PathfinderFactory.createPathfinder( // Use the factory to create a new pathfinder instance
             PathfinderConfiguration.createConfiguration()
                 .withAllowingFailFast(true) // Allow pathfinding to fail fast if necessary
                 .withAllowingFallback(true) // Allow fallback strategies if the primary fails
@@ -32,6 +33,6 @@ public final class PatheticPlugin extends JavaPlugin {
   @Override
   public void onDisable() {
     // Shutdown the PatheticMapper to clear any resources it holds
-    PatheticMapper.shutdown();
+    PatheticFacade.shutdown();
   }
 }
