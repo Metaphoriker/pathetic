@@ -1,7 +1,5 @@
 package de.metaphoriker.model.pathing.pathfinder;
 
-import java.util.*;
-import org.jheaps.tree.FibonacciHeap;
 import de.metaphoriker.api.pathing.configuration.PathfinderConfiguration;
 import de.metaphoriker.api.pathing.filter.PathFilter;
 import de.metaphoriker.api.pathing.filter.PathFilterStage;
@@ -14,6 +12,8 @@ import de.metaphoriker.util.ExpiringHashMap;
 import de.metaphoriker.util.GridRegionData;
 import de.metaphoriker.util.Tuple3;
 import de.metaphoriker.util.WatchdogUtil;
+import java.util.*;
+import org.jheaps.tree.FibonacciHeap;
 
 public class AStarPathfinder extends AbstractPathfinder {
 
@@ -44,13 +44,7 @@ public class AStarPathfinder extends AbstractPathfinder {
 
     tickWatchdogIfNeeded(depth);
 
-    evaluateNewNodes(
-        nodeQueue,
-        examinedPositions,
-        currentNode,
-        filters,
-        filterStages,
-        this.pathfinderConfiguration.isAllowingDiagonal());
+    evaluateNewNodes(nodeQueue, examinedPositions, currentNode, filters, filterStages);
     depth.increment();
   }
 
@@ -65,12 +59,10 @@ public class AStarPathfinder extends AbstractPathfinder {
       Set<PathPosition> examinedPositions,
       Node currentNode,
       List<PathFilter> filters,
-      List<PathFilterStage> filterStages,
-      boolean allowingDiagonal) {
+      List<PathFilterStage> filterStages) {
 
     Collection<Node> newNodes =
-        fetchValidNeighbours(
-            examinedPositions, currentNode, filters, filterStages, allowingDiagonal);
+        fetchValidNeighbours(examinedPositions, currentNode, filters, filterStages);
 
     for (Node newNode : newNodes) {
       double nodeCost = newNode.getHeuristic().get();
@@ -105,12 +97,9 @@ public class AStarPathfinder extends AbstractPathfinder {
       Node newNode,
       Set<PathPosition> examinedPositions,
       List<PathFilter> filters,
-      List<PathFilterStage> filterStages,
-      boolean allowingDiagonal) {
+      List<PathFilterStage> filterStages) {
 
     if (isNodeInvalid(newNode, filters, filterStages)) return false;
-
-    if (!allowingDiagonal) return examinedPositions.add(newNode.getPosition());
 
     if (!isDiagonalMove(currentNode, newNode)) return examinedPositions.add(newNode.getPosition());
 
@@ -176,15 +165,13 @@ public class AStarPathfinder extends AbstractPathfinder {
       Set<PathPosition> examinedPositions,
       Node currentNode,
       List<PathFilter> filters,
-      List<PathFilterStage> filterStages,
-      boolean allowingDiagonal) {
-    Set<Node> newNodes = new HashSet<>(offset.getVectors().length);
+      List<PathFilterStage> filterStages) {
+    Set<Node> newNodes = new HashSet<>(Offset.MERGED.getVectors().length);
 
-    for (PathVector vector : offset.getVectors()) {
+    for (PathVector vector : Offset.MERGED.getVectors()) {
       Node newNode = createNeighbourNode(currentNode, vector);
 
-      if (isNodeValid(
-          currentNode, newNode, examinedPositions, filters, filterStages, allowingDiagonal)) {
+      if (isNodeValid(currentNode, newNode, examinedPositions, filters, filterStages)) {
         newNodes.add(newNode);
       }
     }

@@ -47,15 +47,6 @@ public class PathfinderConfiguration {
   boolean async;
 
   /**
-   * Controls whether the pathfinding algorithm can take diagonal steps. Enabling this allows for
-   * more flexible and potentially shorter paths but might require a slightly more refined
-   * heuristic.
-   *
-   * @default true
-   */
-  @Builder.Default boolean allowingDiagonal = true;
-
-  /**
    * If set to true, the pathfinding process will terminate immediately if no path is found between
    * the start and target. This can be helpful for quick validation but prevents fallback
    * strategies.
@@ -137,7 +128,6 @@ public class PathfinderConfiguration {
         .maxIterations(pathfinderConfiguration.maxIterations)
         .maxLength(pathfinderConfiguration.maxLength)
         .async(pathfinderConfiguration.async)
-        .allowingDiagonal(pathfinderConfiguration.allowingDiagonal)
         .allowingFailFast(pathfinderConfiguration.allowingFailFast)
         .allowingFallback(pathfinderConfiguration.allowingFallback)
         .loadingChunks(pathfinderConfiguration.loadingChunks)

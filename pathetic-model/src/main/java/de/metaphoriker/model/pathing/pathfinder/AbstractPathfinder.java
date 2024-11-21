@@ -63,21 +63,13 @@ abstract class AbstractPathfinder implements Pathfinder {
   }
 
   protected final PathfinderConfiguration pathfinderConfiguration;
-  protected final Offset offset;
   protected final SnapshotManager snapshotManager;
 
   private volatile boolean aborted;
 
   protected AbstractPathfinder(PathfinderConfiguration pathfinderConfiguration) {
     this.pathfinderConfiguration = pathfinderConfiguration;
-    this.offset = determineOffset(pathfinderConfiguration);
     this.snapshotManager = determineSnapshotManager(pathfinderConfiguration);
-  }
-
-  private Offset determineOffset(PathfinderConfiguration pathfinderConfiguration) {
-    return pathfinderConfiguration.isAllowingDiagonal()
-        ? Offset.MERGED
-        : Offset.VERTICAL_AND_HORIZONTAL;
   }
 
   private SnapshotManager determineSnapshotManager(
@@ -142,7 +134,7 @@ abstract class AbstractPathfinder implements Pathfinder {
   }
 
   private boolean isBlockUnreachable(PathPosition position) {
-    for (PathVector vector : offset.getVectors()) {
+    for (PathVector vector : Offset.MERGED.getVectors()) {
       PathPosition offsetPosition = position.add(vector);
       PathBlock pathBlock = this.snapshotManager.getBlock(offsetPosition);
       if (pathBlock != null && pathBlock.isPassable()) {
