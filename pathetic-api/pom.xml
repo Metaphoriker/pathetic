@@ -6,12 +6,12 @@
 
     <parent>
         <artifactId>pathetic-main</artifactId>
-        <groupId>org.patheloper</groupId>
-        <version>3.2.2</version>
+        <groupId>de.metaphoriker</groupId>
+        <version>3.3</version>
     </parent>
 
     <artifactId>pathetic-api</artifactId>
-    <version>3.2.2</version>
+    <version>3.3</version>
 
     <dependencies>
         <dependency>

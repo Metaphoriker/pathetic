@@ -5,12 +5,12 @@
 
     <parent>
         <artifactId>pathetic-main</artifactId>
-        <groupId>org.patheloper</groupId>
-        <version>3.2.2</version>
+        <groupId>de.metaphoriker</groupId>
+        <version>3.3</version>
     </parent>
 
     <artifactId>pathetic-model</artifactId>
-    <version>3.2.2</version>
+    <version>3.3</version>
 
     <build>
         <resources>
@@ -29,11 +29,11 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>org.patheloper.shaded.bstats</shadedPattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.bstats</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.jheaps</pattern>
-                            <shadedPattern>org.patheloper.shaded.jheaps</shadedPattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.jheaps</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
@@ -98,15 +98,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.patheloper</groupId>
+            <groupId>de.metaphoriker</groupId>
             <artifactId>pathetic-api</artifactId>
-            <version>3.2.2</version>
+            <version>3.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.patheloper</groupId>
+            <groupId>de.metaphoriker</groupId>
             <artifactId>pathetic-nms</artifactId>
-            <version>3.2.2</version>
+            <version>3.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.patheloper</groupId>
+    <groupId>de.metaphoriker</groupId>
     <artifactId>pathetic-main</artifactId>
     <packaging>pom</packaging>
-    <version>3.2.2</version>
+    <version>3.3</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -44,7 +44,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.11.1</version>
                 <configuration>
                     <reportOutputDirectory>${project.reporting.outputDirectory}/myoutput</reportOutputDirectory>
                     <destDir>myapidocs</destDir>
@@ -71,7 +71,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.34</version>
+                <version>1.18.36</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -81,9 +81,9 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.patheloper</groupId>
+                <groupId>de.metaphoriker</groupId>
                 <artifactId>pathetic-api</artifactId>
-                <version>3.2.2</version>
+                <version>3.3</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
@@ -96,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.11.1</version>
                 <configuration>
                     <source>8</source>
                     <reportOutputDirectory>../</reportOutputDirectory>

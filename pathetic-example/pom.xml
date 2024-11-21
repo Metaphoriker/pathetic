@@ -6,12 +6,12 @@
 
     <parent>
         <artifactId>pathetic-main</artifactId>
-        <groupId>org.patheloper</groupId>
-        <version>3.2.2</version>
+        <groupId>de.metaphoriker</groupId>
+        <version>3.3</version>
     </parent>
 
     <artifactId>pathetic-example</artifactId>
-    <version>3.2.2</version>
+    <version>3.3</version>
     <packaging>jar</packaging>
 
     <name>PatheticTest</name>
@@ -71,9 +71,9 @@
             <artifactId>spigot-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.patheloper</groupId>
+            <groupId>de.metaphoriker</groupId>
             <artifactId>pathetic-mapping</artifactId>
-            <version>3.2.2</version>
+            <version>3.3</version>
         </dependency>
     </dependencies>
 </project>
