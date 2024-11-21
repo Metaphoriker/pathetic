@@ -29,11 +29,11 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>de.metaphoriker.shaded.bstats</shadedPattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.bstats</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.jheaps</pattern>
-                            <shadedPattern>de.metaphoriker.shaded.jheaps</shadedPattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.jheaps</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>

@@ -1,6 +1,6 @@
 name: PatheticTest
 version: '${project.version}'
-main: de.metaphoriker.example.PatheticPlugin
+main: de.metaphoriker.pathetic.example.PatheticPlugin
 api-version: 1.21
 authors:
   - olijeffers0n
