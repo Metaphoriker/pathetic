@@ -1,17 +1,16 @@
 package de.metaphoriker.pathetic.api.pathing.configuration;
 
-import java.util.List;
-
+import de.metaphoriker.pathetic.api.annotation.Experimental;
+import de.metaphoriker.pathetic.api.pathing.Pathfinder;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
+import de.metaphoriker.pathetic.api.wrapper.PathPosition;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.With;
-import de.metaphoriker.pathetic.api.annotation.Experimental;
-import de.metaphoriker.pathetic.api.pathing.Pathfinder;
-import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
 /**
  * Defines a set of configurable parameters that govern the behavior of the A* pathfinding
@@ -54,14 +53,16 @@ public class PathfinderConfiguration {
    * @default true
    * @deprecated Will be removed in future releases
    */
-  @Deprecated
-  @Builder.Default boolean allowingDiagonal = true;
+  @Deprecated @Builder.Default boolean allowingDiagonal = true;
 
   /**
-   * If set to true, the pathfinding process will terminate immediately if no path is found between
-   * the start and target. This can be helpful for quick validation but prevents fallback
-   * strategies.
+   * If set to true, the pathfinding process will terminate immediately if either the start or
+   * target or both are unreachable.
+   *
+   * <p>NOTE: This prevents fallback strategies.
+   * @deprecated Will be removed in future releases
    */
+  @Deprecated
   boolean allowingFailFast;
 
   /**
@@ -82,9 +83,8 @@ public class PathfinderConfiguration {
    * instead of filtering. This means that the pathfinding algorithm will prioritize paths that pass
    * the filters over paths that do not.
    *
-   * <p>Setting this to true will no longer take the {@link
-   * PathFilterStage}s into the validation process. Shared filters
-   * must still be passed.
+   * <p>Setting this to true will no longer take the {@link PathFilterStage}s into the validation
+   * process. Shared filters must still be passed.
    *
    * <p>{@link Pathfinder#findPath(PathPosition, PathPosition, List, List)}
    *
