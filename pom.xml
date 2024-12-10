@@ -7,7 +7,7 @@
     <groupId>de.metaphoriker</groupId>
     <artifactId>pathetic-main</artifactId>
     <packaging>pom</packaging>
-    <version>3.3</version>
+    <version>3.3.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -35,8 +35,9 @@
         <module>pathetic-nms/v1_20_R2</module>
         <module>pathetic-nms/v1_20_R3</module>
         <module>pathetic-nms/v1_20_R4</module>
-        <module>pathetic-nms/v1_21_R2</module>
         <module>pathetic-nms/v1_21_R1</module>
+        <module>pathetic-nms/v1_21_R2</module>
+        <module>pathetic-nms/v1_21_R3</module>
     </modules>
 
     <reporting>
@@ -65,7 +66,7 @@
             <dependency>
                 <groupId>org.spigotmc</groupId>
                 <artifactId>spigot-api</artifactId>
-                <version>1.21.3-R0.1-SNAPSHOT</version>
+                <version>1.21.4-R0.1-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -83,7 +84,7 @@
             <dependency>
                 <groupId>de.metaphoriker</groupId>
                 <artifactId>pathetic-api</artifactId>
-                <version>3.3</version>
+                <version>3.3.1</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>

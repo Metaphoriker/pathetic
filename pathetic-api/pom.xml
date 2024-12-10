@@ -7,11 +7,11 @@
     <parent>
         <artifactId>pathetic-main</artifactId>
         <groupId>de.metaphoriker</groupId>
-        <version>3.3</version>
+        <version>3.3.1</version>
     </parent>
 
     <artifactId>pathetic-api</artifactId>
-    <version>3.3</version>
+    <version>3.3.1</version>
 
     <dependencies>
         <dependency>

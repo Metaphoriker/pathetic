@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>v1_19_R2</artifactId>
+    <artifactId>v1_21_R3</artifactId>
 
     <repositories>
         <repository>
@@ -23,10 +23,9 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.19.3-R0.1-SNAPSHOT</version>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>de.metaphoriker</groupId>
             <artifactId>pathetic-api</artifactId>
