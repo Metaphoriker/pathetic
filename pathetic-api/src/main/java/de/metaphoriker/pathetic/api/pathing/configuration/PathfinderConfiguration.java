@@ -1,10 +1,5 @@
 package de.metaphoriker.pathetic.api.pathing.configuration;
 
-import de.metaphoriker.pathetic.api.annotation.Experimental;
-import de.metaphoriker.pathetic.api.pathing.Pathfinder;
-import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
-import de.metaphoriker.pathetic.api.wrapper.PathPosition;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,20 +52,6 @@ public class PathfinderConfiguration {
    * This is essential for exploring uncharted areas, but may impact performance.
    */
   boolean loadingChunks;
-
-  /**
-   * Determines whether the pathfinding algorithm should see PathFilterStages as prioritization,
-   * instead of filtering. This means that the pathfinding algorithm will prioritize paths that pass
-   * the filters over paths that do not.
-   *
-   * <p>Setting this to true will no longer take the {@link PathFilterStage}s into the validation
-   * process. Shared filters must still be passed.
-   *
-   * <p>{@link Pathfinder#findPath(PathPosition, PathPosition, List, List)}
-   *
-   * @experimental This feature is experimental and may be subject to change.
-   */
-  @Experimental @Builder.Default boolean prioritizing = false;
 
   /**
    * The set of weights used to calculate heuristics within the A* algorithm. These influence the

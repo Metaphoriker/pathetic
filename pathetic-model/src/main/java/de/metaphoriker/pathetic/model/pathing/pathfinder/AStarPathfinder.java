@@ -18,7 +18,6 @@ import org.jheaps.tree.FibonacciHeap;
 public class AStarPathfinder extends AbstractPathfinder {
 
   private static final int DEFAULT_GRID_CELL_SIZE = 12;
-  private static final int PRIORITY_BOOST_IN_PERCENTAGE = 80;
 
   /**
    * The grid map used to store the regional examined positions and Bloom filters for each grid
@@ -66,30 +65,8 @@ public class AStarPathfinder extends AbstractPathfinder {
 
     for (Node newNode : newNodes) {
       double nodeCost = newNode.getHeuristic().get();
-      if (pathfinderConfiguration.isPrioritizing()) {
-        double priorityAdjustment = calculatePriorityAdjustment(newNode, filterStages);
-        nodeCost -= priorityAdjustment;
-      }
       nodeQueue.insert(nodeCost, newNode);
     }
-  }
-
-  private double calculatePriorityAdjustment(Node node, List<PathFilterStage> filterStages) {
-    for (PathFilterStage filterStage : filterStages) {
-      boolean filterResult =
-          filterStage.filter(
-              new PathValidationContext(
-                  node.getPosition(),
-                  node.getParent() != null ? node.getParent().getPosition() : null,
-                  node.getStart(),
-                  node.getTarget(),
-                  snapshotManager));
-
-      if (filterResult) {
-        return node.getHeuristic().get() * (PRIORITY_BOOST_IN_PERCENTAGE / 100.0);
-      }
-    }
-    return 0.0;
   }
 
   private boolean isNodeValid(
@@ -141,8 +118,7 @@ public class AStarPathfinder extends AbstractPathfinder {
               isHeightDifferencePassable(from, to, vector1, hasYDifference);
 
           if (doAllFiltersPass(filters, neighbour1)
-              && (!pathfinderConfiguration.isPrioritizing()
-                  && doAnyFilterStagePass(filterStages, neighbour1))
+              && doAnyFilterStagePass(filterStages, neighbour1)
               && heightDifferencePassable) return true;
         }
       }
@@ -228,7 +204,7 @@ public class AStarPathfinder extends AbstractPathfinder {
       return true; // Node is invalid if filters fail
     }
 
-    return !pathfinderConfiguration.isPrioritizing() && !stagesPass;
+    return !stagesPass;
   }
 
   private boolean doAllFiltersPass(List<PathFilter> filters, Node node) {
