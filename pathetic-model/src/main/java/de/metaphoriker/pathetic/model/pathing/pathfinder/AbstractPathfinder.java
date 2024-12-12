@@ -116,8 +116,7 @@ abstract class AbstractPathfinder implements Pathfinder {
 
   private boolean shouldSkipPathing(PathPosition start, PathPosition target) {
     return !isSameEnvironment(start, target)
-        || isSameBlock(start, target)
-        || isFastFailEnabledAndBlockUnreachable(start, target);
+        || isSameBlock(start, target);
   }
 
   private boolean isSameEnvironment(PathPosition start, PathPosition target) {
@@ -126,22 +125,6 @@ abstract class AbstractPathfinder implements Pathfinder {
 
   private boolean isSameBlock(PathPosition start, PathPosition target) {
     return start.isInSameBlock(target);
-  }
-
-  private boolean isFastFailEnabledAndBlockUnreachable(PathPosition start, PathPosition target) {
-    return this.pathfinderConfiguration.isAllowingFailFast()
-        && (isBlockUnreachable(target) || isBlockUnreachable(start));
-  }
-
-  private boolean isBlockUnreachable(PathPosition position) {
-    for (PathVector vector : Offset.MERGED.getVectors()) {
-      PathPosition offsetPosition = position.add(vector);
-      PathBlock pathBlock = this.snapshotManager.getBlock(offsetPosition);
-      if (pathBlock != null && pathBlock.isPassable()) {
-        return false;
-      }
-    }
-    return true;
   }
 
   private CompletionStage<PathfinderResult> initiatePathing(

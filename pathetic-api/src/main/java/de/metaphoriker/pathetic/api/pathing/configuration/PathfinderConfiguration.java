@@ -46,16 +46,6 @@ public class PathfinderConfiguration {
   boolean async;
 
   /**
-   * If set to true, the pathfinding process will terminate immediately if either the start or
-   * target or both are unreachable.
-   *
-   * <p>NOTE: This prevents fallback strategies.
-   * @deprecated Will be removed in future releases
-   */
-  @Deprecated
-  boolean allowingFailFast;
-
-  /**
    * If pathfinding fails, this parameter determines whether the algorithm should fall back to the
    * last successfully calculated path. This can help maintain progress, but might use an outdated
    * path.
@@ -129,7 +119,6 @@ public class PathfinderConfiguration {
         .maxIterations(pathfinderConfiguration.maxIterations)
         .maxLength(pathfinderConfiguration.maxLength)
         .async(pathfinderConfiguration.async)
-        .allowingFailFast(pathfinderConfiguration.allowingFailFast)
         .allowingFallback(pathfinderConfiguration.allowingFallback)
         .loadingChunks(pathfinderConfiguration.loadingChunks)
         .heuristicWeights(pathfinderConfiguration.heuristicWeights)
