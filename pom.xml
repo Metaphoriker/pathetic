@@ -19,25 +19,26 @@
         <module>pathetic-api</module>
         <module>pathetic-example</module>
         <module>pathetic-mapping</module>
-        <module>pathetic-nms</module>
-        <module>pathetic-nms/paper</module>
         <module>pathetic-model</module>
-        <module>pathetic-nms/v1_8</module>
-        <module>pathetic-nms/v1_12</module>
-        <module>pathetic-nms/v1_15</module>
-        <module>pathetic-nms/v1_16</module>
-        <module>pathetic-nms/v1_17</module>
-        <module>pathetic-nms/v1_18</module>
-        <module>pathetic-nms/v1_18_R2</module>
-        <module>pathetic-nms/v1_19_R2</module>
-        <module>pathetic-nms/v1_19_R3</module>
-        <module>pathetic-nms/v1_20_R1</module>
-        <module>pathetic-nms/v1_20_R2</module>
-        <module>pathetic-nms/v1_20_R3</module>
-        <module>pathetic-nms/v1_20_R4</module>
-        <module>pathetic-nms/v1_21_R1</module>
-        <module>pathetic-nms/v1_21_R2</module>
-        <module>pathetic-nms/v1_21_R3</module>
+        <module>pathetic-provider</module>
+        <module>pathetic-provider/paper</module>
+        <module>pathetic-provider/spigot</module>
+        <module>pathetic-provider/spigot/v1_8</module>
+        <module>pathetic-provider/spigot/v1_12</module>
+        <module>pathetic-provider/spigot/v1_15</module>
+        <module>pathetic-provider/spigot/v1_16</module>
+        <module>pathetic-provider/spigot/v1_17</module>
+        <module>pathetic-provider/spigot/v1_18</module>
+        <module>pathetic-provider/spigot/v1_18_R2</module>
+        <module>pathetic-provider/spigot/v1_19_R2</module>
+        <module>pathetic-provider/spigot/v1_19_R3</module>
+        <module>pathetic-provider/spigot/v1_20_R1</module>
+        <module>pathetic-provider/spigot/v1_20_R2</module>
+        <module>pathetic-provider/spigot/v1_20_R3</module>
+        <module>pathetic-provider/spigot/v1_20_R4</module>
+        <module>pathetic-provider/spigot/v1_21_R1</module>
+        <module>pathetic-provider/spigot/v1_21_R2</module>
+        <module>pathetic-provider/spigot/v1_21_R3</module>
     </modules>
 
     <reporting>
