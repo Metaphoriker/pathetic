@@ -45,7 +45,7 @@ public class PathfinderConfiguration {
    * last successfully calculated path. This can help maintain progress, but might use an outdated
    * path.
    */
-  boolean allowingFallback;
+  @Builder.Default boolean allowingFallback = true;
 
   /**
    * Controls whether chunks should be loaded or generated as needed during the pathfinding process.
