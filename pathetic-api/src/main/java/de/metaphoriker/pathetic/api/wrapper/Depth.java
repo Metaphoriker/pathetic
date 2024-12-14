@@ -1,4 +1,4 @@
-package de.metaphoriker.pathetic.model.pathing.pathfinder;
+package de.metaphoriker.pathetic.api.wrapper;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -4,6 +4,7 @@ import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguratio
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
+import de.metaphoriker.pathetic.api.wrapper.Depth;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
 import de.metaphoriker.pathetic.model.pathing.Node;
@@ -11,7 +12,6 @@ import de.metaphoriker.pathetic.model.pathing.Offset;
 import de.metaphoriker.pathetic.util.ExpiringHashMap;
 import de.metaphoriker.pathetic.util.GridRegionData;
 import de.metaphoriker.pathetic.util.Tuple3;
-import de.metaphoriker.pathetic.util.WatchdogUtil;
 import java.util.*;
 import org.jheaps.tree.FibonacciHeap;
 
@@ -41,16 +41,8 @@ public class AStarPathfinder extends AbstractPathfinder {
       List<PathFilter> filters,
       List<PathFilterStage> filterStages) {
 
-    tickWatchdogIfNeeded(depth);
-
     evaluateNewNodes(nodeQueue, examinedPositions, currentNode, filters, filterStages);
     depth.increment();
-  }
-
-  private void tickWatchdogIfNeeded(Depth depth) {
-    if (depth.getDepth() % 500 == 0) {
-      WatchdogUtil.tickWatchdog();
-    }
   }
 
   private void evaluateNewNodes(

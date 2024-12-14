@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 import javax.annotation.Nullable;
 
+import de.metaphoriker.pathetic.api.pathing.hook.PathfinderHook;
 import de.metaphoriker.pathetic.api.pathing.result.PathState;
 import lombok.NonNull;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
@@ -62,4 +63,11 @@ public interface Pathfinder {
    * will be {@link PathState#ABORTED}.
    */
   void abort();
+
+  /**
+   * Registers a {@link PathfinderHook} that will be called on every step of the pathfinding process.
+   * This can be used to modify the pathfinding process or to collect data.
+   * @param hook The hook to register.
+   */
+  void registerPathfindingHook(PathfinderHook hook);
 }

@@ -1,5 +1,27 @@
 package de.metaphoriker.pathetic.model.pathing.pathfinder;
 
+import de.metaphoriker.pathetic.BStatsHandler;
+import de.metaphoriker.pathetic.Pathetic;
+import de.metaphoriker.pathetic.api.event.EventPublisher;
+import de.metaphoriker.pathetic.api.event.PathingFinishedEvent;
+import de.metaphoriker.pathetic.api.event.PathingStartFindEvent;
+import de.metaphoriker.pathetic.api.pathing.Pathfinder;
+import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
+import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
+import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
+import de.metaphoriker.pathetic.api.pathing.hook.PathfinderHook;
+import de.metaphoriker.pathetic.api.pathing.hook.PathfindingContext;
+import de.metaphoriker.pathetic.api.pathing.result.Path;
+import de.metaphoriker.pathetic.api.pathing.result.PathState;
+import de.metaphoriker.pathetic.api.pathing.result.PathfinderResult;
+import de.metaphoriker.pathetic.api.snapshot.SnapshotManager;
+import de.metaphoriker.pathetic.api.wrapper.Depth;
+import de.metaphoriker.pathetic.api.wrapper.PathPosition;
+import de.metaphoriker.pathetic.model.pathing.Node;
+import de.metaphoriker.pathetic.model.pathing.result.PathImpl;
+import de.metaphoriker.pathetic.model.pathing.result.PathfinderResultImpl;
+import de.metaphoriker.pathetic.model.snapshot.FailingSnapshotManager;
+import de.metaphoriker.pathetic.util.ErrorLogger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,25 +36,6 @@ import java.util.concurrent.Executors;
 import javax.annotation.Nullable;
 import lombok.NonNull;
 import org.jheaps.tree.FibonacciHeap;
-import de.metaphoriker.pathetic.BStatsHandler;
-import de.metaphoriker.pathetic.Pathetic;
-import de.metaphoriker.pathetic.api.event.EventPublisher;
-import de.metaphoriker.pathetic.api.event.PathingFinishedEvent;
-import de.metaphoriker.pathetic.api.event.PathingStartFindEvent;
-import de.metaphoriker.pathetic.api.pathing.Pathfinder;
-import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
-import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
-import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
-import de.metaphoriker.pathetic.api.pathing.result.Path;
-import de.metaphoriker.pathetic.api.pathing.result.PathState;
-import de.metaphoriker.pathetic.api.pathing.result.PathfinderResult;
-import de.metaphoriker.pathetic.api.snapshot.SnapshotManager;
-import de.metaphoriker.pathetic.api.wrapper.PathPosition;
-import de.metaphoriker.pathetic.model.pathing.Node;
-import de.metaphoriker.pathetic.model.pathing.result.PathImpl;
-import de.metaphoriker.pathetic.model.pathing.result.PathfinderResultImpl;
-import de.metaphoriker.pathetic.model.snapshot.FailingSnapshotManager;
-import de.metaphoriker.pathetic.util.ErrorLogger;
 
 /**
  * The AbstractPathfinder class provides a skeletal implementation of the Pathfinder interface and
@@ -58,6 +61,8 @@ abstract class AbstractPathfinder implements Pathfinder {
   static {
     Pathetic.addShutdownListener(PATHING_EXECUTOR::shutdown);
   }
+
+  private final Set<PathfinderHook> pathfinderHooks = new HashSet<>();
 
   protected final PathfinderConfiguration pathfinderConfiguration;
   protected final SnapshotManager snapshotManager;
@@ -111,9 +116,13 @@ abstract class AbstractPathfinder implements Pathfinder {
     this.aborted = true;
   }
 
+  @Override
+  public void registerPathfindingHook(PathfinderHook hook) {
+    pathfinderHooks.add(hook);
+  }
+
   private boolean shouldSkipPathing(PathPosition start, PathPosition target) {
-    return !isSameEnvironment(start, target)
-        || isSameBlock(start, target);
+    return !isSameEnvironment(start, target) || isSameBlock(start, target);
   }
 
   private boolean isSameEnvironment(PathPosition start, PathPosition target) {
@@ -161,6 +170,9 @@ abstract class AbstractPathfinder implements Pathfinder {
 
       while (!nodeQueue.isEmpty()
           && depth.getDepth() <= pathfinderConfiguration.getMaxIterations()) {
+
+        pathfinderHooks.forEach(
+            hook -> hook.onPathfindingStep(new PathfindingContext(depth)));
 
         if (isAborted()) return abortedPathing(fallbackNode);
 
