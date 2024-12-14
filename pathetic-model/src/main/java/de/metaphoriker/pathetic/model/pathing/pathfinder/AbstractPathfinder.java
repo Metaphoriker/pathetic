@@ -1,6 +1,5 @@
 package de.metaphoriker.pathetic.model.pathing.pathfinder;
 
-import de.metaphoriker.pathetic.BStatsHandler;
 import de.metaphoriker.pathetic.Pathetic;
 import de.metaphoriker.pathetic.api.event.EventPublisher;
 import de.metaphoriker.pathetic.api.event.PathingFinishedEvent;
@@ -138,7 +137,6 @@ abstract class AbstractPathfinder implements Pathfinder {
       PathPosition target,
       List<PathFilter> filters,
       List<PathFilterStage> filterStages) {
-    pushToBStatsIfActivated();
     return pathfinderConfiguration.isAsync()
         ? CompletableFuture.supplyAsync(
                 () -> executePathingAndCleanupFilters(start, target, filters, filterStages),
@@ -146,12 +144,6 @@ abstract class AbstractPathfinder implements Pathfinder {
             .thenApply(this::finishPathing)
             .exceptionally(throwable -> handleException(start, target, throwable))
         : initiateSyncPathing(start, target, filters, filterStages);
-  }
-
-  private void pushToBStatsIfActivated() {
-    if (pathfinderConfiguration.isBStats()) {
-      BStatsHandler.increasePathCount();
-    }
   }
 
   private PathfinderResult executePathing(
@@ -171,8 +163,7 @@ abstract class AbstractPathfinder implements Pathfinder {
       while (!nodeQueue.isEmpty()
           && depth.getDepth() <= pathfinderConfiguration.getMaxIterations()) {
 
-        pathfinderHooks.forEach(
-            hook -> hook.onPathfindingStep(new PathfindingContext(depth)));
+        pathfinderHooks.forEach(hook -> hook.onPathfindingStep(new PathfindingContext(depth)));
 
         if (isAborted()) return abortedPathing(fallbackNode);
 
@@ -256,7 +247,7 @@ abstract class AbstractPathfinder implements Pathfinder {
       List<PathFilter> filters,
       List<PathFilterStage> filterStages) {
     PathingStartFindEvent startEvent =
-        new PathingStartFindEvent(start, target, filters, filterStages);
+        new PathingStartFindEvent(start, target, filters, filterStages, pathfinderConfiguration);
     EventPublisher.raiseEvent(startEvent);
   }
 

@@ -5,6 +5,10 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
+
+import com.google.common.eventbus.Subscribe;
+import de.metaphoriker.pathetic.api.event.EventPublisher;
+import de.metaphoriker.pathetic.api.event.PathingStartFindEvent;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +39,7 @@ public class Pathetic {
     instance = javaPlugin;
     Bukkit.getPluginManager().registerEvents(new ChunkInvalidateListener(), javaPlugin);
 
+    registerPathingStartListener();
     loadModelVersion();
 
     if (BukkitVersionUtil.getVersion().isUnder(16, 0)
@@ -65,6 +70,22 @@ public class Pathetic {
 
   public static void addShutdownListener(Runnable listener) {
     SHUTDOWN_LISTENERS.add(listener);
+  }
+
+  private static void registerPathingStartListener() {
+    EventPublisher.registerListener(
+        new Object() {
+          @Subscribe
+          public void onPathingStart(PathingStartFindEvent event) {
+            pushToBStatsIfActivated(event);
+          }
+
+          private void pushToBStatsIfActivated(PathingStartFindEvent event) {
+            if (event.getPathfinderConfiguration().isBStats()) {
+              BStatsHandler.increasePathCount();
+            }
+          }
+        });
   }
 
   private static void loadModelVersion() {

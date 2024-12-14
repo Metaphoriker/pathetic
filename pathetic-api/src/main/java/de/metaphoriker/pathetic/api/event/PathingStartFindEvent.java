@@ -1,6 +1,8 @@
 package de.metaphoriker.pathetic.api.event;
 
 import java.util.List;
+
+import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,4 +19,5 @@ public class PathingStartFindEvent implements PathingEvent {
   @NonNull private final PathPosition target;
   @NonNull private final List<PathFilter> filters;
   @NonNull private final List<PathFilterStage> filterStages;
+  @NonNull private final PathfinderConfiguration pathfinderConfiguration;
 }
