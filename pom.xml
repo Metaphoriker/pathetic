@@ -19,7 +19,7 @@
         <module>pathetic-api</module>
         <module>pathetic-example</module>
         <module>pathetic-mapping</module>
-        <module>pathetic-model</module>
+        <module>pathetic-engine</module>
         <module>pathetic-provider</module>
         <module>pathetic-provider/paper</module>
         <module>pathetic-provider/spigot</module>
