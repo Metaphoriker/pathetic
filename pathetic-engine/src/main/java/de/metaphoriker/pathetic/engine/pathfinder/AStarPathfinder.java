@@ -130,6 +130,7 @@ public class AStarPathfinder extends AbstractPathfinder {
     int yDifference = from.getPosition().getBlockY() - to.getPosition().getBlockY();
     Node neighbour3 = createNeighbourNode(from, vector1.add(new PathVector(0, yDifference, 0)));
 
+    // TODO: 15.12.2024: do we really need to check if the block is passable, or can we use the filters?
     return blockProvider.getBlock(neighbour3.getPosition()).isPassable();
   }
 
