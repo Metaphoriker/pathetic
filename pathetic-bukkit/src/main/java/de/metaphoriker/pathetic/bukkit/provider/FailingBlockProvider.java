@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.provider;
 
-import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
+import de.metaphoriker.pathetic.api.provider.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.BlockInformation;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathEnvironment;

@@ -1,7 +1,7 @@
 package de.metaphoriker.pathetic.api.pathing.filter;
 
 import lombok.Value;
-import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
+import de.metaphoriker.pathetic.api.provider.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
 /**

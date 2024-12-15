@@ -4,7 +4,7 @@ import java.util.EnumSet;
 import org.bukkit.Material;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
-import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
+import de.metaphoriker.pathetic.api.provider.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 

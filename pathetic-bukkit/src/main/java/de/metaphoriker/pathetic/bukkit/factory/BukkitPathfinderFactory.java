@@ -3,7 +3,7 @@ package de.metaphoriker.pathetic.bukkit.factory;
 import de.metaphoriker.pathetic.api.pathing.Pathfinder;
 import de.metaphoriker.pathetic.api.pathing.PathfinderFactory;
 import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
-import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
+import de.metaphoriker.pathetic.api.provider.BlockProvider;
 import de.metaphoriker.pathetic.bukkit.provider.FailingBlockProvider;
 import de.metaphoriker.pathetic.engine.pathfinder.AStarPathfinder;
 

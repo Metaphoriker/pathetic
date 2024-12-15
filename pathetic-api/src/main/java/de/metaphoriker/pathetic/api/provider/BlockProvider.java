@@ -1,4 +1,4 @@
-package de.metaphoriker.pathetic.api.snapshot;
+package de.metaphoriker.pathetic.api.provider;
 
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;

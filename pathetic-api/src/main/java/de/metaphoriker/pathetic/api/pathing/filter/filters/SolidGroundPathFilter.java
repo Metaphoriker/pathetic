@@ -3,7 +3,7 @@ package de.metaphoriker.pathetic.api.pathing.filter.filters;
 import lombok.NonNull;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
-import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
+import de.metaphoriker.pathetic.api.provider.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 
 /**
