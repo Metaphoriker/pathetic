@@ -14,8 +14,8 @@ public class BukkitPathfinderFactory extends PathfinderFactory<BukkitPathfinderI
    *
    * @param initializer The initializer to use for initializing the pathfinder.
    */
-  public BukkitPathfinderFactory(BukkitPathfinderInitializer initializer) {
-    super(initializer);
+  public BukkitPathfinderFactory() {
+    super(new BukkitPathfinderInitializer());
   }
 
   @Override

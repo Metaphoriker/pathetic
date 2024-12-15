@@ -19,8 +19,7 @@ public final class PatheticPlugin extends JavaPlugin {
     PatheticBukkit.initialize(this);
 
     // Create the respective Pathfinder Factory with the respective initializer
-    PathfinderFactory<BukkitPathfinderInitializer> factory =
-        new BukkitPathfinderFactory(new BukkitPathfinderInitializer());
+    PathfinderFactory<BukkitPathfinderInitializer> factory = new BukkitPathfinderFactory();
 
     // Create a new Pathfinder instance with a custom configuration
     Pathfinder reusablePathfinder =
