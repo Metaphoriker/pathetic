@@ -17,8 +17,8 @@
 
     <modules>
         <module>pathetic-api</module>
+        <module>pathetic-bukkit</module>
         <module>pathetic-example</module>
-        <module>pathetic-mapping</module>
         <module>pathetic-engine</module>
         <module>pathetic-provider</module>
         <module>pathetic-provider/paper</module>

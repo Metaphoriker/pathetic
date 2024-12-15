@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletionStage;
+
+import de.metaphoriker.pathetic.bukkit.mapper.BukkitMapper;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -19,7 +21,6 @@ import de.metaphoriker.pathetic.api.pathing.result.PathfinderResult;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.example.filter.DangerousMaterialsFilter;
 import de.metaphoriker.pathetic.example.filter.MinimumHeightFilter;
-import de.metaphoriker.pathetic.mapping.bukkit.BukkitMapper;
 
 public class PatheticCommand implements TabExecutor {
 

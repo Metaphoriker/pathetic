@@ -14,8 +14,7 @@ public class ErrorLogger {
     log.error("===============================");
     log.error("A fatal error has occurred: {}", message);
     log.error("Please open an issue on the Pathetic GitHub page with all this information:");
-    log.error("Version: {}", Pathetic.getModelVersion());
-    log.error("Server Version: {}", Pathetic.getPluginInstance().getServer().getVersion());
+    log.error("Version: {}", Pathetic.getEngineVersion());
     log.error("Java Version: {}", System.getProperty("java.version"));
     log.error("OS: {}", System.getProperty("os.name"));
     log.error("OS Architecture: {}", System.getProperty("os.arch"));

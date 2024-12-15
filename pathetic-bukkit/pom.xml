@@ -1,18 +1,25 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <artifactId>pathetic-main</artifactId>
         <groupId>de.metaphoriker</groupId>
+        <artifactId>pathetic-main</artifactId>
         <version>3.3.1</version>
     </parent>
 
-    <artifactId>pathetic-engine</artifactId>
+    <artifactId>pathetic-bukkit</artifactId>
     <version>3.3.1</version>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -21,24 +28,10 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>org.jheaps</pattern>
-                            <shadedPattern>de.metaphoriker.pathetic.shaded.jheaps</shadedPattern>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.bstats</shadedPattern>
                         </relocation>
                     </relocations>
-                    <filters>
-                        <filter>
-                            <artifact>org.jheaps:jheaps</artifact>
-                            <includes>
-                                <include>org/jheaps/tree/FibonacciHeap.class</include>
-                                <include>org/jheaps/tree/FibonacciHeap$Node.class</include>
-                                <include>org/jheaps/annotations/ConstantTime.class</include>
-                                <include>org/jheaps/annotations/LogarithmicTime.class</include>
-                                <include>org/jheaps/MergeableAddressableHeap.class</include>
-                                <include>org/jheaps/AddressableHeap.class</include>
-                                <include>org/jheaps/AddressableHeap$Handle.class</include>
-                            </includes>
-                        </filter>
-                    </filters>
                 </configuration>
                 <executions>
                     <execution>
@@ -49,10 +42,22 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -62,21 +67,21 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>33.3.1-jre</version>
-            <scope>provided</scope>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.1.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.metaphoriker</groupId>
-            <artifactId>pathetic-api</artifactId>
+            <artifactId>pathetic-engine</artifactId>
             <version>3.3.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jheaps</groupId>
-            <artifactId>jheaps</artifactId>
-            <version>0.14</version>
+            <groupId>de.metaphoriker</groupId>
+            <artifactId>pathetic-provider</artifactId>
+            <version>3.3.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
