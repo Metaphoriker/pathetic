@@ -25,7 +25,7 @@ public class BStatsHandler {
               paths = 0;
               return totalPaths;
             }));
-    metrics.addCustomChart(new SimplePie("pathetic-model_version", Pathetic::getModelVersion));
+    metrics.addCustomChart(new SimplePie("pathetic-engine_version", Pathetic::getModelVersion));
   }
 
   private void makeSureBStatsIsInitialized() {
