@@ -13,13 +13,13 @@ import de.metaphoriker.pathetic.api.pathing.hook.PathfindingContext;
 import de.metaphoriker.pathetic.api.pathing.result.Path;
 import de.metaphoriker.pathetic.api.pathing.result.PathState;
 import de.metaphoriker.pathetic.api.pathing.result.PathfinderResult;
-import de.metaphoriker.pathetic.api.snapshot.SnapshotManager;
+import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.Depth;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.model.pathing.Node;
 import de.metaphoriker.pathetic.model.pathing.result.PathImpl;
 import de.metaphoriker.pathetic.model.pathing.result.PathfinderResultImpl;
-import de.metaphoriker.pathetic.model.snapshot.FailingSnapshotManager;
+import de.metaphoriker.pathetic.model.snapshot.FailingBlockProvider;
 import de.metaphoriker.pathetic.util.ErrorLogger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,9 +51,9 @@ abstract class AbstractPathfinder implements Pathfinder {
   protected static final Set<PathPosition> EMPTY_LINKED_HASHSET =
       Collections.unmodifiableSet(new LinkedHashSet<>(0));
 
-  private static final SnapshotManager SIMPLE_SNAPSHOT_MANAGER = new FailingSnapshotManager();
-  private static final SnapshotManager LOADING_SNAPSHOT_MANAGER =
-      new FailingSnapshotManager.RequestingSnapshotManager();
+  private static final BlockProvider SIMPLE_SNAPSHOT_MANAGER = new FailingBlockProvider();
+  private static final BlockProvider LOADING_SNAPSHOT_MANAGER =
+      new FailingBlockProvider.RequestingBlockProvider();
 
   private static final ExecutorService PATHING_EXECUTOR = Executors.newWorkStealingPool();
 
@@ -64,16 +64,16 @@ abstract class AbstractPathfinder implements Pathfinder {
   private final Set<PathfinderHook> pathfinderHooks = new HashSet<>();
 
   protected final PathfinderConfiguration pathfinderConfiguration;
-  protected final SnapshotManager snapshotManager;
+  protected final BlockProvider blockProvider;
 
   private volatile boolean aborted;
 
   protected AbstractPathfinder(PathfinderConfiguration pathfinderConfiguration) {
     this.pathfinderConfiguration = pathfinderConfiguration;
-    this.snapshotManager = determineSnapshotManager(pathfinderConfiguration);
+    this.blockProvider = determineSnapshotManager(pathfinderConfiguration);
   }
 
-  private SnapshotManager determineSnapshotManager(
+  private BlockProvider determineSnapshotManager(
       PathfinderConfiguration pathfinderConfiguration) {
     return pathfinderConfiguration.isLoadingChunks()
         ? LOADING_SNAPSHOT_MANAGER

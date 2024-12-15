@@ -4,7 +4,7 @@ import java.util.EnumSet;
 import org.bukkit.Material;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
-import de.metaphoriker.pathetic.api.snapshot.SnapshotManager;
+import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
@@ -40,12 +40,12 @@ public class DangerousMaterialsFilter implements PathFilter {
   @Override
   public boolean filter(PathValidationContext context) {
     PathPosition position = context.getPosition();
-    SnapshotManager snapshotManager = context.getSnapshotManager();
+    BlockProvider blockProvider = context.getBlockProvider();
 
     for (int x = -radius; x <= radius; x++) {
       for (int y = -radius; y <= radius; y++) {
         for (int z = -radius; z <= radius; z++) {
-          PathBlock block = snapshotManager.getBlock(position.add(x, y, z));
+          PathBlock block = blockProvider.getBlock(position.add(x, y, z));
           if (block != null
               && dangerousMaterials.contains(block.getBlockInformation().getMaterial())) {
             return false; // The node is near a dangerous material, so it's excluded.

@@ -4,10 +4,10 @@ import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
 /**
- * The SnapshotManager interface defines methods for retrieving block data snapshots at specific
+ * The BlockProvider interface defines methods for retrieving block data snapshots at specific
  * positions within a Minecraft world.
  */
-public interface SnapshotManager {
+public interface BlockProvider {
 
   /**
    * Gets the block at the given position

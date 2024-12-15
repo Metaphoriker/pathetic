@@ -15,7 +15,7 @@ public class PassablePathFilter implements PathFilter {
   @Override
   public boolean filter(@NonNull PathValidationContext pathValidationContext) {
     return pathValidationContext
-        .getSnapshotManager()
+        .getBlockProvider()
         .getBlock(pathValidationContext.getPosition())
         .isPassable();
   }

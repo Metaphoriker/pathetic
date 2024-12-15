@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
-import de.metaphoriker.pathetic.model.snapshot.FailingSnapshotManager;
+import de.metaphoriker.pathetic.model.snapshot.FailingBlockProvider;
 
 public class ChunkInvalidateListener implements Listener {
 
@@ -69,7 +69,7 @@ public class ChunkInvalidateListener implements Listener {
 
   private void handleEvent(Block... blocks) {
     for (Block block : blocks)
-      FailingSnapshotManager.invalidateChunk(
+      FailingBlockProvider.invalidateChunk(
           block.getWorld().getUID(), block.getChunk().getX(), block.getChunk().getZ());
   }
 }

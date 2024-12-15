@@ -1,7 +1,7 @@
 package de.metaphoriker.pathetic.api.pathing.filter;
 
 import lombok.Value;
-import de.metaphoriker.pathetic.api.snapshot.SnapshotManager;
+import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
 /**
@@ -40,9 +40,9 @@ public class PathValidationContext {
   PathPosition absoluteTarget;
 
   /**
-   * The snapshot manager provides access to world data, such as block information, in the context
+   * The BlockProvider provides access to world data, such as block information, in the context
    * of the pathfinding process. It is used to retrieve block data from the world at different
    * positions during path validation.
    */
-  SnapshotManager snapshotManager;
+  BlockProvider blockProvider;
 }

@@ -10,7 +10,7 @@ import org.bukkit.ChunkSnapshot;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
-import de.metaphoriker.pathetic.api.snapshot.SnapshotManager;
+import de.metaphoriker.pathetic.api.snapshot.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.BlockInformation;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathEnvironment;
@@ -22,11 +22,11 @@ import de.metaphoriker.pathetic.util.ChunkUtils;
 import de.metaphoriker.pathetic.util.ErrorLogger;
 
 /**
- * The FailingSnapshotManager class implements the SnapshotManager interface and provides a default
+ * The FailingBlockProvider class implements the BlockProvider interface and provides a default
  * implementation for retrieving block data snapshots from a Minecraft world. It utilizes chunk
  * snapshots to efficiently access block information, even in asynchronous contexts.
  *
- * <p>FailingSnapshotManager also uses NMS (net.minecraft.server) utilities to bypass the Spigot
+ * <p>FailingBlockProvider also uses NMS (net.minecraft.server) utilities to bypass the Spigot
  * AsyncCatcher and fetch snapshots natively from an asynchronous context. This allows for more
  * flexible and efficient access to world data.
  *
@@ -35,7 +35,7 @@ import de.metaphoriker.pathetic.util.ErrorLogger;
  * are not loaded in the world. Developers using this manager should handle potential failures
  * gracefully.
  */
-public class FailingSnapshotManager implements SnapshotManager {
+public class FailingBlockProvider implements BlockProvider {
 
   private static final Map<UUID, WorldDomain> SNAPSHOTS_MAP = new ConcurrentHashMap<>();
 
@@ -150,11 +150,11 @@ public class FailingSnapshotManager implements SnapshotManager {
   }
 
   /**
-   * The RequestingSnapshotManager is an inner class of FailingSnapshotManager, extending it. This
+   * The RequestingBlockProvider is an inner class of FailingBlockProvider, extending it. This
    * class provides additional functionality for ensuring that block data snapshots are available,
    * even if not initially loaded.
    */
-  public static class RequestingSnapshotManager extends FailingSnapshotManager {
+  public static class RequestingBlockProvider extends FailingBlockProvider {
 
     private static ChunkSnapshot retrieveChunkSnapshot(
         PathEnvironment world, int chunkX, int chunkZ) {

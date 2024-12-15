@@ -126,7 +126,7 @@ public class AStarPathfinder extends AbstractPathfinder {
     int yDifference = from.getPosition().getBlockY() - to.getPosition().getBlockY();
     Node neighbour3 = createNeighbourNode(from, vector1.add(new PathVector(0, yDifference, 0)));
 
-    return snapshotManager.getBlock(neighbour3.getPosition()).isPassable();
+    return blockProvider.getBlock(neighbour3.getPosition()).isPassable();
   }
 
   private Collection<Node> fetchValidNeighbours(
@@ -207,7 +207,7 @@ public class AStarPathfinder extends AbstractPathfinder {
               node.getParent() != null ? node.getParent().getPosition() : null,
               node.getStart(),
               node.getTarget(),
-              snapshotManager);
+            blockProvider);
 
       if (!filter.filter(context)) {
         return false;
@@ -226,7 +226,7 @@ public class AStarPathfinder extends AbstractPathfinder {
               node.getParent() != null ? node.getParent().getPosition() : null,
               node.getStart(),
               node.getTarget(),
-              snapshotManager))) {
+            blockProvider))) {
         return true;
       }
     }
