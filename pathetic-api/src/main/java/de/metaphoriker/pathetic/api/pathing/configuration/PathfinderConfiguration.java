@@ -62,16 +62,6 @@ public class PathfinderConfiguration {
   @Builder.Default HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
 
   /**
-   * Determines whether the pathfinding algorithm should collect statistics about the pathfinding
-   * process. This can be useful for debugging and performance tuning.
-   *
-   * <p>Help us improve the API by providing feedback with the collected statistics!
-   *
-   * @default true
-   */
-  @Builder.Default boolean bStats = true;
-
-  /**
    * @return A new {@link PathfinderConfiguration} with default parameters but async.
    */
   public static PathfinderConfiguration createAsyncConfiguration() {

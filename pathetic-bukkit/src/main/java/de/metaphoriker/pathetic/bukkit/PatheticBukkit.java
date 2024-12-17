@@ -1,9 +1,6 @@
 package de.metaphoriker.pathetic.bukkit;
 
-import com.google.common.eventbus.Subscribe;
 import de.metaphoriker.pathetic.Pathetic;
-import de.metaphoriker.pathetic.api.event.EventPublisher;
-import de.metaphoriker.pathetic.api.event.PathingStartFindEvent;
 import de.metaphoriker.pathetic.bukkit.listener.ChunkInvalidateListener;
 import de.metaphoriker.pathetic.bukkit.util.BukkitVersionUtil;
 import de.metaphoriker.pathetic.util.ErrorLogger;
@@ -28,7 +25,6 @@ public class PatheticBukkit {
     instance = javaPlugin;
     Bukkit.getPluginManager().registerEvents(new ChunkInvalidateListener(), javaPlugin);
 
-    registerPathingStartListener();
     Pathetic.loadEngineVersion();
 
     if (BukkitVersionUtil.getVersion().isUnder(16, 0)
@@ -47,21 +43,5 @@ public class PatheticBukkit {
 
   public static JavaPlugin getPluginInstance() {
     return instance;
-  }
-
-  private static void registerPathingStartListener() {
-    EventPublisher.registerListener(
-        new Object() {
-          @Subscribe
-          public void onPathingStart(PathingStartFindEvent event) {
-            pushToBStatsIfActivated(event);
-          }
-
-          private void pushToBStatsIfActivated(PathingStartFindEvent event) {
-            if (event.getPathfinderConfiguration().isBStats()) {
-              BStatsHandler.increasePathCount();
-            }
-          }
-        });
   }
 }
