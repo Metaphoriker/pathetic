@@ -17,6 +17,7 @@ public class PassablePathFilter implements PathFilter {
     return pathValidationContext
         .getBlockProvider()
         .getBlock(pathValidationContext.getPosition())
+        .getBlockInformation()
         .isPassable();
   }
 }

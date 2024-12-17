@@ -1,8 +1,5 @@
 package de.metaphoriker.pathetic.engine.pathfinder;
 
-import de.metaphoriker.pathetic.api.event.EventPublisher;
-import de.metaphoriker.pathetic.api.event.PathingFinishedEvent;
-import de.metaphoriker.pathetic.api.event.PathingStartFindEvent;
 import de.metaphoriker.pathetic.api.pathing.Pathfinder;
 import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
@@ -81,13 +78,9 @@ abstract class AbstractPathfinder implements Pathfinder {
     if (sharedFilters == null) sharedFilters = Collections.emptyList();
     if (filterStages == null) filterStages = Collections.emptyList();
 
-    raiseStartEvent(start, target, sharedFilters, filterStages);
-
     if (shouldSkipPathing(start, target)) {
-      return CompletableFuture.completedFuture(
-          finishPathing(
-              new PathfinderResultImpl(
-                  PathState.INITIALLY_FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET))));
+      return CompletableFuture.completedFuture(new PathfinderResultImpl(
+                  PathState.INITIALLY_FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET)));
     }
 
     return initiatePathing(start, target, sharedFilters, filterStages);
@@ -125,7 +118,6 @@ abstract class AbstractPathfinder implements Pathfinder {
         ? CompletableFuture.supplyAsync(
                 () -> executePathingAndCleanupFilters(start, target, filters, filterStages),
                 PATHING_EXECUTOR)
-            .thenApply(this::finishPathing)
             .exceptionally(throwable -> handleException(start, target, throwable))
         : initiateSyncPathing(start, target, filters, filterStages);
   }
@@ -155,11 +147,11 @@ abstract class AbstractPathfinder implements Pathfinder {
         fallbackNode = currentNode;
 
         if (hasReachedLengthLimit(currentNode)) {
-          return finishPathing(PathState.LENGTH_LIMITED, currentNode);
+          return new PathfinderResultImpl(PathState.LENGTH_LIMITED, fetchRetracedPath(currentNode));
         }
 
         if (currentNode.isTarget()) {
-          return finishPathing(PathState.FOUND, currentNode);
+          return new PathfinderResultImpl(PathState.FOUND, fetchRetracedPath(currentNode));
         }
 
         tick(
@@ -176,7 +168,7 @@ abstract class AbstractPathfinder implements Pathfinder {
 
   private PathfinderResult abortedPathing(Node fallbackNode) {
     aborted = false;
-    return finishPathing(PathState.ABORTED, fallbackNode);
+    return new PathfinderResultImpl(PathState.ABORTED, fetchRetracedPath(fallbackNode));
   }
 
   private boolean isAborted() {
@@ -210,29 +202,8 @@ abstract class AbstractPathfinder implements Pathfinder {
   private PathfinderResult handleException(
       PathPosition start, PathPosition target, Throwable throwable) {
     ErrorLogger.logFatalError("Failed to find path async", throwable);
-    return finishPathing(
-        new PathfinderResultImpl(
-            PathState.FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET)));
-  }
-
-  protected PathfinderResult finishPathing(PathfinderResult pathfinderResult) {
-    raiseFinishedEvent(pathfinderResult);
-    return pathfinderResult;
-  }
-
-  private void raiseFinishedEvent(PathfinderResult pathfinderResult) {
-    PathingFinishedEvent finishedEvent = new PathingFinishedEvent(pathfinderResult);
-    EventPublisher.raiseEvent(finishedEvent);
-  }
-
-  private void raiseStartEvent(
-      PathPosition start,
-      PathPosition target,
-      List<PathFilter> filters,
-      List<PathFilterStage> filterStages) {
-    PathingStartFindEvent startEvent =
-        new PathingStartFindEvent(start, target, filters, filterStages, pathfinderConfiguration);
-    EventPublisher.raiseEvent(startEvent);
+    return new PathfinderResultImpl(
+        PathState.FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET));
   }
 
   private Node createStartNode(PathPosition start, PathPosition target) {
@@ -249,10 +220,6 @@ abstract class AbstractPathfinder implements Pathfinder {
         && currentNode.getDepth() > pathfinderConfiguration.getMaxLength();
   }
 
-  private PathfinderResult finishPathing(PathState pathState, Node currentNode) {
-    return finishPathing(new PathfinderResultImpl(pathState, fetchRetracedPath(currentNode)));
-  }
-
   /** If the pathfinder has failed to find a path, it will try to still give a result. */
   private PathfinderResult backupPathfindingOrFailure(
       Depth depth, PathPosition start, PathPosition target, Node fallbackNode) {
@@ -265,25 +232,22 @@ abstract class AbstractPathfinder implements Pathfinder {
     Optional<PathfinderResult> fallbackResult = fallback(fallbackNode);
     return fallbackResult.orElseGet(
         () ->
-            finishPathing(
-                new PathfinderResultImpl(
-                    PathState.FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET))));
+            new PathfinderResultImpl(
+                PathState.FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET)));
   }
 
   private Optional<PathfinderResult> maxIterationsReached(Depth depth, Node fallbackNode) {
     if (depth.getDepth() > pathfinderConfiguration.getMaxIterations())
       return Optional.of(
-          finishPathing(
-              new PathfinderResultImpl(
-                  PathState.MAX_ITERATIONS_REACHED, fetchRetracedPath(fallbackNode))));
+          new PathfinderResultImpl(
+              PathState.MAX_ITERATIONS_REACHED, fetchRetracedPath(fallbackNode)));
     return Optional.empty();
   }
 
   private Optional<PathfinderResult> fallback(Node fallbackNode) {
     if (pathfinderConfiguration.isAllowingFallback())
       return Optional.of(
-          finishPathing(
-              new PathfinderResultImpl(PathState.FALLBACK, fetchRetracedPath(fallbackNode))));
+          new PathfinderResultImpl(PathState.FALLBACK, fetchRetracedPath(fallbackNode)));
     return Optional.empty();
   }
 
