@@ -1,15 +1,16 @@
 package de.metaphoriker.pathetic.example.filter;
 
-import java.util.EnumSet;
-import org.bukkit.Material;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
 import de.metaphoriker.pathetic.api.provider.BlockProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
+import de.metaphoriker.pathetic.bukkit.provider.BukkitBlockInformation;
+import java.util.EnumSet;
+import org.bukkit.Material;
 
 /**
- *  A PathFilter that excludes nodes which are located on or near dangerous materials like lava.
+ * A PathFilter that excludes nodes which are located on or near dangerous materials like lava.
  *
  * @api.Note Due to the radius check, this filter can be computationally expensive.
  */
@@ -41,13 +42,13 @@ public class DangerousMaterialsFilter implements PathFilter {
   public boolean filter(PathValidationContext context) {
     PathPosition position = context.getPosition();
     BlockProvider blockProvider = context.getBlockProvider();
-
     for (int x = -radius; x <= radius; x++) {
       for (int y = -radius; y <= radius; y++) {
         for (int z = -radius; z <= radius; z++) {
           PathBlock block = blockProvider.getBlock(position.add(x, y, z));
-          if (block != null
-              && dangerousMaterials.contains(block.getBlockInformation().getMaterial())) {
+          BukkitBlockInformation bukkitBlockInformation =
+              (BukkitBlockInformation) block.getBlockInformation();
+          if (dangerousMaterials.contains(bukkitBlockInformation.getMaterial())) {
             return false; // The node is near a dangerous material, so it's excluded.
           }
         }

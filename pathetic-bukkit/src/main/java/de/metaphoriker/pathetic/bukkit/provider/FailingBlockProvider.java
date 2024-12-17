@@ -1,7 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.provider;
 
 import de.metaphoriker.pathetic.api.provider.BlockProvider;
-import de.metaphoriker.pathetic.api.wrapper.BlockInformation;
 import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathEnvironment;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
@@ -71,7 +70,7 @@ public class FailingBlockProvider implements BlockProvider {
           CHUNK_DATA_PROVIDER_RESOLVER
               .getChunkDataProvider()
               .getBlockState(chunkSnapshotOptional.get(), x, position.getBlockY(), z);
-      return Optional.of(new PathBlock(position, new BlockInformation(material, blockState)));
+      return Optional.of(new PathBlock(position, new BukkitBlockInformation(material, blockState)));
     }
 
     return Optional.empty();
@@ -142,7 +141,7 @@ public class FailingBlockProvider implements BlockProvider {
               .getBlockState(chunkSnapshot, chunkX, highestY, chunkZ);
 
       Material material = chunkSnapshot.getBlockType(chunkX, highestY, chunkZ);
-      return new PathBlock(highestBlockPosition, new BlockInformation(material, blockState));
+      return new PathBlock(highestBlockPosition, new BukkitBlockInformation(material, blockState));
     }
 
     // if no valid chunk snapshot was found
@@ -150,9 +149,9 @@ public class FailingBlockProvider implements BlockProvider {
   }
 
   /**
-   * The RequestingBlockProvider is an inner class of FailingBlockProvider, extending it. This
-   * class provides additional functionality for ensuring that block data snapshots are available,
-   * even if not initially loaded.
+   * The RequestingBlockProvider is an inner class of FailingBlockProvider, extending it. This class
+   * provides additional functionality for ensuring that block data snapshots are available, even if
+   * not initially loaded.
    */
   public static class RequestingBlockProvider extends FailingBlockProvider {
 
@@ -196,7 +195,7 @@ public class FailingBlockProvider implements BlockProvider {
           CHUNK_DATA_PROVIDER_RESOLVER
               .getChunkDataProvider()
               .getBlockState(chunkSnapshot, x, pathPosition.getBlockY(), z);
-      return new PathBlock(pathPosition, new BlockInformation(material, blockState));
+      return new PathBlock(pathPosition, new BukkitBlockInformation(material, blockState));
     }
 
     @Override
@@ -231,7 +230,7 @@ public class FailingBlockProvider implements BlockProvider {
               .getBlockState(chunkSnapshot, chunkX, highestY, chunkZ);
 
       Material material = chunkSnapshot.getBlockType(chunkX, highestY, chunkZ);
-      return new PathBlock(highestBlockPosition, new BlockInformation(material, blockState));
+      return new PathBlock(highestBlockPosition, new BukkitBlockInformation(material, blockState));
     }
   }
 }
