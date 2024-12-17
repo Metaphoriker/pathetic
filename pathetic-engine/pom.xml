@@ -24,6 +24,18 @@
                             <pattern>org.jheaps</pattern>
                             <shadedPattern>de.metaphoriker.pathetic.shaded.jheaps</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>org.projectlombok</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.lombok</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.slf4j</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.slf4j</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google.common</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.guava</shadedPattern>
+                        </relocation>
                     </relocations>
                     <filters>
                         <filter>
@@ -56,16 +68,20 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>33.4.0-jre</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.metaphoriker</groupId>
