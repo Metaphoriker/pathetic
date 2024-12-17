@@ -1,10 +1,10 @@
 package de.metaphoriker.pathetic.provider.paper;
 
+import de.metaphoriker.pathetic.provider.ChunkDataProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
-import de.metaphoriker.pathetic.api.snapshot.ChunkDataProvider;
 
 public class PaperChunkDataProvider implements ChunkDataProvider {
   

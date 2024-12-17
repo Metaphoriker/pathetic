@@ -1,6 +1,8 @@
 package de.metaphoriker.pathetic.provider.v1_18_R2;
 
 import java.lang.reflect.Field;
+
+import de.metaphoriker.pathetic.provider.ChunkDataProvider;
 import net.minecraft.server.level.WorldServer;
 import net.minecraft.world.level.block.state.IBlockData;
 import net.minecraft.world.level.chunk.ChunkStatus;
@@ -13,7 +15,6 @@ import org.bukkit.craftbukkit.v1_18_R2.CraftChunk;
 import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_18_R2.block.CraftBlockStates;
 import org.bukkit.craftbukkit.v1_18_R2.block.data.CraftBlockData;
-import de.metaphoriker.pathetic.api.snapshot.ChunkDataProvider;
 
 public class v1_18_R2ChunkDataProviderImpl implements ChunkDataProvider {
 

@@ -1,4 +1,4 @@
-package de.metaphoriker.pathetic.api.snapshot;
+package de.metaphoriker.pathetic.provider;
 
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.World;

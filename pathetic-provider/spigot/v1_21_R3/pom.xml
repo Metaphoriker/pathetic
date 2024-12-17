@@ -28,6 +28,12 @@
         </dependency>
         <dependency>
             <groupId>de.metaphoriker</groupId>
+            <artifactId>pathetic-provider</artifactId>
+            <version>3.3.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.metaphoriker</groupId>
             <artifactId>pathetic-api</artifactId>
         </dependency>
     </dependencies>

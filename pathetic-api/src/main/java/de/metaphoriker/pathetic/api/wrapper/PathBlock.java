@@ -16,24 +16,12 @@ public final class PathBlock {
   private final BlockInformation blockInformation;
 
   /**
-   * @return Whether the block is air
-   */
-  public boolean isAir() {
-    return blockInformation.getMaterial().isAir();
-  }
-
-  /**
    * @return Whether the block is possible to walk through
+   * @deprecated Use {@link BlockInformation#isPassable()} instead
    */
+  @Deprecated
   public boolean isPassable() {
-    return !isSolid();
-  }
-
-  /**
-   * @return Whether the block is solid
-   */
-  public boolean isSolid() {
-    return blockInformation.getMaterial().isSolid();
+    return blockInformation.isPassable();
   }
 
   /**

@@ -1,5 +1,6 @@
 package de.metaphoriker.pathetic.provider.v1_16;
 
+import de.metaphoriker.pathetic.provider.ChunkDataProvider;
 import net.minecraft.server.v1_16_R3.ChunkStatus;
 import net.minecraft.server.v1_16_R3.WorldServer;
 import org.bukkit.ChunkSnapshot;
@@ -7,7 +8,6 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.v1_16_R3.CraftChunk;
 import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import de.metaphoriker.pathetic.api.snapshot.ChunkDataProvider;
 
 public class v1_16ChunkDataProviderImpl implements ChunkDataProvider {
 

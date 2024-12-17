@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.provider.spigot;
 
-import de.metaphoriker.pathetic.api.snapshot.ChunkDataProvider;
+import de.metaphoriker.pathetic.provider.ChunkDataProvider;
 import de.metaphoriker.pathetic.provider.v1_12.v1_12ChunkDataProviderImpl;
 import de.metaphoriker.pathetic.provider.v1_15.v1_15ChunkDataProviderImpl;
 import de.metaphoriker.pathetic.provider.v1_16.v1_16ChunkDataProviderImpl;

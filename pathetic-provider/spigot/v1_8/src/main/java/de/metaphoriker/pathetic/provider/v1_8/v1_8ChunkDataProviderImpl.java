@@ -1,12 +1,12 @@
 package de.metaphoriker.pathetic.provider.v1_8;
 
+import de.metaphoriker.pathetic.provider.ChunkDataProvider;
 import net.minecraft.server.v1_8_R3.Chunk;
 import net.minecraft.server.v1_8_R3.WorldServer;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import de.metaphoriker.pathetic.api.snapshot.ChunkDataProvider;
 
 public class v1_8ChunkDataProviderImpl implements ChunkDataProvider {
 

@@ -1,6 +1,5 @@
 package de.metaphoriker.pathetic.provider;
 
-import de.metaphoriker.pathetic.api.snapshot.ChunkDataProvider;
 import net.minecraft.server.level.WorldServer;
 import net.minecraft.world.level.block.state.IBlockData;
 import net.minecraft.world.level.chunk.DataPaletteBlock;
