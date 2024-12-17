@@ -79,6 +79,7 @@ If you want to leverage pathetic for your own implementation, you can use the fo
 ```
 
 <h4>Gradle</h4>
+
 ```groovy
 allprojects {
     repositories {
@@ -90,6 +91,7 @@ dependencies {
     implementation 'de.metaphoriker:pathetic-engine:VERSION'
 }
 ```
+
 <h2>Example Usage</h2>
 
 <p>See the <a href="https://github.com/Metaphoriker/pathetic/tree/trunk/pathetic-example">pathetic-example</a> module for a detailed bukkit example.</p>
