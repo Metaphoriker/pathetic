@@ -3,8 +3,8 @@
 
 <h1>Pathetic - A Pathfinding library for Minecraft</h1>
 
-<p>A high-performance, backwards-compatible, and asynchronous easy-to-use pathfinding library written in Java.
-<br> Pathetic leverages the <b>A* algorithm</b> with customizable heuristics for real-time pathfinding in <b>Spigot/Paper </b>environments.</p>
+<p>A high-performance, backwards-compatible, and asynchronous easy-to-use pathfinding library written in Java for 3D environments.
+<br> Pathetic leverages the <b>A* algorithm</b> with customizable heuristics for real-time pathfinding.</p>
 
 <h2>Key Features</h2>
 
@@ -23,7 +23,7 @@
 
 <h2>Installation</h2>
 
-To integrate pathetic into your project, follow the following steps:
+To integrate pathetic into your bukkit project, follow the following steps:
 <br>
 *(We advise you to relocate pathetic)*
 
@@ -40,7 +40,7 @@ To integrate pathetic into your project, follow the following steps:
 
 <dependency>
     <groupId>com.github.Metaphoriker.pathetic</groupId>
-    <artifactId>pathetic-mapping</artifactId>
+    <artifactId>pathetic-bukkit</artifactId>
     <version>VERSION</version>
 </dependency>
 ```
@@ -55,13 +55,44 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.Metaphoriker.pathetic:pathetic-mapping:VERSION'
+    implementation 'com.github.Metaphoriker.pathetic:pathetic-bukkit:VERSION'
 }
 ```
 
+<h3>Manual Pathetic</h3>
+If you want to leverage pathetic for your own implementation, you can use the following dependency:
+
+<h4>Maven</h4>
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>de.metaphoriker</groupId>
+    <artifactId>pathetic-engine</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
+
+<h4>Gradle</h4>
+```groovy
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    implementation 'de.metaphoriker:pathetic-engine:VERSION'
+}
+```
 <h2>Example Usage</h2>
 
-<p>See the <a href="https://github.com/Metaphoriker/pathetic/tree/trunk/pathetic-example">pathetic-example</a> module for a detailed example usage.</p>
+<p>See the <a href="https://github.com/Metaphoriker/pathetic/tree/trunk/pathetic-example">pathetic-example</a> module for a detailed bukkit example.</p>
 
 <h2>Documentation</h2>
 
