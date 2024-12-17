@@ -63,6 +63,7 @@ dependencies {
 If you want to leverage pathetic for your own implementation, you can use the following dependency:
 
 <h4>Maven</h4>
+
 ```xml
 <repositories>
     <repository>
