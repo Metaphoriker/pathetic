@@ -2,7 +2,6 @@ package de.metaphoriker.pathetic.api.pathing;
 
 import java.util.List;
 import java.util.concurrent.CompletionStage;
-import javax.annotation.Nullable;
 
 import de.metaphoriker.pathetic.api.pathing.hook.PathfinderHook;
 import de.metaphoriker.pathetic.api.pathing.result.PathState;
@@ -28,7 +27,7 @@ public interface Pathfinder {
   CompletionStage<PathfinderResult> findPath(
       @NonNull PathPosition start,
       @NonNull PathPosition target,
-      @Nullable List<@NonNull PathFilter> filters);
+      List<@NonNull PathFilter> filters);
 
   /**
    * Tries to find a Path between the two {@link PathPosition}'s provided with the given
@@ -53,8 +52,8 @@ public interface Pathfinder {
   CompletionStage<PathfinderResult> findPath(
       @NonNull PathPosition start,
       @NonNull PathPosition target,
-      @Nullable List<PathFilter> sharedFilters,
-      @Nullable List<@NonNull PathFilterStage> filterStages);
+      List<@NonNull PathFilter> sharedFilters,
+      List<@NonNull PathFilterStage> filterStages);
 
   /**
    * Aborts the running pathfinding process.
