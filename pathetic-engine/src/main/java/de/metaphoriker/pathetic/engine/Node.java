@@ -8,7 +8,7 @@ import lombok.Setter;
 import de.metaphoriker.pathetic.api.pathing.configuration.HeuristicWeights;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
-import de.metaphoriker.pathetic.util.ComputingCache;
+import de.metaphoriker.pathetic.engine.util.ComputingCache;
 
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

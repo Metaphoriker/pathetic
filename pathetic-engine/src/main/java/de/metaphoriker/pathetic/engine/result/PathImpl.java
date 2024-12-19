@@ -17,7 +17,7 @@ import lombok.Value;
 import de.metaphoriker.pathetic.api.pathing.result.Path;
 import de.metaphoriker.pathetic.api.util.ParameterizedSupplier;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
-import de.metaphoriker.pathetic.util.ErrorLogger;
+import de.metaphoriker.pathetic.engine.util.ErrorLogger;
 
 @Value
 public class PathImpl implements Path {

@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.provider.world;
 
-import de.metaphoriker.pathetic.util.ExpiringHashMap;
+import de.metaphoriker.pathetic.engine.util.ExpiringHashMap;
 import java.util.Map;
 import java.util.Optional;
 import org.bukkit.ChunkSnapshot;

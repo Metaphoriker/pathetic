@@ -10,9 +10,9 @@ import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
 import de.metaphoriker.pathetic.engine.Node;
 import de.metaphoriker.pathetic.engine.Offset;
-import de.metaphoriker.pathetic.util.ExpiringHashMap;
-import de.metaphoriker.pathetic.util.GridRegionData;
-import de.metaphoriker.pathetic.util.Tuple3;
+import de.metaphoriker.pathetic.engine.util.ExpiringHashMap;
+import de.metaphoriker.pathetic.engine.util.GridRegionData;
+import de.metaphoriker.pathetic.engine.util.Tuple3;
 import java.util.*;
 import org.jheaps.tree.FibonacciHeap;
 

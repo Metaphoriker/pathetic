@@ -1,4 +1,4 @@
-package de.metaphoriker.pathetic.util;
+package de.metaphoriker.pathetic.engine.util;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnel;

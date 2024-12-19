@@ -14,7 +14,7 @@ import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.engine.Node;
 import de.metaphoriker.pathetic.engine.result.PathImpl;
 import de.metaphoriker.pathetic.engine.result.PathfinderResultImpl;
-import de.metaphoriker.pathetic.util.ErrorLogger;
+import de.metaphoriker.pathetic.engine.util.ErrorLogger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

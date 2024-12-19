@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.util;
 
-import de.metaphoriker.pathetic.util.ErrorLogger;
+import de.metaphoriker.pathetic.engine.util.ErrorLogger;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import lombok.SneakyThrows;

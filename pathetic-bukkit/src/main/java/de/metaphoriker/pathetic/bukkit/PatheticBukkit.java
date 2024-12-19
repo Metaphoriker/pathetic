@@ -1,9 +1,9 @@
 package de.metaphoriker.pathetic.bukkit;
 
-import de.metaphoriker.pathetic.Pathetic;
+import de.metaphoriker.pathetic.engine.Pathetic;
 import de.metaphoriker.pathetic.bukkit.listener.ChunkInvalidateListener;
 import de.metaphoriker.pathetic.bukkit.util.BukkitVersionUtil;
-import de.metaphoriker.pathetic.util.ErrorLogger;
+import de.metaphoriker.pathetic.engine.util.ErrorLogger;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;

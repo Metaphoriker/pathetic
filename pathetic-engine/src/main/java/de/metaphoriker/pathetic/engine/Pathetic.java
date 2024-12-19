@@ -1,6 +1,6 @@
-package de.metaphoriker.pathetic;
+package de.metaphoriker.pathetic.engine;
 
-import de.metaphoriker.pathetic.util.ErrorLogger;
+import de.metaphoriker.pathetic.engine.util.ErrorLogger;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 

@@ -1,7 +1,7 @@
-package de.metaphoriker.pathetic.util;
+package de.metaphoriker.pathetic.engine.util;
 
 import lombok.extern.slf4j.Slf4j;
-import de.metaphoriker.pathetic.Pathetic;
+import de.metaphoriker.pathetic.engine.Pathetic;
 
 @Slf4j
 public class ErrorLogger {
