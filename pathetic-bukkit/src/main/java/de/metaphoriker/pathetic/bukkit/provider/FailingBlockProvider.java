@@ -7,7 +7,7 @@ import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.bukkit.provider.world.WorldDomain;
 import de.metaphoriker.pathetic.bukkit.util.BukkitVersionUtil;
 import de.metaphoriker.pathetic.bukkit.util.ChunkUtil;
-import de.metaphoriker.pathetic.provider.ChunkDataProviderResolver;
+import de.metaphoriker.pathetic.resolver.ChunkDataProviderResolver;
 import de.metaphoriker.pathetic.util.ErrorLogger;
 import java.util.Map;
 import java.util.Optional;

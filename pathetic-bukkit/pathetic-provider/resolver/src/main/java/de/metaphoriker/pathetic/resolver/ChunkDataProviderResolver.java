@@ -1,5 +1,6 @@
-package de.metaphoriker.pathetic.provider;
+package de.metaphoriker.pathetic.resolver;
 
+import de.metaphoriker.pathetic.provider.ChunkDataProvider;
 import de.metaphoriker.pathetic.provider.paper.PaperChunkDataProvider;
 import de.metaphoriker.pathetic.provider.spigot.SpigotChunkDataProviderResolver;
 import lombok.Getter;
