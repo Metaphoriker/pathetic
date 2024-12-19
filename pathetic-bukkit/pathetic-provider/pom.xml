@@ -7,6 +7,7 @@
         <artifactId>pathetic-main</artifactId>
         <groupId>de.metaphoriker</groupId>
         <version>3.3.1</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
