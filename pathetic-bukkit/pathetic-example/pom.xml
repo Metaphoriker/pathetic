@@ -15,7 +15,7 @@
     <version>3.3.1</version>
     <packaging>jar</packaging>
 
-    <name>PatheticTest</name>
+    <name>pathetic-example</name>
 
     <properties>
         <java.version>21</java.version>
