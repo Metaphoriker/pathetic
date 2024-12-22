@@ -133,11 +133,11 @@ abstract class AbstractPathfinder implements Pathfinder {
       nodeQueue.insert(startNode.getFCost(), startNode);
 
       Set<PathPosition> examinedPositions = new HashSet<>();
-      Depth depth = new Depth(1);
+      Depth depth = Depth.of(1);
       Node fallbackNode = startNode;
 
       while (!nodeQueue.isEmpty()
-          && depth.getDepth() <= pathfinderConfiguration.getMaxIterations()) {
+          && depth.getValue() <= pathfinderConfiguration.getMaxIterations()) {
 
         pathfinderHooks.forEach(hook -> hook.onPathfindingStep(new PathfindingContext(depth)));
 
@@ -237,7 +237,7 @@ abstract class AbstractPathfinder implements Pathfinder {
   }
 
   private Optional<PathfinderResult> maxIterationsReached(Depth depth, Node fallbackNode) {
-    if (depth.getDepth() > pathfinderConfiguration.getMaxIterations())
+    if (depth.getValue() > pathfinderConfiguration.getMaxIterations())
       return Optional.of(
           new PathfinderResultImpl(
               PathState.MAX_ITERATIONS_REACHED, fetchRetracedPath(fallbackNode)));
