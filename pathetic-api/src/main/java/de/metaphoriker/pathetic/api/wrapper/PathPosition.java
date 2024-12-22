@@ -237,9 +237,15 @@ public class PathPosition implements Cloneable {
         this.getBlockZ() + 0.5);
   }
 
+  /**
+   * Calculates the midpoint between the current position and the given end position.
+   *
+   * @param end The end position to calculate the midpoint with
+   * @return A new {@link PathPosition} representing the midpoint
+   */
   public PathPosition midPoint(PathPosition end) {
     return new PathPosition(
-        this.pathEnvironment, (this.x + end.x) / 2, (this.y + end.y) / 2, (this.z + end.z) / 2);
+      this.pathEnvironment, (this.x + end.x) / 2, (this.y + end.y) / 2, (this.z + end.z) / 2);
   }
 
   @Override
