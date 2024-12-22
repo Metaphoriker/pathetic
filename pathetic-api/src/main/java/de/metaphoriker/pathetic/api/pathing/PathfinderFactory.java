@@ -16,7 +16,7 @@ public abstract class PathfinderFactory<I extends PathfinderInitializer> {
    *
    * @param initializer The initializer to use for initializing the pathfinder.
    */
-  public PathfinderFactory(I initializer) {
+  protected PathfinderFactory(I initializer) {
     this.initializer = initializer;
   }
 
