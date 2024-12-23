@@ -26,8 +26,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.annotation.Nullable;
-import lombok.NonNull;
+
 import org.jheaps.tree.FibonacciHeap;
 
 /**
@@ -62,25 +61,24 @@ abstract class AbstractPathfinder implements Pathfinder {
   }
 
   @Override
-  public @NonNull CompletionStage<PathfinderResult> findPath(
-      @NonNull PathPosition start,
-      @NonNull PathPosition target,
-      @Nullable List<PathFilter> filters) {
+  public CompletionStage<PathfinderResult> findPath(
+      PathPosition start, PathPosition target, List<PathFilter> filters) {
     return findPath(start, target, filters, null);
   }
 
   @Override
-  public @NonNull CompletionStage<PathfinderResult> findPath(
-      @NonNull PathPosition start,
-      @NonNull PathPosition target,
-      @Nullable List<PathFilter> sharedFilters,
-      @Nullable List<@NonNull PathFilterStage> filterStages) {
+  public CompletionStage<PathfinderResult> findPath(
+      PathPosition start,
+      PathPosition target,
+      List<PathFilter> sharedFilters,
+      List<PathFilterStage> filterStages) {
     if (sharedFilters == null) sharedFilters = Collections.emptyList();
     if (filterStages == null) filterStages = Collections.emptyList();
 
     if (shouldSkipPathing(start, target)) {
-      return CompletableFuture.completedFuture(new PathfinderResultImpl(
-                  PathState.INITIALLY_FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET)));
+      return CompletableFuture.completedFuture(
+          new PathfinderResultImpl(
+              PathState.INITIALLY_FAILED, new PathImpl(start, target, EMPTY_LINKED_HASHSET)));
     }
 
     return initiatePathing(start, target, sharedFilters, filterStages);
@@ -251,7 +249,7 @@ abstract class AbstractPathfinder implements Pathfinder {
     return Optional.empty();
   }
 
-  private Path fetchRetracedPath(@NonNull Node node) {
+  private Path fetchRetracedPath(Node node) {
     if (node.getParent() == null)
       return new PathImpl(
           node.getStart(), node.getTarget(), Collections.singletonList(node.getPosition()));

@@ -1,7 +1,6 @@
 package de.metaphoriker.pathetic.engine.util;
 
 import java.util.concurrent.ConcurrentHashMap;
-import lombok.Getter;
 
 /**
  * A {@link ConcurrentHashMap} that removes entries on access if they are expired.
@@ -52,12 +51,16 @@ public class ExpiringHashMap<K, V> extends ConcurrentHashMap<K, ExpiringHashMap.
 
   public static class Entry<V> {
 
-    @Getter private final V value;
+    private final V value;
     private final long expirationTime;
 
     public Entry(V value) {
       this.value = value;
       this.expirationTime = System.currentTimeMillis() + EXPIRATION_TIME;
+    }
+
+    public V getValue() {
+      return value;
     }
 
     public boolean isExpired() {

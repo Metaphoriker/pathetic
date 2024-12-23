@@ -10,36 +10,45 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Value;
 import de.metaphoriker.pathetic.api.pathing.result.Path;
 import de.metaphoriker.pathetic.api.util.ParameterizedSupplier;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.engine.util.ErrorLogger;
 
-@Value
 public class PathImpl implements Path {
 
-  @NonNull @Getter(AccessLevel.NONE) Iterable<PathPosition> positions;
-  @NonNull PathPosition start;
-  @NonNull PathPosition end;
+  private final Iterable<PathPosition> positions;
+  private final PathPosition start;
+  private final PathPosition end;
 
-  int length;
+  private final int length;
 
   public PathImpl(
-      @NonNull PathPosition start,
-      @NonNull PathPosition end,
-      @NonNull Iterable<@NonNull PathPosition> positions) {
+       PathPosition start,
+       PathPosition end,
+       Iterable< PathPosition> positions) {
     this.start = start;
     this.end = end;
     this.positions = positions;
     this.length = Iterables.size(positions);
   }
 
+  public Iterable<PathPosition> getPositions() {
+    return positions;
+  }
+
   @Override
-  public @NonNull Iterator<PathPosition> iterator() {
+  public PathPosition getStart() {
+    return start;
+  }
+
+  @Override
+  public PathPosition getEnd() {
+    return end;
+  }
+
+  @Override
+  public  Iterator<PathPosition> iterator() {
     return positions.iterator();
   }
 
@@ -125,7 +134,7 @@ public class PathImpl implements Path {
     return new PathImpl(start, Iterables.getLast(limitedPositions), limitedPositions);
   }
 
-  @NonNull
+  
   @Override
   public Path mutatePositions(ParameterizedSupplier<PathPosition> mutator) {
     List<PathPosition> positionList = new LinkedList<>();

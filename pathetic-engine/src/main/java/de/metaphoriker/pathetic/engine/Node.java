@@ -1,21 +1,15 @@
 package de.metaphoriker.pathetic.engine;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import de.metaphoriker.pathetic.api.pathing.configuration.HeuristicWeights;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
 import de.metaphoriker.pathetic.engine.util.ComputingCache;
 
-@Getter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@RequiredArgsConstructor
+import java.util.Objects;
+
 public class Node implements Comparable<Node> {
 
-  @EqualsAndHashCode.Include private final PathPosition position;
+  private final PathPosition position;
   private final PathPosition start;
   private final PathPosition target;
   private final HeuristicWeights heuristicWeights;
@@ -25,7 +19,48 @@ public class Node implements Comparable<Node> {
   private final ComputingCache<Double> gCostCache = new ComputingCache<>(this::calculateGCost);
   private final ComputingCache<Double> heuristic = new ComputingCache<>(this::heuristic);
 
-  @Setter private Node parent;
+  private Node parent;
+
+  public Node(
+      PathPosition position,
+      PathPosition start,
+      PathPosition target,
+      HeuristicWeights heuristicWeights,
+      int depth) {
+    this.position = position;
+    this.start = start;
+    this.target = target;
+    this.heuristicWeights = heuristicWeights;
+    this.depth = depth;
+  }
+
+  public PathPosition getPosition() {
+    return position;
+  }
+
+  public PathPosition getStart() {
+    return start;
+  }
+
+  public PathPosition getTarget() {
+    return target;
+  }
+
+  public ComputingCache<Double> getHeuristic() {
+    return heuristic;
+  }
+
+  public Node getParent() {
+    return parent;
+  }
+
+  public int getDepth() {
+    return depth;
+  }
+
+  public void setParent(Node parent) {
+    this.parent = parent;
+  }
 
   public boolean isTarget() {
     return this.position.getBlockX() == target.getBlockX()
@@ -91,7 +126,19 @@ public class Node implements Comparable<Node> {
   }
 
   @Override
-  public int compareTo(@NonNull Node o) {
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    Node node = (Node) o;
+    return Objects.equals(position, node.position);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(position);
+  }
+
+  @Override
+  public int compareTo(Node o) {
     int fCostComparison = Double.compare(this.getFCost(), o.getFCost());
     if (fCostComparison != 0) {
       return fCostComparison;

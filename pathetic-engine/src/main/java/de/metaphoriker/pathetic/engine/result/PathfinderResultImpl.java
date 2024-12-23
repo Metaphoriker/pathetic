@@ -1,16 +1,18 @@
 package de.metaphoriker.pathetic.engine.result;
 
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import de.metaphoriker.pathetic.api.pathing.result.Path;
 import de.metaphoriker.pathetic.api.pathing.result.PathState;
 import de.metaphoriker.pathetic.api.pathing.result.PathfinderResult;
 
-@AllArgsConstructor
 public class PathfinderResultImpl implements PathfinderResult {
 
   private final PathState pathState;
   private final Path path;
+
+  public PathfinderResultImpl(PathState pathState, Path path) {
+    this.pathState = pathState;
+    this.path = path;
+  }
 
   @Override
   public boolean successful() {
@@ -30,12 +32,10 @@ public class PathfinderResultImpl implements PathfinderResult {
   }
 
   @Override
-  @NonNull
   public PathState getPathState() {
     return this.pathState;
   }
 
-  @NonNull
   @Override
   public Path getPath() {
     return this.path;

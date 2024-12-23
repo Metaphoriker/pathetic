@@ -1,12 +1,8 @@
 package de.metaphoriker.pathetic.engine;
 
-import java.util.stream.Stream;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
+import java.util.stream.Stream;
 
-@Getter
-@AllArgsConstructor
 public enum Offset {
   VERTICAL_AND_HORIZONTAL(
       new PathVector[] {
@@ -54,4 +50,12 @@ public enum Offset {
           .toArray(PathVector[]::new));
 
   private final PathVector[] vectors;
+
+  Offset(PathVector[] vectors) {
+    this.vectors = vectors;
+  }
+
+  public PathVector[] getVectors() {
+    return vectors;
+  }
 }
