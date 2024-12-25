@@ -47,7 +47,6 @@ public class DangerousMaterialsFilter implements PathFilter {
           BukkitNavigationPoint bukkitNavigationPoint =
               (BukkitNavigationPoint) navigationPointProvider.getNavigationPoint(position.add(x, y, z));
           if (dangerousMaterials.contains(bukkitNavigationPoint.getMaterial())) {
-            System.out.println("Dangerous material found: " + bukkitNavigationPoint.getMaterial());
             return false; // The node is near a dangerous material, so it's excluded.
           }
         }
