@@ -1,6 +1,5 @@
 package de.metaphoriker.pathetic.api.pathing.result;
 
-import lombok.NonNull;
 import de.metaphoriker.pathetic.api.util.ParameterizedSupplier;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
@@ -63,7 +62,6 @@ public interface Path extends Iterable<PathPosition> {
    * @param mutator the {@link ParameterizedSupplier} to mutate the positions with
    * @return {@link Path} the new Path
    */
-  @NonNull
   Path mutatePositions(ParameterizedSupplier<PathPosition> mutator);
 
   /**
@@ -71,7 +69,6 @@ public interface Path extends Iterable<PathPosition> {
    *
    * @return {@link PathPosition} The position of the start
    */
-  @NonNull
   PathPosition getStart();
 
   /**
@@ -79,6 +76,5 @@ public interface Path extends Iterable<PathPosition> {
    *
    * @return {@link PathPosition} The position of the target
    */
-  @NonNull
   PathPosition getEnd();
 }

@@ -1,22 +1,21 @@
 package de.metaphoriker.pathetic.api.wrapper;
 
 import java.util.UUID;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.Value;
 
-@Value
-@Getter
-@ToString
-@RequiredArgsConstructor
 /** Represents the pathing environment */
-public class PathEnvironment {
+public final class PathEnvironment {
 
-  UUID uuid;
-  String name;
-  Integer minHeight;
-  Integer maxHeight;
+  private final UUID uuid;
+  private final String name;
+  private final Integer minHeight;
+  private final Integer maxHeight;
+
+  public PathEnvironment(UUID uuid, String name, Integer minHeight, Integer maxHeight) {
+    this.uuid = uuid;
+    this.name = name;
+    this.minHeight = minHeight;
+    this.maxHeight = maxHeight;
+  }
 
   @Override
   public boolean equals(final Object o) {
@@ -35,5 +34,33 @@ public class PathEnvironment {
     int result = 1;
     result = result * PRIME + this.name.hashCode();
     return result;
+  }
+
+  public UUID getUuid() {
+    return this.uuid;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public Integer getMinHeight() {
+    return this.minHeight;
+  }
+
+  public Integer getMaxHeight() {
+    return this.maxHeight;
+  }
+
+  public String toString() {
+    return "PathEnvironment(uuid="
+        + this.getUuid()
+        + ", name="
+        + this.getName()
+        + ", minHeight="
+        + this.getMinHeight()
+        + ", maxHeight="
+        + this.getMaxHeight()
+        + ")";
   }
 }

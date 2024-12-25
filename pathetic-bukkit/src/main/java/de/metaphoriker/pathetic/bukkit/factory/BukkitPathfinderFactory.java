@@ -3,16 +3,15 @@ package de.metaphoriker.pathetic.bukkit.factory;
 import de.metaphoriker.pathetic.api.pathing.Pathfinder;
 import de.metaphoriker.pathetic.api.pathing.PathfinderFactory;
 import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
-import de.metaphoriker.pathetic.api.provider.BlockProvider;
-import de.metaphoriker.pathetic.bukkit.provider.FailingBlockProvider;
+import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
+import de.metaphoriker.pathetic.bukkit.provider.FailingNavigationPointProvider;
+import de.metaphoriker.pathetic.bukkit.provider.LoadingNavigationPointProvider;
 import de.metaphoriker.pathetic.engine.pathfinder.AStarPathfinder;
 
 public class BukkitPathfinderFactory extends PathfinderFactory<BukkitPathfinderInitializer> {
 
   /**
    * Creates a new {@link PathfinderFactory} with the given initializer.
-   *
-   * @param initializer The initializer to use for initializing the pathfinder.
    */
   public BukkitPathfinderFactory() {
     super(new BukkitPathfinderInitializer());
@@ -25,9 +24,9 @@ public class BukkitPathfinderFactory extends PathfinderFactory<BukkitPathfinderI
     return pathfinder;
   }
 
-  private BlockProvider getBlockProvider(PathfinderConfiguration configuration) {
+  private NavigationPointProvider getBlockProvider(PathfinderConfiguration configuration) {
     return configuration.isLoadingChunks()
-        ? new FailingBlockProvider.RequestingBlockProvider()
-        : new FailingBlockProvider();
+        ? new LoadingNavigationPointProvider()
+        : new FailingNavigationPointProvider();
   }
 }

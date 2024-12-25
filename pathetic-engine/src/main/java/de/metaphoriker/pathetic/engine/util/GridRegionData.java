@@ -44,9 +44,9 @@ public class GridRegionData {
   public GridRegionData() {
     Funnel<PathPosition> pathPositionFunnel =
         (pathPosition, into) ->
-            into.putInt(pathPosition.getBlockX())
-                .putInt(pathPosition.getBlockY())
-                .putInt(pathPosition.getBlockZ());
+            into.putInt(pathPosition.getFlooredX())
+                .putInt(pathPosition.getFlooredY())
+                .putInt(pathPosition.getFlooredZ());
 
     bloomFilter = BloomFilter.create(pathPositionFunnel, DEFAULT_BLOOM_FILTER_SIZE, DEFAULT_FPP);
     regionalExaminedPositions = new HashSet<>();

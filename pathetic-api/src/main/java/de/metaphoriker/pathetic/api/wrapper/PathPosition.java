@@ -1,22 +1,22 @@
 package de.metaphoriker.pathetic.api.wrapper;
 
-import java.util.Objects;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.ToString;
 import de.metaphoriker.pathetic.api.util.NumberUtils;
+import java.util.Objects;
 
-@AllArgsConstructor
-@Getter
-@ToString
 public class PathPosition implements Cloneable {
 
-  @NonNull private PathEnvironment pathEnvironment;
+  private PathEnvironment pathEnvironment;
 
   private double x;
   private double y;
   private double z;
+
+  public PathPosition(PathEnvironment pathEnvironment, double x, double y, double z) {
+    this.pathEnvironment = pathEnvironment;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
 
   /**
    * Interpolates between two positions based on the given progress.
@@ -39,9 +39,9 @@ public class PathPosition implements Cloneable {
    * @return True if the positions are in the same block
    */
   public boolean isInSameBlock(PathPosition otherPosition) {
-    return this.getBlockX() == otherPosition.getBlockX()
-        && this.getBlockY() == otherPosition.getBlockY()
-        && this.getBlockZ() == otherPosition.getBlockZ();
+    return this.getFlooredX() == otherPosition.getFlooredX()
+        && this.getFlooredY() == otherPosition.getFlooredY()
+        && this.getFlooredZ() == otherPosition.getFlooredZ();
   }
 
   /**
@@ -51,9 +51,9 @@ public class PathPosition implements Cloneable {
    * @return the distance
    */
   public int manhattanDistance(PathPosition otherPosition) {
-    return Math.abs(this.getBlockX() - otherPosition.getBlockX())
-        + Math.abs(this.getBlockY() - otherPosition.getBlockY())
-        + Math.abs(this.getBlockZ() - otherPosition.getBlockZ());
+    return Math.abs(this.getFlooredX() - otherPosition.getFlooredX())
+        + Math.abs(this.getFlooredY() - otherPosition.getFlooredY())
+        + Math.abs(this.getFlooredZ() - otherPosition.getFlooredZ());
   }
 
   /**
@@ -134,7 +134,7 @@ public class PathPosition implements Cloneable {
    *
    * @return The X coordinate of the block
    */
-  public int getBlockX() {
+  public int getFlooredX() {
     return (int) Math.floor(this.x);
   }
 
@@ -143,7 +143,7 @@ public class PathPosition implements Cloneable {
    *
    * @return The Y coordinate of the block
    */
-  public int getBlockY() {
+  public int getFlooredY() {
     return (int) Math.floor(this.y);
   }
 
@@ -152,7 +152,7 @@ public class PathPosition implements Cloneable {
    *
    * @return The Z coordinate of the block
    */
-  public int getBlockZ() {
+  public int getFlooredZ() {
     return (int) Math.floor(this.z);
   }
 
@@ -164,7 +164,6 @@ public class PathPosition implements Cloneable {
    * @param z The value to add to the z
    * @return A new {@link PathPosition}
    */
-  @NonNull
   public PathPosition add(final double x, final double y, final double z) {
     return new PathPosition(this.pathEnvironment, this.x + x, this.y + y, this.z + z);
   }
@@ -175,7 +174,6 @@ public class PathPosition implements Cloneable {
    * @param vector The {@link PathVector} who's values will be added
    * @return A new {@link PathPosition}
    */
-  @NonNull
   public PathPosition add(final PathVector vector) {
     return add(vector.getX(), vector.getY(), vector.getZ());
   }
@@ -188,7 +186,6 @@ public class PathPosition implements Cloneable {
    * @param z The value to subtract from the z
    * @return A new {@link PathPosition}
    */
-  @NonNull
   public PathPosition subtract(final double x, final double y, final double z) {
     return new PathPosition(this.pathEnvironment, this.x - x, this.y - y, this.z - z);
   }
@@ -199,7 +196,6 @@ public class PathPosition implements Cloneable {
    * @param vector The {@link PathVector} who's values will be subtracted
    * @return A new {@link PathPosition}
    */
-  @NonNull
   public PathPosition subtract(final PathVector vector) {
     return subtract(vector.getX(), vector.getY(), vector.getZ());
   }
@@ -209,7 +205,6 @@ public class PathPosition implements Cloneable {
    *
    * @return A {@link PathVector} of the x,y,z
    */
-  @NonNull
   public PathVector toVector() {
     return new PathVector(this.x, this.y, this.z);
   }
@@ -221,7 +216,7 @@ public class PathPosition implements Cloneable {
    */
   public PathPosition floor() {
     return new PathPosition(
-        this.pathEnvironment, this.getBlockX(), this.getBlockY(), this.getBlockZ());
+        this.pathEnvironment, this.getFlooredX(), this.getFlooredY(), this.getFlooredZ());
   }
 
   /**
@@ -232,9 +227,9 @@ public class PathPosition implements Cloneable {
   public PathPosition mid() {
     return new PathPosition(
         this.pathEnvironment,
-        this.getBlockX() + 0.5,
-        this.getBlockY() + 0.5,
-        this.getBlockZ() + 0.5);
+        this.getFlooredX() + 0.5,
+        this.getFlooredY() + 0.5,
+        this.getFlooredZ() + 0.5);
   }
 
   /**
@@ -245,7 +240,7 @@ public class PathPosition implements Cloneable {
    */
   public PathPosition midPoint(PathPosition end) {
     return new PathPosition(
-      this.pathEnvironment, (this.x + end.x) / 2, (this.y + end.y) / 2, (this.z + end.z) / 2);
+        this.pathEnvironment, (this.x + end.x) / 2, (this.y + end.y) / 2, (this.z + end.z) / 2);
   }
 
   @Override
@@ -279,5 +274,33 @@ public class PathPosition implements Cloneable {
   @Override
   public int hashCode() {
     return Objects.hash(pathEnvironment, x, y, z);
+  }
+
+  public PathEnvironment getPathEnvironment() {
+    return this.pathEnvironment;
+  }
+
+  public double getX() {
+    return this.x;
+  }
+
+  public double getY() {
+    return this.y;
+  }
+
+  public double getZ() {
+    return this.z;
+  }
+
+  public String toString() {
+    return "PathPosition(pathEnvironment="
+        + this.getPathEnvironment()
+        + ", x="
+        + this.getX()
+        + ", y="
+        + this.getY()
+        + ", z="
+        + this.getZ()
+        + ")";
   }
 }

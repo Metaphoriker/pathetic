@@ -2,10 +2,9 @@ package de.metaphoriker.pathetic.example.filter;
 
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
-import de.metaphoriker.pathetic.api.provider.BlockProvider;
-import de.metaphoriker.pathetic.api.wrapper.PathBlock;
+import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
-import de.metaphoriker.pathetic.bukkit.provider.BukkitBlockInformation;
+import de.metaphoriker.pathetic.bukkit.provider.BukkitNavigationPoint;
 import java.util.EnumSet;
 import org.bukkit.Material;
 
@@ -41,14 +40,14 @@ public class DangerousMaterialsFilter implements PathFilter {
   @Override
   public boolean filter(PathValidationContext context) {
     PathPosition position = context.getPosition();
-    BlockProvider blockProvider = context.getBlockProvider();
+    NavigationPointProvider navigationPointProvider = context.getNavigationPointProvider();
     for (int x = -radius; x <= radius; x++) {
       for (int y = -radius; y <= radius; y++) {
         for (int z = -radius; z <= radius; z++) {
-          PathBlock block = blockProvider.getBlock(position.add(x, y, z));
-          BukkitBlockInformation bukkitBlockInformation =
-              (BukkitBlockInformation) block.getBlockInformation();
-          if (dangerousMaterials.contains(bukkitBlockInformation.getMaterial())) {
+          BukkitNavigationPoint bukkitNavigationPoint =
+              (BukkitNavigationPoint) navigationPointProvider.getNavigationPoint(position.add(x, y, z));
+          if (dangerousMaterials.contains(bukkitNavigationPoint.getMaterial())) {
+            System.out.println("Dangerous material found: " + bukkitNavigationPoint.getMaterial());
             return false; // The node is near a dangerous material, so it's excluded.
           }
         }

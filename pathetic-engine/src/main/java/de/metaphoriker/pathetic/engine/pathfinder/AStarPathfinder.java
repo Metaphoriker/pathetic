@@ -4,7 +4,7 @@ import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguratio
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilter;
 import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
 import de.metaphoriker.pathetic.api.pathing.filter.PathValidationContext;
-import de.metaphoriker.pathetic.api.provider.BlockProvider;
+import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
 import de.metaphoriker.pathetic.api.wrapper.Depth;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
@@ -27,11 +27,11 @@ public class AStarPathfinder extends AbstractPathfinder {
   private final Map<Tuple3<Integer>, ExpiringHashMap.Entry<GridRegionData>> gridMap =
       new ExpiringHashMap<>();
 
-  private final BlockProvider blockProvider;
+  private final NavigationPointProvider navigationPointProvider;
 
-  public AStarPathfinder(BlockProvider blockProvider, PathfinderConfiguration pathfinderConfiguration) {
+  public AStarPathfinder(NavigationPointProvider navigationPointProvider, PathfinderConfiguration pathfinderConfiguration) {
     super(pathfinderConfiguration);
-    this.blockProvider = blockProvider;
+    this.navigationPointProvider = navigationPointProvider;
   }
 
   @Override
@@ -81,8 +81,8 @@ public class AStarPathfinder extends AbstractPathfinder {
   }
 
   private boolean isDiagonalMove(Node from, Node to) {
-    int xDifference = Math.abs(from.getPosition().getBlockX() - to.getPosition().getBlockX());
-    int zDifference = Math.abs(from.getPosition().getBlockZ() - to.getPosition().getBlockZ());
+    int xDifference = Math.abs(from.getPosition().getFlooredX() - to.getPosition().getFlooredX());
+    int zDifference = Math.abs(from.getPosition().getFlooredZ() - to.getPosition().getFlooredZ());
 
     return xDifference != 0 && zDifference != 0;
   }
@@ -93,7 +93,7 @@ public class AStarPathfinder extends AbstractPathfinder {
    */
   private boolean isReachable(
       Node from, Node to, List<PathFilter> filters, List<PathFilterStage> filterStages) {
-    boolean hasYDifference = from.getPosition().getBlockY() != to.getPosition().getBlockY();
+    boolean hasYDifference = from.getPosition().getFlooredY() != to.getPosition().getFlooredY();
     PathVector[] offsets = Offset.VERTICAL_AND_HORIZONTAL.getVectors();
 
     for (PathVector vector1 : offsets) {
@@ -127,11 +127,11 @@ public class AStarPathfinder extends AbstractPathfinder {
       Node from, Node to, PathVector vector1, boolean hasHeightDifference) {
     if (!hasHeightDifference) return true;
 
-    int yDifference = from.getPosition().getBlockY() - to.getPosition().getBlockY();
+    int yDifference = from.getPosition().getFlooredY() - to.getPosition().getFlooredY();
     Node neighbour3 = createNeighbourNode(from, vector1.add(new PathVector(0, yDifference, 0)));
 
     // TODO: 15.12.2024: do we really need to check if the block is passable, or can we use the filters?
-    return blockProvider.getBlock(neighbour3.getPosition()).getBlockInformation().isPassable();
+    return navigationPointProvider.getNavigationPoint(neighbour3.getPosition()).isTraversable();
   }
 
   private Collection<Node> fetchValidNeighbours(
@@ -171,9 +171,9 @@ public class AStarPathfinder extends AbstractPathfinder {
   private boolean isNodeInvalid(
       Node node, List<PathFilter> filters, List<PathFilterStage> filterStages) {
 
-    int gridX = node.getPosition().getBlockX() / DEFAULT_GRID_CELL_SIZE;
-    int gridY = node.getPosition().getBlockY() / DEFAULT_GRID_CELL_SIZE;
-    int gridZ = node.getPosition().getBlockZ() / DEFAULT_GRID_CELL_SIZE;
+    int gridX = node.getPosition().getFlooredX() / DEFAULT_GRID_CELL_SIZE;
+    int gridY = node.getPosition().getFlooredY() / DEFAULT_GRID_CELL_SIZE;
+    int gridZ = node.getPosition().getFlooredZ() / DEFAULT_GRID_CELL_SIZE;
 
     GridRegionData regionData =
         gridMap
@@ -212,7 +212,7 @@ public class AStarPathfinder extends AbstractPathfinder {
               node.getParent() != null ? node.getParent().getPosition() : null,
               node.getStart(),
               node.getTarget(),
-            blockProvider);
+            navigationPointProvider);
 
       if (!filter.filter(context)) {
         return false;
@@ -231,7 +231,7 @@ public class AStarPathfinder extends AbstractPathfinder {
               node.getParent() != null ? node.getParent().getPosition() : null,
               node.getStart(),
               node.getTarget(),
-            blockProvider))) {
+            navigationPointProvider))) {
         return true;
       }
     }
@@ -239,7 +239,7 @@ public class AStarPathfinder extends AbstractPathfinder {
   }
 
   private boolean isWithinWorldBounds(PathPosition position) {
-    return position.getPathEnvironment().getMinHeight() < position.getBlockY()
-        && position.getBlockY() < position.getPathEnvironment().getMaxHeight();
+    return position.getPathEnvironment().getMinHeight() < position.getFlooredY()
+        && position.getFlooredY() < position.getPathEnvironment().getMaxHeight();
   }
 }

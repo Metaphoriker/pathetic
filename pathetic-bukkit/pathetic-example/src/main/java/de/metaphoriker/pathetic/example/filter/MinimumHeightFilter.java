@@ -29,6 +29,6 @@ public class MinimumHeightFilter implements PathFilter {
   @Override
   public boolean filter(PathValidationContext context) {
     PathPosition position = context.getPosition();
-    return position.getBlockY() >= minHeight;
+    return position.getFlooredY() >= minHeight;
   }
 }

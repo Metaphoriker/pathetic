@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.listener;
 
-import de.metaphoriker.pathetic.bukkit.provider.FailingBlockProvider;
+import de.metaphoriker.pathetic.bukkit.provider.FailingNavigationPointProvider;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -69,7 +69,7 @@ public class ChunkInvalidateListener implements Listener {
 
   private void handleEvent(Block... blocks) {
     for (Block block : blocks)
-      FailingBlockProvider.invalidateChunk(
+      FailingNavigationPointProvider.invalidateChunk(
           block.getWorld().getUID(), block.getChunk().getX(), block.getChunk().getZ());
   }
 }

@@ -2,15 +2,12 @@ package de.metaphoriker.pathetic.bukkit.mapper;
 
 import java.util.Arrays;
 
-import de.metaphoriker.pathetic.bukkit.provider.BukkitBlockInformation;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
-import de.metaphoriker.pathetic.api.wrapper.PathBlock;
 import de.metaphoriker.pathetic.api.wrapper.PathEnvironment;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.api.wrapper.PathVector;
@@ -56,18 +53,6 @@ public class BukkitMapper {
   @NonNull
   public PathVector toPathVector(Vector vector) {
     return new PathVector(vector.getX(), vector.getY(), vector.getZ());
-  }
-
-  @NonNull
-  public Block toBlock(@NonNull PathBlock pathBlock) {
-    return toLocation(pathBlock.getPathPosition()).getBlock();
-  }
-
-  @NonNull
-  public PathBlock toPathBlock(@NonNull Block block) {
-    return new PathBlock(
-        new PathPosition(toPathWorld(block.getWorld()), block.getX(), block.getY(), block.getZ()),
-        new BukkitBlockInformation(block.getType(), block.getState()));
   }
 
   public World toWorld(@NonNull PathEnvironment pathEnvironment) {

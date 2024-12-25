@@ -1,10 +1,11 @@
 package de.metaphoriker.pathetic.api.util;
 
-import lombok.experimental.UtilityClass;
-
 /** Utility class for common number operations. */
-@UtilityClass
 public final class NumberUtils {
+
+  private NumberUtils() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * Interpolates between two values based on the given progress.

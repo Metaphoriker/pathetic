@@ -63,9 +63,9 @@ public class Node implements Comparable<Node> {
   }
 
   public boolean isTarget() {
-    return this.position.getBlockX() == target.getBlockX()
-        && this.position.getBlockY() == target.getBlockY()
-        && this.position.getBlockZ() == target.getBlockZ();
+    return this.position.getFlooredX() == target.getFlooredX()
+        && this.position.getFlooredY() == target.getFlooredY()
+        && this.position.getFlooredZ() == target.getFlooredZ();
   }
 
   /**
@@ -102,14 +102,14 @@ public class Node implements Comparable<Node> {
     double manhattanDistance = this.position.manhattanDistance(target);
     double octileDistance = this.position.octileDistance(target);
     double perpendicularDistance = calculatePerpendicularDistance();
-    double heightDifference = Math.abs(this.position.getBlockY() - target.getBlockY());
+    double heightDifference = Math.abs(this.position.getFlooredY() - target.getFlooredY());
 
     double manhattanWeight = heuristicWeights.getManhattanWeight();
     double octileWeight = heuristicWeights.getOctileWeight();
     double perpendicularWeight = heuristicWeights.getPerpendicularWeight();
     double heightWeight = heuristicWeights.getHeightWeight();
 
-    double directionalPenalty = Math.abs(this.position.getBlockY() - start.getBlockY());
+    double directionalPenalty = Math.abs(this.position.getFlooredY() - start.getFlooredY());
 
     return (manhattanDistance * manhattanWeight)
         + (octileDistance * octileWeight)

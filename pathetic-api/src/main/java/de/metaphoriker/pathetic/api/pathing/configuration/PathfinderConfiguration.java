@@ -1,22 +1,10 @@
 package de.metaphoriker.pathetic.api.pathing.configuration;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import lombok.With;
-
 /**
  * Defines a set of configurable parameters that govern the behavior of the A* pathfinding
  * algorithm. By adjusting these parameters, you can fine-tune the pathfinding process to suit the
  * specific needs of your Minecraft environment.
  */
-@With
-@Value
-@Getter
-@Builder(toBuilder = true, access = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathfinderConfiguration {
 
   /**
@@ -25,33 +13,33 @@ public class PathfinderConfiguration {
    *
    * @default 5000
    */
-  @Builder.Default int maxIterations = 5000;
+  private final int maxIterations;
 
   /**
    * The maximum permissible length of a calculated path (in blocks). Use this to constrain long
    * searches that could impact performance. A value of 0 indicates no limit.
    */
-  int maxLength;
+  private final int maxLength;
 
   /**
    * Determines whether pathfinding calculations should be executed asynchronously in a separate
    * thread. This can improve responsiveness in the main thread, but may introduce synchronization
    * complexities.
    */
-  boolean async;
+  private final boolean async;
 
   /**
    * If pathfinding fails, this parameter determines whether the algorithm should fall back to the
    * last successfully calculated path. This can help maintain progress, but might use an outdated
    * path.
    */
-  @Builder.Default boolean allowingFallback = true;
+  private final boolean allowingFallback;
 
   /**
    * Controls whether chunks should be loaded or generated as needed during the pathfinding process.
    * This is essential for exploring uncharted areas, but may impact performance.
    */
-  boolean loadingChunks;
+  private final boolean loadingChunks;
 
   /**
    * The set of weights used to calculate heuristics within the A* algorithm. These influence the
@@ -59,20 +47,21 @@ public class PathfinderConfiguration {
    *
    * @default HeuristicWeights.NATURAL_PATH_WEIGHTS
    */
-  @Builder.Default HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
+  private final HeuristicWeights heuristicWeights;
 
-  /**
-   * @return A new {@link PathfinderConfiguration} with default parameters but async.
-   */
-  public static PathfinderConfiguration createAsyncConfiguration() {
-    return builder().async(true).build();
-  }
-
-  /**
-   * @return A new {@link PathfinderConfiguration} with default parameters.
-   */
-  public static PathfinderConfiguration createConfiguration() {
-    return builder().build();
+  private PathfinderConfiguration(
+      int maxIterations,
+      int maxLength,
+      boolean async,
+      boolean allowingFallback,
+      boolean loadingChunks,
+      HeuristicWeights heuristicWeights) {
+    this.maxIterations = maxIterations;
+    this.maxLength = maxLength;
+    this.async = async;
+    this.allowingFallback = allowingFallback;
+    this.loadingChunks = loadingChunks;
+    this.heuristicWeights = heuristicWeights;
   }
 
   /**
@@ -94,5 +83,154 @@ public class PathfinderConfiguration {
         .loadingChunks(pathfinderConfiguration.loadingChunks)
         .heuristicWeights(pathfinderConfiguration.heuristicWeights)
         .build();
+  }
+
+  public static PathfinderConfigurationBuilder builder() {
+    return new PathfinderConfigurationBuilder();
+  }
+
+  public int getMaxIterations() {
+    return this.maxIterations;
+  }
+
+  public int getMaxLength() {
+    return this.maxLength;
+  }
+
+  public boolean isAsync() {
+    return this.async;
+  }
+
+  public boolean isAllowingFallback() {
+    return this.allowingFallback;
+  }
+
+  public boolean isLoadingChunks() {
+    return this.loadingChunks;
+  }
+
+  public HeuristicWeights getHeuristicWeights() {
+    return this.heuristicWeights;
+  }
+
+  public String toString() {
+    return "PathfinderConfiguration(maxIterations="
+        + this.getMaxIterations()
+        + ", maxLength="
+        + this.getMaxLength()
+        + ", async="
+        + this.isAsync()
+        + ", allowingFallback="
+        + this.isAllowingFallback()
+        + ", loadingChunks="
+        + this.isLoadingChunks()
+        + ", heuristicWeights="
+        + this.getHeuristicWeights()
+        + ")";
+  }
+
+  public boolean equals(final Object o) {
+    if (o == this) return true;
+    if (!(o instanceof PathfinderConfiguration)) return false;
+    final PathfinderConfiguration other = (PathfinderConfiguration) o;
+    if (!other.canEqual((Object) this)) return false;
+    if (this.getMaxIterations() != other.getMaxIterations()) return false;
+    if (this.getMaxLength() != other.getMaxLength()) return false;
+    if (this.isAsync() != other.isAsync()) return false;
+    if (this.isAllowingFallback() != other.isAllowingFallback()) return false;
+    if (this.isLoadingChunks() != other.isLoadingChunks()) return false;
+    final Object this$heuristicWeights = this.getHeuristicWeights();
+    final Object other$heuristicWeights = other.getHeuristicWeights();
+    if (this$heuristicWeights == null
+        ? other$heuristicWeights != null
+        : !this$heuristicWeights.equals(other$heuristicWeights)) return false;
+    return true;
+  }
+
+  protected boolean canEqual(final Object other) {
+    return other instanceof PathfinderConfiguration;
+  }
+
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    result = result * PRIME + this.getMaxIterations();
+    result = result * PRIME + this.getMaxLength();
+    result = result * PRIME + (this.isAsync() ? 79 : 97);
+    result = result * PRIME + (this.isAllowingFallback() ? 79 : 97);
+    result = result * PRIME + (this.isLoadingChunks() ? 79 : 97);
+    final Object $heuristicWeights = this.getHeuristicWeights();
+    result = result * PRIME + ($heuristicWeights == null ? 43 : $heuristicWeights.hashCode());
+    return result;
+  }
+
+  public static class PathfinderConfigurationBuilder {
+    private int maxIterations = 5000;
+    private int maxLength;
+    private boolean async;
+    private boolean allowingFallback = true;
+    private boolean loadingChunks;
+    private HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
+
+    PathfinderConfigurationBuilder() {}
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder maxIterations(int maxIterations) {
+      this.maxIterations = maxIterations;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder maxLength(int maxLength) {
+      this.maxLength = maxLength;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder async(boolean async) {
+      this.async = async;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder allowingFallback(
+        boolean allowingFallback) {
+      this.allowingFallback = allowingFallback;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder loadingChunks(
+        boolean loadingChunks) {
+      this.loadingChunks = loadingChunks;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder heuristicWeights(
+        HeuristicWeights heuristicWeights) {
+      this.heuristicWeights = heuristicWeights;
+      return this;
+    }
+
+    public PathfinderConfiguration build() {
+      return new PathfinderConfiguration(
+          this.maxIterations,
+          this.maxLength,
+          this.async,
+          this.allowingFallback,
+          this.loadingChunks,
+          this.heuristicWeights);
+    }
+
+    public String toString() {
+      return "PathfinderConfiguration.PathfinderConfigurationBuilder(maxIterations="
+          + this.maxIterations
+          + ", maxLength="
+          + this.maxLength
+          + ", async="
+          + this.async
+          + ", allowingFallback="
+          + this.allowingFallback
+          + ", loadingChunks="
+          + this.loadingChunks
+          + ", heuristicWeights="
+          + this.heuristicWeights
+          + ")";
+    }
   }
 }

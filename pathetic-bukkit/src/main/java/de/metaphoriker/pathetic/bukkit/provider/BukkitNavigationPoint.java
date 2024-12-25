@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.provider;
 
-import de.metaphoriker.pathetic.api.wrapper.BlockInformation;
+import de.metaphoriker.pathetic.api.wrapper.NavigationPoint;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
@@ -8,13 +8,13 @@ import org.bukkit.block.BlockState;
 
 @Getter
 @RequiredArgsConstructor
-public class BukkitBlockInformation implements BlockInformation {
+public class BukkitNavigationPoint implements NavigationPoint {
 
   private final Material material;
   private final BlockState blockState;
 
   @Override
-  public boolean isPassable() {
+  public boolean isTraversable() {
     return !material.isSolid();
   }
 }

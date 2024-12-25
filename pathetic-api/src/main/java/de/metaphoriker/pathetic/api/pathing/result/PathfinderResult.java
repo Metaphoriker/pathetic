@@ -1,7 +1,5 @@
 package de.metaphoriker.pathetic.api.pathing.result;
 
-import lombok.NonNull;
-
 public interface PathfinderResult {
 
   /**
@@ -32,7 +30,6 @@ public interface PathfinderResult {
    *
    * @return The {@link PathState}
    */
-  @NonNull
   PathState getPathState();
 
   /**
@@ -41,6 +38,5 @@ public interface PathfinderResult {
    *
    * @return The found {@link Path}
    */
-  @NonNull
   Path getPath();
 }
