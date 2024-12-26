@@ -7,9 +7,9 @@
     <parent>
         <artifactId>pathetic-main</artifactId>
         <groupId>de.metaphoriker</groupId>
-        <version>3.3.1</version>
+        <version>4.0</version>
     </parent>
 
     <artifactId>pathetic-api</artifactId>
-    <version>3.3.1</version>
+    <version>4.0</version>
 </project>
