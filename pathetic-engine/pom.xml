@@ -25,16 +25,20 @@
                             <shadedPattern>de.metaphoriker.pathetic.shaded.jheaps</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.projectlombok</pattern>
-                            <shadedPattern>de.metaphoriker.pathetic.shaded.lombok</shadedPattern>
+                            <pattern>org.tinylog</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.tinylog</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.slf4j</pattern>
-                            <shadedPattern>de.metaphoriker.pathetic.shaded.slf4j</shadedPattern>
+                            <pattern>org.checkerframework</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.checkerframework</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.google.common</pattern>
-                            <shadedPattern>de.metaphoriker.pathetic.shaded.guava</shadedPattern>
+                            <pattern>javax.annotation</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.javax</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google</pattern>
+                            <shadedPattern>de.metaphoriker.pathetic.shaded.google</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
@@ -123,11 +127,13 @@
             <groupId>org.tinylog</groupId>
             <artifactId>tinylog-api</artifactId>
             <version>2.7.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.tinylog</groupId>
             <artifactId>tinylog-impl</artifactId>
             <version>2.7.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
