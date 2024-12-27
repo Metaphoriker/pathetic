@@ -1,5 +1,7 @@
 package de.metaphoriker.pathetic.api.pathing.configuration;
 
+import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
+
 /**
  * Defines a set of configurable parameters that govern the behavior of the A* pathfinding
  * algorithm. By adjusting these parameters, you can fine-tune the pathfinding process to suit the
@@ -36,6 +38,13 @@ public class PathfinderConfiguration {
   private final boolean fallback;
 
   /**
+   * The provider responsible for supplying navigation points to the pathfinding algorithm. This
+   * provider determines how the pathfinder interacts with the world and accesses information about
+   * valid movement locations.
+   */
+  private final NavigationPointProvider provider;
+
+  /**
    * The set of weights used to calculate heuristics within the A* algorithm. These influence the
    * pathfinding priority for distance, elevation changes, smoothness, and diagonal movement.
    *
@@ -48,11 +57,13 @@ public class PathfinderConfiguration {
       int maxLength,
       boolean async,
       boolean fallback,
+      NavigationPointProvider provider,
       HeuristicWeights heuristicWeights) {
     this.maxIterations = maxIterations;
     this.maxLength = maxLength;
     this.async = async;
     this.fallback = fallback;
+    this.provider = provider;
     this.heuristicWeights = heuristicWeights;
   }
 
@@ -72,6 +83,7 @@ public class PathfinderConfiguration {
         .maxLength(pathfinderConfiguration.maxLength)
         .async(pathfinderConfiguration.async)
         .fallback(pathfinderConfiguration.fallback)
+        .provider(pathfinderConfiguration.provider)
         .heuristicWeights(pathfinderConfiguration.heuristicWeights)
         .build();
   }
@@ -96,6 +108,10 @@ public class PathfinderConfiguration {
     return this.fallback;
   }
 
+  public NavigationPointProvider getProvider() {
+    return provider;
+  }
+
   public HeuristicWeights getHeuristicWeights() {
     return this.heuristicWeights;
   }
@@ -109,6 +125,8 @@ public class PathfinderConfiguration {
         + this.isAsync()
         + ", allowingFallback="
         + this.isFallback()
+        + ", provider="
+        + this.getProvider()
         + ", heuristicWeights="
         + this.getHeuristicWeights()
         + ")";
@@ -123,6 +141,9 @@ public class PathfinderConfiguration {
     if (this.getMaxLength() != other.getMaxLength()) return false;
     if (this.isAsync() != other.isAsync()) return false;
     if (this.isFallback() != other.isFallback()) return false;
+    if (this.getProvider() == null
+        ? other.getProvider() != null
+        : !this.getProvider().equals(other.getProvider())) return false;
     final Object this$heuristicWeights = this.getHeuristicWeights();
     final Object other$heuristicWeights = other.getHeuristicWeights();
     if (this$heuristicWeights == null
@@ -142,6 +163,7 @@ public class PathfinderConfiguration {
     result = result * PRIME + this.getMaxLength();
     result = result * PRIME + (this.isAsync() ? 79 : 97);
     result = result * PRIME + (this.isFallback() ? 79 : 97);
+    result = result * PRIME + (this.getProvider() == null ? 43 : this.getProvider().hashCode());
     final Object $heuristicWeights = this.getHeuristicWeights();
     result = result * PRIME + ($heuristicWeights == null ? 43 : $heuristicWeights.hashCode());
     return result;
@@ -152,6 +174,7 @@ public class PathfinderConfiguration {
     private int maxLength;
     private boolean async;
     private boolean fallback = true;
+    private NavigationPointProvider provider;
     private HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
 
     PathfinderConfigurationBuilder() {}
@@ -177,6 +200,12 @@ public class PathfinderConfiguration {
       return this;
     }
 
+    public PathfinderConfiguration.PathfinderConfigurationBuilder provider(
+        NavigationPointProvider provider) {
+      this.provider = provider;
+      return this;
+    }
+
     public PathfinderConfiguration.PathfinderConfigurationBuilder heuristicWeights(
         HeuristicWeights heuristicWeights) {
       this.heuristicWeights = heuristicWeights;
@@ -189,6 +218,7 @@ public class PathfinderConfiguration {
           this.maxLength,
           this.async,
           this.fallback,
+          this.provider,
           this.heuristicWeights);
     }
 
@@ -201,6 +231,8 @@ public class PathfinderConfiguration {
           + this.async
           + ", fallback="
           + this.fallback
+          + ", provider="
+          + this.provider
           + ", heuristicWeights="
           + this.heuristicWeights
           + ")";
