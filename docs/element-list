@@ -1,10 +1,11 @@
 de.metaphoriker.pathetic.api.annotation
-de.metaphoriker.pathetic.api.event
+de.metaphoriker.pathetic.api.factory
 de.metaphoriker.pathetic.api.pathing
 de.metaphoriker.pathetic.api.pathing.configuration
 de.metaphoriker.pathetic.api.pathing.filter
 de.metaphoriker.pathetic.api.pathing.filter.filters
+de.metaphoriker.pathetic.api.pathing.hook
 de.metaphoriker.pathetic.api.pathing.result
-de.metaphoriker.pathetic.api.snapshot
+de.metaphoriker.pathetic.api.provider
 de.metaphoriker.pathetic.api.util
 de.metaphoriker.pathetic.api.wrapper
