@@ -213,6 +213,9 @@ public class PathfinderConfiguration {
     }
 
     public PathfinderConfiguration build() {
+      if (provider == null) {
+        throw new IllegalStateException("NavigationPointProvider cannot be null.");
+      }
       return new PathfinderConfiguration(
           this.maxIterations,
           this.maxLength,

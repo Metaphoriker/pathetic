@@ -1,7 +1,7 @@
 package de.metaphoriker.pathetic.bukkit.provider;
 
 import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
-import de.metaphoriker.pathetic.api.wrapper.NavigationPoint;
+import de.metaphoriker.pathetic.api.provider.NavigationPoint;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.bukkit.provider.world.WorldDomain;
 import de.metaphoriker.pathetic.bukkit.util.BukkitVersionUtil;

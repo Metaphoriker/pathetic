@@ -1,4 +1,4 @@
-package de.metaphoriker.pathetic.api.wrapper;
+package de.metaphoriker.pathetic.api.provider;
 
 /**
  * Represents information about a position in the pathfinding environment.

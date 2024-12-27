@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.provider;
 
-import de.metaphoriker.pathetic.api.wrapper.NavigationPoint;
+import de.metaphoriker.pathetic.api.provider.NavigationPoint;
 import de.metaphoriker.pathetic.api.wrapper.PathEnvironment;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 import de.metaphoriker.pathetic.bukkit.util.ChunkUtil;
@@ -62,7 +62,13 @@ public class LoadingNavigationPointProvider extends FailingNavigationPointProvid
               retrieveChunkSnapshot(position.getPathEnvironment(), chunkX, chunkZ);
 
           if (chunkSnapshot == null) {
-            throw ErrorLogger.logFatalError("Could not retrieve chunk snapshot --> BOOM!");
+            throw ErrorLogger.logFatalError(
+                "Could not retrieve chunk snapshot for chunk at ("
+                    + chunkX
+                    + ", "
+                    + chunkZ
+                    + ") in world: "
+                    + position.getPathEnvironment().getUuid());
           }
 
           processChunkSnapshot(position, chunkX, chunkZ, chunkSnapshot);

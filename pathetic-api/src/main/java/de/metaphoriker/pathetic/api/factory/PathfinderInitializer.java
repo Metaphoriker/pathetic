@@ -1,5 +1,6 @@
-package de.metaphoriker.pathetic.api.pathing;
+package de.metaphoriker.pathetic.api.factory;
 
+import de.metaphoriker.pathetic.api.pathing.Pathfinder;
 import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
 
 /**

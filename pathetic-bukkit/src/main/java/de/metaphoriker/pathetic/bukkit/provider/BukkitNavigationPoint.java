@@ -1,6 +1,6 @@
 package de.metaphoriker.pathetic.bukkit.provider;
 
-import de.metaphoriker.pathetic.api.wrapper.NavigationPoint;
+import de.metaphoriker.pathetic.api.provider.NavigationPoint;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;

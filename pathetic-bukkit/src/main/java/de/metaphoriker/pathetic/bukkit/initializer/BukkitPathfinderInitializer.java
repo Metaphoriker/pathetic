@@ -1,7 +1,7 @@
-package de.metaphoriker.pathetic.bukkit.factory;
+package de.metaphoriker.pathetic.bukkit.initializer;
 
 import de.metaphoriker.pathetic.api.pathing.Pathfinder;
-import de.metaphoriker.pathetic.api.pathing.PathfinderInitializer;
+import de.metaphoriker.pathetic.api.factory.PathfinderInitializer;
 import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
 import de.metaphoriker.pathetic.bukkit.hook.SpigotPathfindingHook;
 

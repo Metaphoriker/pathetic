@@ -1,11 +1,13 @@
 package de.metaphoriker.pathetic.example;
 
+import de.metaphoriker.pathetic.api.factory.PathfinderFactory;
+import de.metaphoriker.pathetic.api.factory.PathfinderInitializer;
 import de.metaphoriker.pathetic.api.pathing.Pathfinder;
-import de.metaphoriker.pathetic.api.pathing.PathfinderFactory;
 import de.metaphoriker.pathetic.api.pathing.configuration.PathfinderConfiguration;
 import de.metaphoriker.pathetic.bukkit.PatheticBukkit;
-import de.metaphoriker.pathetic.bukkit.factory.BukkitPathfinderFactory;
-import de.metaphoriker.pathetic.bukkit.factory.BukkitPathfinderInitializer;
+import de.metaphoriker.pathetic.bukkit.initializer.BukkitPathfinderInitializer;
+import de.metaphoriker.pathetic.bukkit.provider.LoadingNavigationPointProvider;
+import de.metaphoriker.pathetic.engine.factory.AStarPathfinderFactory;
 import de.metaphoriker.pathetic.example.command.PatheticCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,17 +20,22 @@ public final class PatheticPlugin extends JavaPlugin {
     // Initialize Pathetic with this plugin instance
     PatheticBukkit.initialize(this);
 
-    // Create the respective Pathfinder Factory with the respective initializer
-    PathfinderFactory<BukkitPathfinderInitializer> factory = new BukkitPathfinderFactory();
+    // Create the respective PathfinderFactory
+    PathfinderFactory factory = new AStarPathfinderFactory();
 
-    // Create a new Pathfinder instance with a custom configuration
-    Pathfinder reusablePathfinder =
-        factory.createPathfinder( // Use the factory to create a new pathfinder instance
-            PathfinderConfiguration.builder()
-                .fallback(true) // Allow fallback strategies if the primary fails
-                .loading(true) // Allow chunks to be loaded during pathfinding
-                .build() // Build the configuration()
-            );
+    // Some pathfinders need specific initialization
+    // For example Bukkit pathfinders need a BukkitPathfinderInitializer
+    PathfinderInitializer initializer = new BukkitPathfinderInitializer();
+
+    // Create custom configuration for the pathfinder
+    // Keep in mind that a provider must always be given
+    PathfinderConfiguration configuration =
+        PathfinderConfiguration.builder()
+            .provider(new LoadingNavigationPointProvider()) // For loading chunks
+            .fallback(true) // Allow fallback strategies if the primary fails
+            .build();
+
+    Pathfinder reusablePathfinder = factory.createPathfinder(configuration, initializer);
 
     // Register the command executor for the "pathetic" command
     getCommand("pathetic").setExecutor(new PatheticCommand(reusablePathfinder));
