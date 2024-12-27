@@ -25,8 +25,8 @@ public final class PatheticPlugin extends JavaPlugin {
     Pathfinder reusablePathfinder =
         factory.createPathfinder( // Use the factory to create a new pathfinder instance
             PathfinderConfiguration.builder()
-                .allowingFallback(true) // Allow fallback strategies if the primary fails
-                .loadingChunks(true) // Allow chunks to be loaded during pathfinding
+                .fallback(true) // Allow fallback strategies if the primary fails
+                .loading(true) // Allow chunks to be loaded during pathfinding
                 .build() // Build the configuration()
             );
 

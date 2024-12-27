@@ -25,7 +25,7 @@ public class BukkitPathfinderFactory extends PathfinderFactory<BukkitPathfinderI
   }
 
   private NavigationPointProvider getBlockProvider(PathfinderConfiguration configuration) {
-    return configuration.isLoadingChunks()
+    return configuration.isLoading()
         ? new LoadingNavigationPointProvider()
         : new FailingNavigationPointProvider();
   }

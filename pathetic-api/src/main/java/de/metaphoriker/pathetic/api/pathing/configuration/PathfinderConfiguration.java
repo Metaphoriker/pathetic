@@ -33,13 +33,14 @@ public class PathfinderConfiguration {
    * last successfully calculated path. This can help maintain progress, but might use an outdated
    * path.
    */
-  private final boolean allowingFallback;
+  private final boolean fallback;
 
   /**
-   * Controls whether chunks should be loaded or generated as needed during the pathfinding process.
-   * This is essential for exploring uncharted areas, but may impact performance.
+   * Controls whether the pathfinder is allowed to load or generate resources as needed during the
+   * pathfinding process. Enabling this option can improve pathfinding accuracy but may impact
+   * performance.
    */
-  private final boolean loadingChunks;
+  private final boolean loading;
 
   /**
    * The set of weights used to calculate heuristics within the A* algorithm. These influence the
@@ -53,14 +54,14 @@ public class PathfinderConfiguration {
       int maxIterations,
       int maxLength,
       boolean async,
-      boolean allowingFallback,
-      boolean loadingChunks,
+      boolean fallback,
+      boolean loading,
       HeuristicWeights heuristicWeights) {
     this.maxIterations = maxIterations;
     this.maxLength = maxLength;
     this.async = async;
-    this.allowingFallback = allowingFallback;
-    this.loadingChunks = loadingChunks;
+    this.fallback = fallback;
+    this.loading = loading;
     this.heuristicWeights = heuristicWeights;
   }
 
@@ -79,8 +80,8 @@ public class PathfinderConfiguration {
         .maxIterations(pathfinderConfiguration.maxIterations)
         .maxLength(pathfinderConfiguration.maxLength)
         .async(pathfinderConfiguration.async)
-        .allowingFallback(pathfinderConfiguration.allowingFallback)
-        .loadingChunks(pathfinderConfiguration.loadingChunks)
+        .fallback(pathfinderConfiguration.fallback)
+        .loading(pathfinderConfiguration.loading)
         .heuristicWeights(pathfinderConfiguration.heuristicWeights)
         .build();
   }
@@ -101,12 +102,12 @@ public class PathfinderConfiguration {
     return this.async;
   }
 
-  public boolean isAllowingFallback() {
-    return this.allowingFallback;
+  public boolean isFallback() {
+    return this.fallback;
   }
 
-  public boolean isLoadingChunks() {
-    return this.loadingChunks;
+  public boolean isLoading() {
+    return this.loading;
   }
 
   public HeuristicWeights getHeuristicWeights() {
@@ -121,9 +122,9 @@ public class PathfinderConfiguration {
         + ", async="
         + this.isAsync()
         + ", allowingFallback="
-        + this.isAllowingFallback()
+        + this.isFallback()
         + ", loadingChunks="
-        + this.isLoadingChunks()
+        + this.isLoading()
         + ", heuristicWeights="
         + this.getHeuristicWeights()
         + ")";
@@ -137,8 +138,8 @@ public class PathfinderConfiguration {
     if (this.getMaxIterations() != other.getMaxIterations()) return false;
     if (this.getMaxLength() != other.getMaxLength()) return false;
     if (this.isAsync() != other.isAsync()) return false;
-    if (this.isAllowingFallback() != other.isAllowingFallback()) return false;
-    if (this.isLoadingChunks() != other.isLoadingChunks()) return false;
+    if (this.isFallback() != other.isFallback()) return false;
+    if (this.isLoading() != other.isLoading()) return false;
     final Object this$heuristicWeights = this.getHeuristicWeights();
     final Object other$heuristicWeights = other.getHeuristicWeights();
     if (this$heuristicWeights == null
@@ -157,8 +158,8 @@ public class PathfinderConfiguration {
     result = result * PRIME + this.getMaxIterations();
     result = result * PRIME + this.getMaxLength();
     result = result * PRIME + (this.isAsync() ? 79 : 97);
-    result = result * PRIME + (this.isAllowingFallback() ? 79 : 97);
-    result = result * PRIME + (this.isLoadingChunks() ? 79 : 97);
+    result = result * PRIME + (this.isFallback() ? 79 : 97);
+    result = result * PRIME + (this.isLoading() ? 79 : 97);
     final Object $heuristicWeights = this.getHeuristicWeights();
     result = result * PRIME + ($heuristicWeights == null ? 43 : $heuristicWeights.hashCode());
     return result;
@@ -168,8 +169,8 @@ public class PathfinderConfiguration {
     private int maxIterations = 5000;
     private int maxLength;
     private boolean async;
-    private boolean allowingFallback = true;
-    private boolean loadingChunks;
+    private boolean fallback = true;
+    private boolean loading = true;
     private HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
 
     PathfinderConfigurationBuilder() {}
@@ -189,15 +190,15 @@ public class PathfinderConfiguration {
       return this;
     }
 
-    public PathfinderConfiguration.PathfinderConfigurationBuilder allowingFallback(
+    public PathfinderConfiguration.PathfinderConfigurationBuilder fallback(
         boolean allowingFallback) {
-      this.allowingFallback = allowingFallback;
+      this.fallback = allowingFallback;
       return this;
     }
 
-    public PathfinderConfiguration.PathfinderConfigurationBuilder loadingChunks(
-        boolean loadingChunks) {
-      this.loadingChunks = loadingChunks;
+    public PathfinderConfiguration.PathfinderConfigurationBuilder loading(
+        boolean loading) {
+      this.loading = loading;
       return this;
     }
 
@@ -212,8 +213,8 @@ public class PathfinderConfiguration {
           this.maxIterations,
           this.maxLength,
           this.async,
-          this.allowingFallback,
-          this.loadingChunks,
+          this.fallback,
+          this.loading,
           this.heuristicWeights);
     }
 
@@ -224,10 +225,10 @@ public class PathfinderConfiguration {
           + this.maxLength
           + ", async="
           + this.async
-          + ", allowingFallback="
-          + this.allowingFallback
-          + ", loadingChunks="
-          + this.loadingChunks
+          + ", fallback="
+          + this.fallback
+          + ", loading="
+          + this.loading
           + ", heuristicWeights="
           + this.heuristicWeights
           + ")";

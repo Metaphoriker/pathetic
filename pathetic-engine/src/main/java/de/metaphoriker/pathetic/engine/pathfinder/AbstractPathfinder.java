@@ -243,7 +243,7 @@ abstract class AbstractPathfinder implements Pathfinder {
   }
 
   private Optional<PathfinderResult> fallback(Node fallbackNode) {
-    if (pathfinderConfiguration.isAllowingFallback())
+    if (pathfinderConfiguration.isFallback())
       return Optional.of(
           new PathfinderResultImpl(PathState.FALLBACK, fetchRetracedPath(fallbackNode)));
     return Optional.empty();
