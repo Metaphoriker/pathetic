@@ -1,19 +1,18 @@
 package de.metaphoriker.pathetic.api.wrapper;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
 import de.metaphoriker.pathetic.api.util.NumberUtils;
 
-@Getter
-@AllArgsConstructor
-@EqualsAndHashCode
 public class PathVector implements Cloneable {
 
   private double x;
   private double y;
   private double z;
+
+  public PathVector(double x, double y, double z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
 
   /**
    * Finds the distance between the line BC and the point A
@@ -103,7 +102,6 @@ public class PathVector implements Cloneable {
    * @param otherVector {@link PathVector} to vector to subtract from the current Vector
    * @return A new {@link PathVector}
    */
-  @NonNull
   public PathVector subtract(PathVector otherVector) {
     return new PathVector(this.x - otherVector.x, this.y - otherVector.y, this.z - otherVector.z);
   }
@@ -114,7 +112,6 @@ public class PathVector implements Cloneable {
    * @param value The constant to multiply by
    * @return A new {@link PathVector}
    */
-  @NonNull
   public PathVector multiply(double value) {
     return new PathVector(this.x * value, this.y * value, this.z * value);
   }
@@ -124,7 +121,6 @@ public class PathVector implements Cloneable {
    *
    * @return A new {@link PathVector}
    */
-  @NonNull
   public PathVector normalize() {
     double magnitude = this.length();
     return new PathVector(this.x / magnitude, this.y / magnitude, this.z / magnitude);
@@ -176,5 +172,44 @@ public class PathVector implements Cloneable {
     clone.y = this.y;
     clone.z = this.z;
     return clone;
+  }
+
+  public double getX() {
+    return this.x;
+  }
+
+  public double getY() {
+    return this.y;
+  }
+
+  public double getZ() {
+    return this.z;
+  }
+
+  public boolean equals(final Object o) {
+    if (o == this) return true;
+    if (!(o instanceof PathVector)) return false;
+    final PathVector other = (PathVector) o;
+    if (!other.canEqual((Object) this)) return false;
+    if (Double.compare(this.getX(), other.getX()) != 0) return false;
+    if (Double.compare(this.getY(), other.getY()) != 0) return false;
+    if (Double.compare(this.getZ(), other.getZ()) != 0) return false;
+    return true;
+  }
+
+  protected boolean canEqual(final Object other) {
+    return other instanceof PathVector;
+  }
+
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final long $x = Double.doubleToLongBits(this.getX());
+    result = result * PRIME + (int) ($x >>> 32 ^ $x);
+    final long $y = Double.doubleToLongBits(this.getY());
+    result = result * PRIME + (int) ($y >>> 32 ^ $y);
+    final long $z = Double.doubleToLongBits(this.getZ());
+    result = result * PRIME + (int) ($z >>> 32 ^ $z);
+    return result;
   }
 }

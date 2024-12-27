@@ -1,67 +1,10 @@
 <img src="https://github.com/user-attachments/assets/2f5335e3-b095-4e2f-a9de-e3ac46fbaf45" alt="Transparent" width="100" height="100" align="right" />
 <br><br>
 
-<h1>Pathetic - A Pathfinding library for Minecraft</h1>
+<h1>Pathetic - A Pathfinding library for 3D environments</h1>
 
-<p>A high-performance, backwards-compatible, and asynchronous easy-to-use pathfinding library written in Java.
-<br> Pathetic leverages the <b>A* algorithm</b> with customizable heuristics for real-time pathfinding in <b>Spigot/Paper </b>environments.</p>
-
-<h2>Key Features</h2>
-
-<ul>
-  <li><b>Advanced A* Algorithm:</b> Employs multiple distance metrics (Manhattan, Octile, Perpendicular) and height differences for pathfinding, optimized for 3D worlds like Minecraft.</li>
-  <li><b>Asynchronous Pathfinding:</b> Non-blocking operations using <code>CompletableFuture</code> to minimize server impact during pathfinding.</li>
-  <li><b>Fibonacci Heap for Efficient Queuing:</b> The open set (frontier) is managed using a <b>Fibonacci heap</b>, ensuring optimal node retrieval with faster <code>insert</code> and <code>extract min</code> operations.</li>
-  <li><b>Customizable Heuristics:</b> Fine-tune pathfinding behavior using <code>HeuristicWeights</code> for balanced navigation in any world configuration.</li>
-  <li><b>Regional Grid Optimization:</b> Uses <code>ExpiringHashMap</code> and <b>Bloom filters</b> to efficiently track explored regions, minimizing memory overhead.</li>
-  <li><b>Dynamic Path Filters:</b> Define custom filters to modify node validity or prioritize paths based on criteria such as passability, block type, or world boundaries.</li>
-</ul>
-
-<h2>Showcase</h2>
-
-![ezgif-3-caa688a773](https://github.com/user-attachments/assets/ab243485-f122-4067-bab0-a5ed97b717c1)
-
-<h2>Installation</h2>
-
-To integrate pathetic into your project, follow the following steps:
-<br>
-*(We advise you to relocate pathetic)*
-
-<h3>Maven</h3>
-
-```xml
-
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
-<dependency>
-    <groupId>com.github.Metaphoriker.pathetic</groupId>
-    <artifactId>pathetic-mapping</artifactId>
-    <version>VERSION</version>
-</dependency>
-```
-
-<h3>Gradle</h3>
-
-```groovy
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-}
-
-dependencies {
-    implementation 'com.github.Metaphoriker.pathetic:pathetic-mapping:VERSION'
-}
-```
-
-<h2>Example Usage</h2>
-
-<p>See the <a href="https://github.com/Metaphoriker/pathetic/tree/trunk/pathetic-example">pathetic-example</a> module for a detailed example usage.</p>
+<p>A high-performance, backwards-compatible, and asynchronous easy-to-use pathfinding library written in Java for 3D environments.
+<br> Pathetic leverages the <b>A* algorithm</b> with customizable heuristics for real-time pathfinding.</p>
 
 <h2>Documentation</h2>
 

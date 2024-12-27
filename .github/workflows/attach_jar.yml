@@ -38,13 +38,13 @@ jobs:
 
       - name: Build Pathetic-Example
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl pathetic-example -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl pathetic-bukkit/pathetic-example -amd -DskipTests
 
       - name: Upload Pathetic-Example
         uses: actions/upload-artifact@v3
         with:
           name: pathetic-example
-          path: D:\a\pathetic\pathetic\pathetic-example\target\pathetic-example.jar
+          path: D:\a\pathetic\pathetic\pathetic-bukkit\pathetic-example\target\pathetic-example.jar
 
       - name: Attach pathetic-example jar to release
         uses: actions/upload-release-asset@v1
@@ -52,6 +52,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: D:\a\pathetic\pathetic\pathetic-example\target\pathetic-example.jar
+          asset_path: D:\a\pathetic\pathetic\pathetic-bukkit\pathetic-example\target\pathetic-example.jar
           asset_name: pathetic-example.jar
           asset_content_type: application/java-archive

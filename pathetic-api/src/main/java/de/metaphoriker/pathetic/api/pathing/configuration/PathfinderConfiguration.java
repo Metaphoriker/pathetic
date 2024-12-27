@@ -1,27 +1,12 @@
 package de.metaphoriker.pathetic.api.pathing.configuration;
 
-import de.metaphoriker.pathetic.api.annotation.Experimental;
-import de.metaphoriker.pathetic.api.pathing.Pathfinder;
-import de.metaphoriker.pathetic.api.pathing.filter.PathFilterStage;
-import de.metaphoriker.pathetic.api.wrapper.PathPosition;
-import java.util.List;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import lombok.With;
+import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
 
 /**
  * Defines a set of configurable parameters that govern the behavior of the A* pathfinding
  * algorithm. By adjusting these parameters, you can fine-tune the pathfinding process to suit the
  * specific needs of your Minecraft environment.
  */
-@With
-@Value
-@Getter
-@Builder(toBuilder = true, access = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathfinderConfiguration {
 
   /**
@@ -30,57 +15,34 @@ public class PathfinderConfiguration {
    *
    * @default 5000
    */
-  @Builder.Default int maxIterations = 5000;
+  private final int maxIterations;
 
   /**
    * The maximum permissible length of a calculated path (in blocks). Use this to constrain long
    * searches that could impact performance. A value of 0 indicates no limit.
    */
-  int maxLength;
+  private final int maxLength;
 
   /**
    * Determines whether pathfinding calculations should be executed asynchronously in a separate
    * thread. This can improve responsiveness in the main thread, but may introduce synchronization
    * complexities.
    */
-  boolean async;
-
-  /**
-   * If set to true, the pathfinding process will terminate immediately if either the start or
-   * target or both are unreachable.
-   *
-   * <p>NOTE: This prevents fallback strategies.
-   * @deprecated Will be removed in future releases
-   */
-  @Deprecated
-  boolean allowingFailFast;
+  private final boolean async;
 
   /**
    * If pathfinding fails, this parameter determines whether the algorithm should fall back to the
    * last successfully calculated path. This can help maintain progress, but might use an outdated
    * path.
    */
-  boolean allowingFallback;
+  private final boolean fallback;
 
   /**
-   * Controls whether chunks should be loaded or generated as needed during the pathfinding process.
-   * This is essential for exploring uncharted areas, but may impact performance.
+   * The provider responsible for supplying navigation points to the pathfinding algorithm. This
+   * provider determines how the pathfinder interacts with the world and accesses information about
+   * valid movement locations.
    */
-  boolean loadingChunks;
-
-  /**
-   * Determines whether the pathfinding algorithm should see PathFilterStages as prioritization,
-   * instead of filtering. This means that the pathfinding algorithm will prioritize paths that pass
-   * the filters over paths that do not.
-   *
-   * <p>Setting this to true will no longer take the {@link PathFilterStage}s into the validation
-   * process. Shared filters must still be passed.
-   *
-   * <p>{@link Pathfinder#findPath(PathPosition, PathPosition, List, List)}
-   *
-   * @experimental This feature is experimental and may be subject to change.
-   */
-  @Experimental @Builder.Default boolean prioritizing = false;
+  private final NavigationPointProvider provider;
 
   /**
    * The set of weights used to calculate heuristics within the A* algorithm. These influence the
@@ -88,30 +50,21 @@ public class PathfinderConfiguration {
    *
    * @default HeuristicWeights.NATURAL_PATH_WEIGHTS
    */
-  @Builder.Default HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
+  private final HeuristicWeights heuristicWeights;
 
-  /**
-   * Determines whether the pathfinding algorithm should collect statistics about the pathfinding
-   * process. This can be useful for debugging and performance tuning.
-   *
-   * <p>Help us improve the API by providing feedback with the collected statistics!
-   *
-   * @default true
-   */
-  @Builder.Default boolean bStats = true;
-
-  /**
-   * @return A new {@link PathfinderConfiguration} with default parameters but async.
-   */
-  public static PathfinderConfiguration createAsyncConfiguration() {
-    return builder().async(true).build();
-  }
-
-  /**
-   * @return A new {@link PathfinderConfiguration} with default parameters.
-   */
-  public static PathfinderConfiguration createConfiguration() {
-    return builder().build();
+  private PathfinderConfiguration(
+      int maxIterations,
+      int maxLength,
+      boolean async,
+      boolean fallback,
+      NavigationPointProvider provider,
+      HeuristicWeights heuristicWeights) {
+    this.maxIterations = maxIterations;
+    this.maxLength = maxLength;
+    this.async = async;
+    this.fallback = fallback;
+    this.provider = provider;
+    this.heuristicWeights = heuristicWeights;
   }
 
   /**
@@ -129,10 +82,163 @@ public class PathfinderConfiguration {
         .maxIterations(pathfinderConfiguration.maxIterations)
         .maxLength(pathfinderConfiguration.maxLength)
         .async(pathfinderConfiguration.async)
-        .allowingFailFast(pathfinderConfiguration.allowingFailFast)
-        .allowingFallback(pathfinderConfiguration.allowingFallback)
-        .loadingChunks(pathfinderConfiguration.loadingChunks)
+        .fallback(pathfinderConfiguration.fallback)
+        .provider(pathfinderConfiguration.provider)
         .heuristicWeights(pathfinderConfiguration.heuristicWeights)
         .build();
+  }
+
+  public static PathfinderConfigurationBuilder builder() {
+    return new PathfinderConfigurationBuilder();
+  }
+
+  public int getMaxIterations() {
+    return this.maxIterations;
+  }
+
+  public int getMaxLength() {
+    return this.maxLength;
+  }
+
+  public boolean isAsync() {
+    return this.async;
+  }
+
+  public boolean isFallback() {
+    return this.fallback;
+  }
+
+  public NavigationPointProvider getProvider() {
+    return provider;
+  }
+
+  public HeuristicWeights getHeuristicWeights() {
+    return this.heuristicWeights;
+  }
+
+  public String toString() {
+    return "PathfinderConfiguration(maxIterations="
+        + this.getMaxIterations()
+        + ", maxLength="
+        + this.getMaxLength()
+        + ", async="
+        + this.isAsync()
+        + ", allowingFallback="
+        + this.isFallback()
+        + ", provider="
+        + this.getProvider()
+        + ", heuristicWeights="
+        + this.getHeuristicWeights()
+        + ")";
+  }
+
+  public boolean equals(final Object o) {
+    if (o == this) return true;
+    if (!(o instanceof PathfinderConfiguration)) return false;
+    final PathfinderConfiguration other = (PathfinderConfiguration) o;
+    if (!other.canEqual((Object) this)) return false;
+    if (this.getMaxIterations() != other.getMaxIterations()) return false;
+    if (this.getMaxLength() != other.getMaxLength()) return false;
+    if (this.isAsync() != other.isAsync()) return false;
+    if (this.isFallback() != other.isFallback()) return false;
+    if (this.getProvider() == null
+        ? other.getProvider() != null
+        : !this.getProvider().equals(other.getProvider())) return false;
+    final Object this$heuristicWeights = this.getHeuristicWeights();
+    final Object other$heuristicWeights = other.getHeuristicWeights();
+    if (this$heuristicWeights == null
+        ? other$heuristicWeights != null
+        : !this$heuristicWeights.equals(other$heuristicWeights)) return false;
+    return true;
+  }
+
+  protected boolean canEqual(final Object other) {
+    return other instanceof PathfinderConfiguration;
+  }
+
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    result = result * PRIME + this.getMaxIterations();
+    result = result * PRIME + this.getMaxLength();
+    result = result * PRIME + (this.isAsync() ? 79 : 97);
+    result = result * PRIME + (this.isFallback() ? 79 : 97);
+    result = result * PRIME + (this.getProvider() == null ? 43 : this.getProvider().hashCode());
+    final Object $heuristicWeights = this.getHeuristicWeights();
+    result = result * PRIME + ($heuristicWeights == null ? 43 : $heuristicWeights.hashCode());
+    return result;
+  }
+
+  public static class PathfinderConfigurationBuilder {
+    private int maxIterations = 5000;
+    private int maxLength;
+    private boolean async;
+    private boolean fallback = true;
+    private NavigationPointProvider provider;
+    private HeuristicWeights heuristicWeights = HeuristicWeights.NATURAL_PATH_WEIGHTS;
+
+    PathfinderConfigurationBuilder() {}
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder maxIterations(int maxIterations) {
+      this.maxIterations = maxIterations;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder maxLength(int maxLength) {
+      this.maxLength = maxLength;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder async(boolean async) {
+      this.async = async;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder fallback(
+        boolean allowingFallback) {
+      this.fallback = allowingFallback;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder provider(
+        NavigationPointProvider provider) {
+      this.provider = provider;
+      return this;
+    }
+
+    public PathfinderConfiguration.PathfinderConfigurationBuilder heuristicWeights(
+        HeuristicWeights heuristicWeights) {
+      this.heuristicWeights = heuristicWeights;
+      return this;
+    }
+
+    public PathfinderConfiguration build() {
+      if (provider == null) {
+        throw new IllegalStateException("NavigationPointProvider cannot be null.");
+      }
+      return new PathfinderConfiguration(
+          this.maxIterations,
+          this.maxLength,
+          this.async,
+          this.fallback,
+          this.provider,
+          this.heuristicWeights);
+    }
+
+    public String toString() {
+      return "PathfinderConfiguration.PathfinderConfigurationBuilder(maxIterations="
+          + this.maxIterations
+          + ", maxLength="
+          + this.maxLength
+          + ", async="
+          + this.async
+          + ", fallback="
+          + this.fallback
+          + ", provider="
+          + this.provider
+          + ", heuristicWeights="
+          + this.heuristicWeights
+          + ")";
+    }
   }
 }

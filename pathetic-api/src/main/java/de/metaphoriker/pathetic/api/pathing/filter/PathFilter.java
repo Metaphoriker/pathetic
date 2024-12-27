@@ -1,6 +1,5 @@
 package de.metaphoriker.pathetic.api.pathing.filter;
 
-import lombok.NonNull;
 import de.metaphoriker.pathetic.api.pathing.Pathfinder;
 
 /**
@@ -23,7 +22,7 @@ public interface PathFilter {
    * @param pathValidationContext The context providing the information necessary to evaluate
    * @return true if the path is valid, false otherwise
    */
-  boolean filter(@NonNull PathValidationContext pathValidationContext);
+  boolean filter(PathValidationContext pathValidationContext);
 
   /**
    * Cleans up the resources used during the pathfinding process. This method is guaranteed to
