@@ -116,6 +116,10 @@ public class PatheticCommand implements TabExecutor {
             }
           });
         break;
+
+      default:
+        player.sendMessage("Invalid argument!");
+        return false;
     }
 
     return false;
