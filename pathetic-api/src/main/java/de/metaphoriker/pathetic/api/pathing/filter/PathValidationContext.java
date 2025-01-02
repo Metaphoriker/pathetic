@@ -2,13 +2,11 @@ package de.metaphoriker.pathetic.api.pathing.filter;
 
 import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
+import java.util.Objects;
 
 /**
  * PathValidationContext is a data container used during the pathfinding process to provide relevant
  * contextual information needed for evaluating path validity.
- *
- * <p>This context is passed to {@link PathFilter#filter} methods during the pathfinding process and
- * allows filters to validate or invalidate nodes based on the provided context.
  */
 public final class PathValidationContext {
 
@@ -38,9 +36,8 @@ public final class PathValidationContext {
   private final PathPosition absoluteTarget;
 
   /**
-   * The BlockProvider provides access to world data, such as block information, in the context of
-   * the pathfinding process. It is used to retrieve block data from the world at different
-   * positions during path validation.
+   * The NavigationPointProvider provides access to world data, such as positional information, in
+   * the context of the pathfinding process.
    */
   private final NavigationPointProvider navigationPointProvider;
 
@@ -83,27 +80,19 @@ public final class PathValidationContext {
     final PathValidationContext other = (PathValidationContext) o;
     final Object this$position = this.getPosition();
     final Object other$position = other.getPosition();
-    if (this$position == null ? other$position != null : !this$position.equals(other$position))
-      return false;
+    if (!Objects.equals(this$position, other$position)) return false;
     final Object this$parent = this.getParent();
     final Object other$parent = other.getParent();
-    if (this$parent == null ? other$parent != null : !this$parent.equals(other$parent))
-      return false;
+    if (!Objects.equals(this$parent, other$parent)) return false;
     final Object this$absoluteStart = this.getAbsoluteStart();
     final Object other$absoluteStart = other.getAbsoluteStart();
-    if (this$absoluteStart == null
-        ? other$absoluteStart != null
-        : !this$absoluteStart.equals(other$absoluteStart)) return false;
+    if (!Objects.equals(this$absoluteStart, other$absoluteStart)) return false;
     final Object this$absoluteTarget = this.getAbsoluteTarget();
     final Object other$absoluteTarget = other.getAbsoluteTarget();
-    if (this$absoluteTarget == null
-        ? other$absoluteTarget != null
-        : !this$absoluteTarget.equals(other$absoluteTarget)) return false;
+    if (!Objects.equals(this$absoluteTarget, other$absoluteTarget)) return false;
     final Object this$blockProvider = this.getNavigationPointProvider();
     final Object other$blockProvider = other.getNavigationPointProvider();
-    if (this$blockProvider == null
-        ? other$blockProvider != null
-        : !this$blockProvider.equals(other$blockProvider)) return false;
+    if (!Objects.equals(this$blockProvider, other$blockProvider)) return false;
     return true;
   }
 

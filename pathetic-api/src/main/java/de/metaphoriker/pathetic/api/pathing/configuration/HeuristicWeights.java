@@ -27,30 +27,12 @@ public final class HeuristicWeights {
    */
   public static final HeuristicWeights DIRECT_PATH_WEIGHTS = create(0.6, 0.3, 0.0, 0.1);
 
-  /**
-   * The weight applied to the Manhattan distance component of the heuristic. A higher weight
-   * favours paths with a greater emphasis on direct, axis-aligned movement.
-   */
   private final double manhattanWeight;
 
-  /**
-   * The weight applied to the Octile distance component of the heuristic. A higher weight allows
-   * diagonal movement, enabling more flexible paths in 3D environments.
-   */
   private final double octileWeight;
 
-  /**
-   * The weight applied to the perpendicular distance component of the heuristic. Increased weight
-   * discourages deviations from the straight line between the start and target, resulting in
-   * smoother paths.
-   */
   private final double perpendicularWeight;
 
-  /**
-   * The weight applied to the height difference (elevation change) component of the heuristic. A
-   * higher weight gives more consideration to vertical distance, important for terrains with
-   * varying verticality.
-   */
   private final double heightWeight;
 
   private HeuristicWeights(
@@ -64,6 +46,21 @@ public final class HeuristicWeights {
     this.heightWeight = heightWeight;
   }
 
+  /**
+   * Creates a new {@code HeuristicWeights} instance with the specified weights.
+   *
+   * @param manhattanWeight The weight applied to the Manhattan distance component. A higher weight
+   *     favours paths with a greater emphasis on direct, axis-aligned movement.
+   * @param octileWeight The weight applied to the Octile distance component. A higher weight allows
+   *     diagonal movement, enabling more flexible paths in 3D environments.
+   * @param perpendicularWeight The weight applied to the perpendicular distance component.
+   *     Increased weight discourages deviations from the straight line between the start and
+   *     target, resulting in smoother paths.
+   * @param heightWeight The weight applied to the height difference (elevation change) component. A
+   *     higher weight gives more consideration to vertical distance, important for terrains with
+   *     varying verticality.
+   * @return A new {@code HeuristicWeights} instance with the given weights.
+   */
   public static HeuristicWeights create(
       double manhattanWeight,
       double octileWeight,
@@ -72,18 +69,39 @@ public final class HeuristicWeights {
     return new HeuristicWeights(manhattanWeight, octileWeight, perpendicularWeight, heightWeight);
   }
 
+  /**
+   * Returns the weight applied to the Manhattan distance component of the heuristic.
+   *
+   * @return The Manhattan distance weight.
+   */
   public double getManhattanWeight() {
     return this.manhattanWeight;
   }
 
+  /**
+   * Returns the weight applied to the Octile distance component of the heuristic.
+   *
+   * @return The Octile distance weight.
+   */
   public double getOctileWeight() {
     return this.octileWeight;
   }
 
+  /**
+   * Returns the weight applied to the perpendicular distance component of the heuristic.
+   *
+   * @return The perpendicular distance weight.
+   */
   public double getPerpendicularWeight() {
     return this.perpendicularWeight;
   }
 
+  /**
+   * Returns the weight applied to the height difference (elevation change) component of the
+   * heuristic.
+   *
+   * @return The height difference weight.
+   */
   public double getHeightWeight() {
     return this.heightWeight;
   }
@@ -96,21 +114,16 @@ public final class HeuristicWeights {
     if (Double.compare(this.getOctileWeight(), other.getOctileWeight()) != 0) return false;
     if (Double.compare(this.getPerpendicularWeight(), other.getPerpendicularWeight()) != 0)
       return false;
-    if (Double.compare(this.getHeightWeight(), other.getHeightWeight()) != 0) return false;
-    return true;
+    return Double.compare(this.getHeightWeight(), other.getHeightWeight()) == 0;
   }
 
   public int hashCode() {
     final int PRIME = 59;
     int result = 1;
-    final long $manhattanWeight = Double.doubleToLongBits(this.getManhattanWeight());
-    result = result * PRIME + (int) ($manhattanWeight >>> 32 ^ $manhattanWeight);
-    final long $octileWeight = Double.doubleToLongBits(this.getOctileWeight());
-    result = result * PRIME + (int) ($octileWeight >>> 32 ^ $octileWeight);
-    final long $perpendicularWeight = Double.doubleToLongBits(this.getPerpendicularWeight());
-    result = result * PRIME + (int) ($perpendicularWeight >>> 32 ^ $perpendicularWeight);
-    final long $heightWeight = Double.doubleToLongBits(this.getHeightWeight());
-    result = result * PRIME + (int) ($heightWeight >>> 32 ^ $heightWeight);
+    result = result * PRIME + Double.hashCode(this.getManhattanWeight());
+    result = result * PRIME + Double.hashCode(this.getOctileWeight());
+    result = result * PRIME + Double.hashCode(this.getPerpendicularWeight());
+    result = result * PRIME + Double.hashCode(this.getHeightWeight());
     return result;
   }
 

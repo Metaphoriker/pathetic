@@ -2,6 +2,8 @@ package de.metaphoriker.pathetic.api.pathing.hook;
 
 import de.metaphoriker.pathetic.api.wrapper.Depth;
 
+import java.util.Objects;
+
 /** Context for the current step of the pathfinding process. */
 public final class PathfindingContext {
 
@@ -22,8 +24,7 @@ public final class PathfindingContext {
     final PathfindingContext other = (PathfindingContext) o;
     final Object this$depth = this.getDepth();
     final Object other$depth = other.getDepth();
-    if (this$depth == null ? other$depth != null : !this$depth.equals(other$depth)) return false;
-    return true;
+    return Objects.equals(this$depth, other$depth);
   }
 
   public int hashCode() {

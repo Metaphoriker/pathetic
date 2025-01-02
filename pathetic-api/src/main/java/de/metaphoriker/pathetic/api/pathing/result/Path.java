@@ -3,6 +3,11 @@ package de.metaphoriker.pathetic.api.pathing.result;
 import de.metaphoriker.pathetic.api.util.ParameterizedSupplier;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
 
+/**
+ * A Path is a sequence of positions that represents a path through a 3D space. The positions are
+ * ordered such that the first position is the start of the path and the last position is the end of
+ * the path. The path may contain additional positions between the start and end positions.
+ */
 public interface Path extends Iterable<PathPosition> {
 
   /**

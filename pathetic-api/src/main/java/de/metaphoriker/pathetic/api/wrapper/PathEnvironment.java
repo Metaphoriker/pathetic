@@ -2,7 +2,11 @@ package de.metaphoriker.pathetic.api.wrapper;
 
 import java.util.UUID;
 
-/** Represents the pathing environment */
+/**
+ * Represents the environment in which pathfinding operations take place. This class encapsulates
+ * properties of the environment that can influence pathfinding, such as the environment's unique
+ * identifier, name, and height constraints.
+ */
 public final class PathEnvironment {
 
   private final UUID uuid;
@@ -10,6 +14,16 @@ public final class PathEnvironment {
   private final Integer minHeight;
   private final Integer maxHeight;
 
+  /**
+   * Constructs a {@code PathEnvironment} with the specified attributes.
+   *
+   * @param uuid The unique identifier for this environment.
+   * @param name The name of this environment.
+   * @param minHeight The minimum height within this environment. Can be {@code null} if there is no
+   *     minimum height.
+   * @param maxHeight The maximum height within this environment. Can be {@code null} if there is no
+   *     maximum height.
+   */
   public PathEnvironment(UUID uuid, String name, Integer minHeight, Integer maxHeight) {
     this.uuid = uuid;
     this.name = name;
