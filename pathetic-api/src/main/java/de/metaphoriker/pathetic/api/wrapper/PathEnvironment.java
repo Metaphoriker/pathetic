@@ -11,8 +11,7 @@ public final class PathEnvironment {
 
   private final UUID uuid;
   private final String name;
-  private final Integer minHeight;
-  private final Integer maxHeight;
+  private final EnvironmentHeight environmentHeight;
 
   /**
    * Constructs a {@code PathEnvironment} with the specified attributes.
@@ -27,8 +26,7 @@ public final class PathEnvironment {
   public PathEnvironment(UUID uuid, String name, Integer minHeight, Integer maxHeight) {
     this.uuid = uuid;
     this.name = name;
-    this.minHeight = minHeight;
-    this.maxHeight = maxHeight;
+    this.environmentHeight = new EnvironmentHeight(minHeight, maxHeight);
   }
 
   @Override
@@ -50,20 +48,32 @@ public final class PathEnvironment {
     return result;
   }
 
+  /**
+   * Get the unique identifier of this environment.
+   */
   public UUID getUuid() {
     return this.uuid;
   }
 
+  /**
+   * Get the name of this environment.
+   */
   public String getName() {
     return this.name;
   }
 
+  /**
+   * Get the min height of this environment.
+   */
   public Integer getMinHeight() {
-    return this.minHeight;
+    return environmentHeight.getMinHeight();
   }
 
+  /**
+   * Get the max height of this environment.
+   */
   public Integer getMaxHeight() {
-    return this.maxHeight;
+    return environmentHeight.getMaxHeight();
   }
 
   public String toString() {
