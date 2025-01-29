@@ -10,35 +10,10 @@ import java.util.Objects;
  */
 public final class PathValidationContext {
 
-  /**
-   * The current position being evaluated in the pathfinding process. This represents the position
-   * that is being validated by the filter to determine if it can be part of a valid path.
-   */
   private final PathPosition position;
-
-  /**
-   * The parent position of the current position. This is the previous node from which the current
-   * position was reached. It is used to trace the path and ensure logical continuity between nodes.
-   */
   private final PathPosition parent;
-
-  /**
-   * The absolute start position of the pathfinding process. This represents the original starting
-   * point of the path and remains constant throughout the algorithm, providing a stable reference.
-   */
   private final PathPosition absoluteStart;
-
-  /**
-   * The absolute target position of the pathfinding process. This is the final goal or destination
-   * that the pathfinding algorithm is trying to reach. Like the start, it remains constant and
-   * provides a clear end-point for the path.
-   */
   private final PathPosition absoluteTarget;
-
-  /**
-   * The NavigationPointProvider provides access to world data, such as positional information, in
-   * the context of the pathfinding process.
-   */
   private final NavigationPointProvider navigationPointProvider;
 
   public PathValidationContext(
@@ -54,22 +29,43 @@ public final class PathValidationContext {
     this.navigationPointProvider = navigationPointProvider;
   }
 
+  /**
+   * The current position being evaluated in the pathfinding process. This represents the position
+   * that is being validated by the filter to determine if it can be part of a valid path.
+   */
   public PathPosition getPosition() {
     return this.position;
   }
 
+  /**
+   * The parent position of the current position. This is the previous node from which the current
+   * position was reached. It is used to trace the path and ensure logical continuity between nodes.
+   */
   public PathPosition getParent() {
     return this.parent;
   }
 
+  /**
+   * The absolute start position of the pathfinding process. This represents the original starting
+   * point of the path and remains constant throughout the algorithm, providing a stable reference.
+   */
   public PathPosition getAbsoluteStart() {
     return this.absoluteStart;
   }
 
+  /**
+   * The absolute target position of the pathfinding process. This is the final goal or destination
+   * that the pathfinding algorithm is trying to reach. Like the start, it remains constant and
+   * provides a clear end-point for the path.
+   */
   public PathPosition getAbsoluteTarget() {
     return this.absoluteTarget;
   }
 
+  /**
+   * The NavigationPointProvider provides access to world data, such as positional information, in
+   * the context of the pathfinding process.
+   */
   public NavigationPointProvider getNavigationPointProvider() {
     return this.navigationPointProvider;
   }
