@@ -49,6 +49,11 @@ public class AStarPathfinder extends AbstractPathfinder {
     depth.increment();
   }
 
+  @Override
+  protected void cleanup() {
+    gridMap.clear();
+  }
+
   private void evaluateNewNodes(
       FibonacciHeap<Double, Node> nodeQueue,
       Set<PathPosition> examinedPositions,
