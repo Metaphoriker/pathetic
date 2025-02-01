@@ -41,7 +41,7 @@ jobs:
           mvn -U -V -e -B -ntp clean install compile package -pl pathetic-bukkit/pathetic-example -amd -DskipTests
 
       - name: Upload Pathetic-Example
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pathetic-example
           path: D:\a\pathetic\pathetic\pathetic-bukkit\pathetic-example\target\pathetic-example.jar
