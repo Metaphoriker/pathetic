@@ -1,5 +1,9 @@
 package de.metaphoriker.pathetic.api.pathing.result;
 
+/**
+ * The state of a finished pathfinding process.
+ * Finished does not mean successful, it just means that the pathfinding process has ended.
+ */
 public enum PathState {
 
   /** The pathfinding process was aborted */

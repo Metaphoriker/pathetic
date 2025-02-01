@@ -1,11 +1,12 @@
 package de.metaphoriker.pathetic.api.pathing.configuration;
 
 import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
+import java.util.Objects;
 
 /**
  * Defines a set of configurable parameters that govern the behavior of the A* pathfinding
  * algorithm. By adjusting these parameters, you can fine-tune the pathfinding process to suit the
- * specific needs of your Minecraft environment.
+ * specific needs of your 3D environment.
  */
 public class PathfinderConfiguration {
 
@@ -13,12 +14,12 @@ public class PathfinderConfiguration {
    * The maximum number of iterations allowed for the pathfinding algorithm. This acts as a
    * safeguard to prevent infinite loops in complex scenarios.
    *
-   * @default 5000
+   * <p>Default: 5000
    */
   private final int maxIterations;
 
   /**
-   * The maximum permissible length of a calculated path (in blocks). Use this to constrain long
+   * The maximum permissible length of a calculated path (in positions). Use this to constrain long
    * searches that could impact performance. A value of 0 indicates no limit.
    */
   private final int maxLength;
@@ -32,15 +33,17 @@ public class PathfinderConfiguration {
 
   /**
    * If pathfinding fails, this parameter determines whether the algorithm should fall back to the
-   * last successfully calculated path. This can help maintain progress, but might use an outdated
-   * path.
+   * last successfully calculated path. This can help maintain progress, but might use an
+   * uncompleted path.
    */
   private final boolean fallback;
 
   /**
    * The provider responsible for supplying navigation points to the pathfinding algorithm. This
-   * provider determines how the pathfinder interacts with the world and accesses information about
-   * valid movement locations.
+   * provider determines how the pathfinder interacts with the environment and accesses information
+   * about positions.
+   *
+   * @see NavigationPointProvider
    */
   private final NavigationPointProvider provider;
 
@@ -48,7 +51,7 @@ public class PathfinderConfiguration {
    * The set of weights used to calculate heuristics within the A* algorithm. These influence the
    * pathfinding priority for distance, elevation changes, smoothness, and diagonal movement.
    *
-   * @default HeuristicWeights.NATURAL_PATH_WEIGHTS
+   * <p>Default: {@link HeuristicWeights#NATURAL_PATH_WEIGHTS}
    */
   private final HeuristicWeights heuristicWeights;
 
@@ -136,7 +139,7 @@ public class PathfinderConfiguration {
     if (o == this) return true;
     if (!(o instanceof PathfinderConfiguration)) return false;
     final PathfinderConfiguration other = (PathfinderConfiguration) o;
-    if (!other.canEqual((Object) this)) return false;
+    if (!other.canEqual(this)) return false;
     if (this.getMaxIterations() != other.getMaxIterations()) return false;
     if (this.getMaxLength() != other.getMaxLength()) return false;
     if (this.isAsync() != other.isAsync()) return false;
@@ -146,10 +149,7 @@ public class PathfinderConfiguration {
         : !this.getProvider().equals(other.getProvider())) return false;
     final Object this$heuristicWeights = this.getHeuristicWeights();
     final Object other$heuristicWeights = other.getHeuristicWeights();
-    if (this$heuristicWeights == null
-        ? other$heuristicWeights != null
-        : !this$heuristicWeights.equals(other$heuristicWeights)) return false;
-    return true;
+    return Objects.equals(this$heuristicWeights, other$heuristicWeights);
   }
 
   protected boolean canEqual(final Object other) {

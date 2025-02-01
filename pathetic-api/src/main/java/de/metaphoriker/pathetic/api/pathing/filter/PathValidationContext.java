@@ -2,46 +2,18 @@ package de.metaphoriker.pathetic.api.pathing.filter;
 
 import de.metaphoriker.pathetic.api.provider.NavigationPointProvider;
 import de.metaphoriker.pathetic.api.wrapper.PathPosition;
+import java.util.Objects;
 
 /**
  * PathValidationContext is a data container used during the pathfinding process to provide relevant
  * contextual information needed for evaluating path validity.
- *
- * <p>This context is passed to {@link PathFilter#filter} methods during the pathfinding process and
- * allows filters to validate or invalidate nodes based on the provided context.
  */
 public final class PathValidationContext {
 
-  /**
-   * The current position being evaluated in the pathfinding process. This represents the position
-   * that is being validated by the filter to determine if it can be part of a valid path.
-   */
   private final PathPosition position;
-
-  /**
-   * The parent position of the current position. This is the previous node from which the current
-   * position was reached. It is used to trace the path and ensure logical continuity between nodes.
-   */
   private final PathPosition parent;
-
-  /**
-   * The absolute start position of the pathfinding process. This represents the original starting
-   * point of the path and remains constant throughout the algorithm, providing a stable reference.
-   */
   private final PathPosition absoluteStart;
-
-  /**
-   * The absolute target position of the pathfinding process. This is the final goal or destination
-   * that the pathfinding algorithm is trying to reach. Like the start, it remains constant and
-   * provides a clear end-point for the path.
-   */
   private final PathPosition absoluteTarget;
-
-  /**
-   * The BlockProvider provides access to world data, such as block information, in the context of
-   * the pathfinding process. It is used to retrieve block data from the world at different
-   * positions during path validation.
-   */
   private final NavigationPointProvider navigationPointProvider;
 
   public PathValidationContext(
@@ -57,22 +29,43 @@ public final class PathValidationContext {
     this.navigationPointProvider = navigationPointProvider;
   }
 
+  /**
+   * The current position being evaluated in the pathfinding process. This represents the position
+   * that is being validated by the filter to determine if it can be part of a valid path.
+   */
   public PathPosition getPosition() {
     return this.position;
   }
 
+  /**
+   * The parent position of the current position. This is the previous node from which the current
+   * position was reached. It is used to trace the path and ensure logical continuity between nodes.
+   */
   public PathPosition getParent() {
     return this.parent;
   }
 
+  /**
+   * The absolute start position of the pathfinding process. This represents the original starting
+   * point of the path and remains constant throughout the algorithm, providing a stable reference.
+   */
   public PathPosition getAbsoluteStart() {
     return this.absoluteStart;
   }
 
+  /**
+   * The absolute target position of the pathfinding process. This is the final goal or destination
+   * that the pathfinding algorithm is trying to reach. Like the start, it remains constant and
+   * provides a clear end-point for the path.
+   */
   public PathPosition getAbsoluteTarget() {
     return this.absoluteTarget;
   }
 
+  /**
+   * The NavigationPointProvider provides access to world data, such as positional information, in
+   * the context of the pathfinding process.
+   */
   public NavigationPointProvider getNavigationPointProvider() {
     return this.navigationPointProvider;
   }
@@ -83,27 +76,19 @@ public final class PathValidationContext {
     final PathValidationContext other = (PathValidationContext) o;
     final Object this$position = this.getPosition();
     final Object other$position = other.getPosition();
-    if (this$position == null ? other$position != null : !this$position.equals(other$position))
-      return false;
+    if (!Objects.equals(this$position, other$position)) return false;
     final Object this$parent = this.getParent();
     final Object other$parent = other.getParent();
-    if (this$parent == null ? other$parent != null : !this$parent.equals(other$parent))
-      return false;
+    if (!Objects.equals(this$parent, other$parent)) return false;
     final Object this$absoluteStart = this.getAbsoluteStart();
     final Object other$absoluteStart = other.getAbsoluteStart();
-    if (this$absoluteStart == null
-        ? other$absoluteStart != null
-        : !this$absoluteStart.equals(other$absoluteStart)) return false;
+    if (!Objects.equals(this$absoluteStart, other$absoluteStart)) return false;
     final Object this$absoluteTarget = this.getAbsoluteTarget();
     final Object other$absoluteTarget = other.getAbsoluteTarget();
-    if (this$absoluteTarget == null
-        ? other$absoluteTarget != null
-        : !this$absoluteTarget.equals(other$absoluteTarget)) return false;
+    if (!Objects.equals(this$absoluteTarget, other$absoluteTarget)) return false;
     final Object this$blockProvider = this.getNavigationPointProvider();
     final Object other$blockProvider = other.getNavigationPointProvider();
-    if (this$blockProvider == null
-        ? other$blockProvider != null
-        : !this$blockProvider.equals(other$blockProvider)) return false;
+    if (!Objects.equals(this$blockProvider, other$blockProvider)) return false;
     return true;
   }
 

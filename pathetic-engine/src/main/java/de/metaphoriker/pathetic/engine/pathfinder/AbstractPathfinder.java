@@ -194,6 +194,7 @@ abstract class AbstractPathfinder implements Pathfinder {
     PathfinderResult pathfinderResult = executePathing(start, target, filters, filterStages);
     filters.forEach(PathFilter::cleanup);
     filterStages.forEach(PathFilterStage::cleanup);
+    cleanup();
     return pathfinderResult;
   }
 
@@ -270,6 +271,12 @@ abstract class AbstractPathfinder implements Pathfinder {
     Collections.reverse(path); // Reverse the path to get the correct order
     return path;
   }
+
+  /**
+   * @deprecated Will be realized in a better way in the future
+   */
+  @Deprecated
+  protected abstract void cleanup();
 
   /** The tick method is called to tick the pathfinding algorithm. */
   protected abstract void tick(

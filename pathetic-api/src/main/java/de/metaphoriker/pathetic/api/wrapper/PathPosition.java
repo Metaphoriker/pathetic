@@ -3,6 +3,11 @@ package de.metaphoriker.pathetic.api.wrapper;
 import de.metaphoriker.pathetic.api.util.NumberUtils;
 import java.util.Objects;
 
+/**
+ * Represents a position within a {@link PathEnvironment}. This class encapsulates the coordinates
+ * (x, y, z) of a point in the pathfinding environment and provides methods for manipulating and
+ * comparing positions.
+ */
 public class PathPosition implements Cloneable {
 
   private PathEnvironment pathEnvironment;
@@ -11,6 +16,14 @@ public class PathPosition implements Cloneable {
   private double y;
   private double z;
 
+  /**
+   * Constructs a {@code PathPosition} with the specified environment and coordinates.
+   *
+   * @param pathEnvironment The environment this position belongs to.
+   * @param x The x-coordinate of the position.
+   * @param y The y-coordinate of the position.
+   * @param z The z-coordinate of the position.
+   */
   public PathPosition(PathEnvironment pathEnvironment, double x, double y, double z) {
     this.pathEnvironment = pathEnvironment;
     this.x = x;
@@ -19,11 +32,12 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Interpolates between two positions based on the given progress.
+   * Interpolates between this position and another position based on a given progress value.
    *
-   * @param other The other position to interpolate with
-   * @param progress The interpolation progress (0.0 to 1.0)
-   * @return The interpolated position
+   * @param other The other position to interpolate towards.
+   * @param progress The interpolation progress, typically between 0.0 (this position) and 1.0
+   *     (other position).
+   * @return A new {@code PathPosition} representing the interpolated point.
    */
   public PathPosition interpolate(PathPosition other, double progress) {
     double x = NumberUtils.interpolate(this.x, other.x, progress);
@@ -33,10 +47,11 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Checks to see if the two positions are in the same block
+   * Checks if this position and another position are within the same block in the environment.
    *
-   * @param otherPosition The other position to check against
-   * @return True if the positions are in the same block
+   * @param otherPosition The other position to compare with.
+   * @return {@code true} if both positions share the same block coordinates (floored x, y, z
+   *     values), {@code false} otherwise.
    */
   public boolean isInSameBlock(PathPosition otherPosition) {
     return this.getFlooredX() == otherPosition.getFlooredX()
@@ -45,10 +60,11 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Gets the manhattan distance between the current and another position
+   * Calculates the Manhattan distance between this position and another position. Manhattan
+   * distance is the sum of the absolute differences of their coordinates.
    *
-   * @param otherPosition the other {@link PathPosition} to get the distance to
-   * @return the distance
+   * @param otherPosition The other position to calculate the distance to.
+   * @return The Manhattan distance between the two positions.
    */
   public int manhattanDistance(PathPosition otherPosition) {
     return Math.abs(this.getFlooredX() - otherPosition.getFlooredX())
@@ -57,10 +73,12 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Gets the octile distance between the current and another position
+   * Calculates the Octile distance between this position and another position. Octile distance is a
+   * more accurate approximation of diagonal distance in a grid-based environment compared to
+   * Manhattan distance.
    *
-   * @param otherPosition the other {@link PathPosition} to get the distance to
-   * @return the distance
+   * @param otherPosition The other position to calculate the distance to.
+   * @return The Octile distance between the two positions.
    */
   public double octileDistance(PathPosition otherPosition) {
 
@@ -80,9 +98,10 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Gets the distance squared between the current and another position
+   * Calculates the squared distance between this position and another position.
    *
-   * @return The distance squared
+   * @param otherPosition The other position to calculate the distance to.
+   * @return The squared distance between the two positions.
    */
   public double distanceSquared(PathPosition otherPosition) {
     return NumberUtils.square(this.x - otherPosition.x)
@@ -91,128 +110,140 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Gets the distance between the current and another position
+   * Calculates the Euclidean distance between this position and another position.
    *
-   * @return The distance
+   * @param otherPosition The other position to calculate the distance to.
+   * @return The Euclidean distance between the two positions.
    */
   public double distance(PathPosition otherPosition) {
     return NumberUtils.sqrt(this.distanceSquared(otherPosition));
   }
 
   /**
-   * Sets the X coordinate of the {@link PathPosition}
+   * Creates a new {@code PathPosition} with the same environment and coordinates as this one, but
+   * with the x-coordinate set to the given value.
    *
-   * @param x The new X coordinate
-   * @return A new {@link PathPosition}
+   * @param x The new x-coordinate.
+   * @return A new {@code PathPosition} with the updated x-coordinate.
    */
   public PathPosition setX(double x) {
     return new PathPosition(this.pathEnvironment, x, this.y, this.z);
   }
 
   /**
-   * Sets the Y coordinate of the {@link PathPosition}
+   * Creates a new {@code PathPosition} with the same environment and coordinates as this one, but
+   * with the y-coordinate set to the given value.
    *
-   * @param y The new Y coordinate
-   * @return A new {@link PathPosition}
+   * @param y The new y-coordinate.
+   * @return A new {@code PathPosition} with the updated y-coordinate.
    */
   public PathPosition setY(double y) {
     return new PathPosition(this.pathEnvironment, this.x, y, this.z);
   }
 
   /**
-   * Sets the Z coordinate of the {@link PathPosition}
+   * Creates a new {@code PathPosition} with the same environment and coordinates as this one, but
+   * with the z-coordinate set to the given value.
    *
-   * @param z The new Z coordinate
-   * @return A new {@link PathPosition}
+   * @param z The new z-coordinate.
+   * @return A new {@code PathPosition} with the updated z-coordinate.
    */
   public PathPosition setZ(double z) {
     return new PathPosition(this.pathEnvironment, this.x, this.y, z);
   }
 
   /**
-   * Gets the X coordinate of the block the position is in
+   * Returns the x-coordinate of the block this position is located in. This is equivalent to
+   * flooring the x-coordinate.
    *
-   * @return The X coordinate of the block
+   * @return The floored x-coordinate.
    */
   public int getFlooredX() {
     return (int) Math.floor(this.x);
   }
 
   /**
-   * Gets the Y coordinate of the block the position is in
+   * Returns the y-coordinate of the block this position is located in. This is equivalent to
+   * flooring the y-coordinate.
    *
-   * @return The Y coordinate of the block
+   * @return The floored y-coordinate.
    */
   public int getFlooredY() {
     return (int) Math.floor(this.y);
   }
 
   /**
-   * Gets the Z coordinate of the block the position is in
+   * Returns the z-coordinate of the block this position is located in. This is equivalent to
+   * flooring the z-coordinate.
    *
-   * @return The Z coordinate of the block
+   * @return The floored z-coordinate.
    */
   public int getFlooredZ() {
     return (int) Math.floor(this.z);
   }
 
   /**
-   * Adds x,y,z values to the current values
+   * Creates a new {@code PathPosition} by adding the given values to the coordinates of this
+   * position.
    *
-   * @param x The value to add to the x
-   * @param y The value to add to the y
-   * @param z The value to add to the z
-   * @return A new {@link PathPosition}
+   * @param x The value to add to the x-coordinate.
+   * @param y The value to add to the y-coordinate.
+   * @param z The value to add to the z-coordinate.
+   * @return A new {@code PathPosition} with the added values.
    */
   public PathPosition add(final double x, final double y, final double z) {
     return new PathPosition(this.pathEnvironment, this.x + x, this.y + y, this.z + z);
   }
 
   /**
-   * Adds the values of a vector to the position
+   * Creates a new {@code PathPosition} by adding the components of the given vector to the
+   * coordinates of this position.
    *
-   * @param vector The {@link PathVector} who's values will be added
-   * @return A new {@link PathPosition}
+   * @param vector The vector to add.
+   * @return A new {@code PathPosition} with the added vector components.
    */
   public PathPosition add(final PathVector vector) {
     return add(vector.getX(), vector.getY(), vector.getZ());
   }
 
   /**
-   * Subtracts x,y,z values from the current values
+   * Creates a new {@code PathPosition} by subtracting the given values from the coordinates of this
+   * position.
    *
-   * @param x The value to subtract from the x
-   * @param y The value to subtract from the y
-   * @param z The value to subtract from the z
-   * @return A new {@link PathPosition}
+   * @param x The value to subtract from the x-coordinate.
+   * @param y The value to subtract from the y-coordinate.
+   * @param z The value to subtract from the z-coordinate.
+   * @return A new {@code PathPosition} with the subtracted values.
    */
   public PathPosition subtract(final double x, final double y, final double z) {
     return new PathPosition(this.pathEnvironment, this.x - x, this.y - y, this.z - z);
   }
 
   /**
-   * Subtracts the values of a vector from the position
+   * Creates a new {@code PathPosition} by subtracting the components of the given vector from the
+   * coordinates of this position.
    *
-   * @param vector The {@link PathVector} who's values will be subtracted
-   * @return A new {@link PathPosition}
+   * @param vector The vector to subtract.
+   * @return A new {@code PathPosition} with the subtracted vector components.
    */
   public PathPosition subtract(final PathVector vector) {
     return subtract(vector.getX(), vector.getY(), vector.getZ());
   }
 
   /**
-   * Converts the positions x,y,z to a {@link PathVector}
+   * Creates a new {@link PathVector} from the coordinates of this position.
    *
-   * @return A {@link PathVector} of the x,y,z
+   * @return A new {@code PathVector} representing this position's coordinates.
    */
   public PathVector toVector() {
     return new PathVector(this.x, this.y, this.z);
   }
 
   /**
-   * Rounds the x,y,z values to the floor of the values
+   * Creates a new {@code PathPosition} with the same environment, but with the coordinates floored
+   * to the nearest integer values.
    *
-   * @return A new {@link PathPosition}
+   * @return A new {@code PathPosition} with floored coordinates.
    */
   public PathPosition floor() {
     return new PathPosition(
@@ -220,9 +251,10 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Sets the coordinates to the middle of the block
+   * Creates a new {@code PathPosition} with the same environment, but with the coordinates set to
+   * the center of the block they are in.
    *
-   * @return A new {@link PathPosition}
+   * @return A new {@code PathPosition} at the center of the block.
    */
   public PathPosition mid() {
     return new PathPosition(
@@ -233,10 +265,10 @@ public class PathPosition implements Cloneable {
   }
 
   /**
-   * Calculates the midpoint between the current position and the given end position.
+   * Calculates the midpoint between this position and another position.
    *
-   * @param end The end position to calculate the midpoint with
-   * @return A new {@link PathPosition} representing the midpoint
+   * @param end The other position to calculate the midpoint with.
+   * @return A new {@code PathPosition} representing the midpoint.
    */
   public PathPosition midPoint(PathPosition end) {
     return new PathPosition(
@@ -276,18 +308,38 @@ public class PathPosition implements Cloneable {
     return Objects.hash(pathEnvironment, x, y, z);
   }
 
+  /**
+   * Returns the environment this position belongs to.
+   *
+   * @return The {@link PathEnvironment} of this position.
+   */
   public PathEnvironment getPathEnvironment() {
     return this.pathEnvironment;
   }
 
+  /**
+   * Returns the x-coordinate of this position.
+   *
+   * @return The x-coordinate.
+   */
   public double getX() {
     return this.x;
   }
 
+  /**
+   * Returns the y-coordinate of this position.
+   *
+   * @return The y-coordinate.
+   */
   public double getY() {
     return this.y;
   }
 
+  /**
+   * Returns the z-coordinate of this position.
+   *
+   * @return The z-coordinate.
+   */
   public double getZ() {
     return this.z;
   }

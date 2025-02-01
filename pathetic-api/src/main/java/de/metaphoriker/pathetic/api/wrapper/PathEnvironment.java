@@ -2,19 +2,31 @@ package de.metaphoriker.pathetic.api.wrapper;
 
 import java.util.UUID;
 
-/** Represents the pathing environment */
+/**
+ * Represents the environment in which pathfinding operations take place. This class encapsulates
+ * properties of the environment that can influence pathfinding, such as the environment's unique
+ * identifier, name, and height constraints.
+ */
 public final class PathEnvironment {
 
   private final UUID uuid;
   private final String name;
-  private final Integer minHeight;
-  private final Integer maxHeight;
+  private final EnvironmentHeight environmentHeight;
 
+  /**
+   * Constructs a {@code PathEnvironment} with the specified attributes.
+   *
+   * @param uuid The unique identifier for this environment.
+   * @param name The name of this environment.
+   * @param minHeight The minimum height within this environment. Can be {@code null} if there is no
+   *     minimum height.
+   * @param maxHeight The maximum height within this environment. Can be {@code null} if there is no
+   *     maximum height.
+   */
   public PathEnvironment(UUID uuid, String name, Integer minHeight, Integer maxHeight) {
     this.uuid = uuid;
     this.name = name;
-    this.minHeight = minHeight;
-    this.maxHeight = maxHeight;
+    this.environmentHeight = new EnvironmentHeight(minHeight, maxHeight);
   }
 
   @Override
@@ -36,20 +48,32 @@ public final class PathEnvironment {
     return result;
   }
 
+  /**
+   * Get the unique identifier of this environment.
+   */
   public UUID getUuid() {
     return this.uuid;
   }
 
+  /**
+   * Get the name of this environment.
+   */
   public String getName() {
     return this.name;
   }
 
+  /**
+   * Get the min height of this environment.
+   */
   public Integer getMinHeight() {
-    return this.minHeight;
+    return environmentHeight.getMinHeight();
   }
 
+  /**
+   * Get the max height of this environment.
+   */
   public Integer getMaxHeight() {
-    return this.maxHeight;
+    return environmentHeight.getMaxHeight();
   }
 
   public String toString() {

@@ -1,5 +1,11 @@
 package de.metaphoriker.pathetic.api.pathing.result;
 
+/**
+ * The result of a pathfinding operation.
+ *
+ * <p>Pathfinding results are used to encapsulate the outcome of a pathfinding operation. They provide
+ * information about the success of the operation and the resulting path.
+ */
 public interface PathfinderResult {
 
   /**

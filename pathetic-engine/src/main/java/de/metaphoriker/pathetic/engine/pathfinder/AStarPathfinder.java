@@ -49,6 +49,11 @@ public class AStarPathfinder extends AbstractPathfinder {
     depth.increment();
   }
 
+  @Override
+  protected void cleanup() {
+    gridMap.clear();
+  }
+
   private void evaluateNewNodes(
       FibonacciHeap<Double, Node> nodeQueue,
       Set<PathPosition> examinedPositions,
@@ -188,6 +193,9 @@ public class AStarPathfinder extends AbstractPathfinder {
       if (regionData.getRegionalExaminedPositions().contains(node.getPosition())) {
         return true; // Node is invalid if already examined
       }
+    } else {
+      regionData.getBloomFilter().put(node.getPosition());
+      regionData.getRegionalExaminedPositions().add(node.getPosition());
     }
 
     if (!isWithinWorldBounds(node.getPosition())) {

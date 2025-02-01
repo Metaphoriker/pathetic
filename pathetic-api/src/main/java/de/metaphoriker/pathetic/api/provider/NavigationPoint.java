@@ -6,9 +6,9 @@ package de.metaphoriker.pathetic.api.provider;
 public interface NavigationPoint {
 
   /**
-   * Checks if the block is traversable.
+   * Returns whether the position is traversable or not.
    *
-   * @return true if the block is traversable, false otherwise
+   * @return true if the position is traversable, false otherwise
    */
   boolean isTraversable();
 }
