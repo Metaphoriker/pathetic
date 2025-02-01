@@ -188,6 +188,9 @@ public class AStarPathfinder extends AbstractPathfinder {
       if (regionData.getRegionalExaminedPositions().contains(node.getPosition())) {
         return true; // Node is invalid if already examined
       }
+    } else {
+      regionData.getBloomFilter().put(node.getPosition());
+      regionData.getRegionalExaminedPositions().add(node.getPosition());
     }
 
     if (!isWithinWorldBounds(node.getPosition())) {
